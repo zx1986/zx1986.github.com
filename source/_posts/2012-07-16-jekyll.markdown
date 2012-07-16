@@ -1,0 +1,13 @@
+---
+layout: post
+title: "Jekyll 網頁產生器"
+date: 2012-07-16 21:50
+comments: true
+categories: Ruby
+author: zx1986
+published: true
+---
+
+#### Reference
+- https://github.com/mojombo/jekyll/   
+- http://jekyllbootstrap.com/   
