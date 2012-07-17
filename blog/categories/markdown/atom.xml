@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Markdown | 張旭]]></title>
+  <link href="http://zx1986.github.com/blog/categories/markdown/atom.xml" rel="self"/>
+  <link href="http://zx1986.github.com/"/>
+  <updated>2012-07-17T15:16:17+08:00</updated>
+  <id>http://zx1986.github.com/</id>
+  <author>
+    <name><![CDATA[zx1986]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[使用 Ruhoh 寫 Blog]]></title>
+    <link href="http://zx1986.github.com/blog/ruhoh.html"/>
+    <updated>2012-07-16T22:00:00+08:00</updated>
+    <id>http://zx1986.github.com/blog/ruhoh</id>
+    <content type="html"><![CDATA[<h4>Reference</h4>
+
+<ul>
+<li>http://ruhoh.com/usage/</li>
+<li>http://ruhoh.com/how-it-works/</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用 Octopress 寫 Blog]]></title>
+    <link href="http://zx1986.github.com/blog/octopress.html"/>
+    <updated>2012-07-16T21:55:00+08:00</updated>
+    <id>http://zx1986.github.com/blog/octopress</id>
+    <content type="html"><![CDATA[<h4>Reference</h4>
+
+<ul>
+<li>http://octopress.org/docs/</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
