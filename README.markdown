@@ -1,4 +1,4 @@
-## Source Code of <zx1986.github.com>
+## Source Code of <http://zx1986.github.com>
 
 This branch is the source code of my Octopress powered blog.
 
