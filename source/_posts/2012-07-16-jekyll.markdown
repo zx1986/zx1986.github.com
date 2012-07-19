@@ -9,5 +9,5 @@ published: true
 ---
 
 #### Reference
-- https://github.com/mojombo/jekyll/   
-- http://jekyllbootstrap.com/   
+- <https://github.com/mojombo/jekyll/>
+- <http://jekyllbootstrap.com/>

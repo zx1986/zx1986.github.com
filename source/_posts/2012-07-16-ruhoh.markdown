@@ -7,5 +7,5 @@ categories: [Ruby, Markdown]
 ---
 
 #### Reference
-+ http://ruhoh.com/usage/   
-+ http://ruhoh.com/how-it-works/   
++ <http://ruhoh.com/usage/>
++ <http://ruhoh.com/how-it-works/>

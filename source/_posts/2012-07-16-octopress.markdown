@@ -7,4 +7,4 @@ categories: [Ruby, Markdown]
 ---
 
 #### Reference
-+ http://octopress.org/docs/   
++ <http://octopress.org/docs/>
