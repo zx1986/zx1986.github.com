@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: CSS | 張旭]]></title>
+  <link href="http://zx1986.github.com/blog/categories/css/atom.xml" rel="self"/>
+  <link href="http://zx1986.github.com/"/>
+  <updated>2012-07-19T10:58:16+08:00</updated>
+  <id>http://zx1986.github.com/</id>
+  <author>
+    <name><![CDATA[zx1986]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[CSS & SCSS & Sass]]></title>
+    <link href="http://zx1986.github.com/blog/sass.html"/>
+    <updated>2012-07-19T10:36:00+08:00</updated>
+    <id>http://zx1986.github.com/blog/sass</id>
+    <content type="html"><![CDATA[<p>CSS &lt; SCSS &lt; Sass</p>
+
+<ul>
+<li><a href="http://sass-lang.com/">http://sass-lang.com/</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[LESS]]></title>
+    <link href="http://zx1986.github.com/blog/less.html"/>
+    <updated>2012-07-19T10:36:00+08:00</updated>
+    <id>http://zx1986.github.com/blog/less</id>
+    <content type="html"><![CDATA[<p>Sass v.s. LESS</p>
+
+<p>LESS could work on client side, or work with NodeJS on server side.</p>
+
+<ul>
+<li><a href="http://lesscss.org/">http://lesscss.org/</a></li>
+<li><a href="http://www.lesscss.net/">http://www.lesscss.net/</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

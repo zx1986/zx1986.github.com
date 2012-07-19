@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | 張旭]]></title>
   <link href="http://zx1986.github.com/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://zx1986.github.com/"/>
-  <updated>2012-07-17T15:16:17+08:00</updated>
+  <updated>2012-07-19T10:58:16+08:00</updated>
   <id>http://zx1986.github.com/</id>
   <author>
     <name><![CDATA[zx1986]]></name>
@@ -21,8 +21,8 @@
     <content type="html"><![CDATA[<h4>Reference</h4>
 
 <ul>
-<li>http://ruhoh.com/usage/</li>
-<li>http://ruhoh.com/how-it-works/</li>
+<li><a href="http://ruhoh.com/usage/">http://ruhoh.com/usage/</a></li>
+<li><a href="http://ruhoh.com/how-it-works/">http://ruhoh.com/how-it-works/</a></li>
 </ul>
 
 ]]></content>
@@ -36,7 +36,7 @@
     <content type="html"><![CDATA[<h4>Reference</h4>
 
 <ul>
-<li>http://octopress.org/docs/</li>
+<li><a href="http://octopress.org/docs/">http://octopress.org/docs/</a></li>
 </ul>
 
 ]]></content>
@@ -50,8 +50,8 @@
     <content type="html"><![CDATA[<h4>Reference</h4>
 
 <ul>
-<li>https://github.com/mojombo/jekyll/</li>
-<li>http://jekyllbootstrap.com/</li>
+<li><a href="https://github.com/mojombo/jekyll/">https://github.com/mojombo/jekyll/</a></li>
+<li><a href="http://jekyllbootstrap.com/">http://jekyllbootstrap.com/</a></li>
 </ul>
 
 ]]></content>
