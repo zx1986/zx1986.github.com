@@ -8,6 +8,10 @@ author: zx1986
 published: true
 ---
 
+https://github.com/mojombo/jekyll   
+http://octopress.org/blog/2011/07/23/octopress-20-surfaces/   
+http://ruhoh.com/how-it-works/
+
 #### Reference
 - <https://github.com/mojombo/jekyll/>
 - <http://jekyllbootstrap.com/>
