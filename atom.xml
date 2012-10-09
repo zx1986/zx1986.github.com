@@ -4,7 +4,7 @@
   <title><![CDATA[張旭]]></title>
   <link href="http://zx1986.github.com/atom.xml" rel="self"/>
   <link href="http://zx1986.github.com/"/>
-  <updated>2012-07-19T10:58:16+08:00</updated>
+  <updated>2012-07-19T11:18:05+08:00</updated>
   <id>http://zx1986.github.com/</id>
   <author>
     <name><![CDATA[zx1986]]></name>
@@ -12,6 +12,20 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Icon Fonts]]></title>
+    <link href="http://zx1986.github.com/blog/icon-fonts.html"/>
+    <updated>2012-07-19T11:16:00+08:00</updated>
+    <id>http://zx1986.github.com/blog/icon-fonts</id>
+    <content type="html"><![CDATA[<h4>Reference</h4>
+
+<ul>
+<li><a href="http://yatil.net/a-better-way-to-use-icon-fonts">http://yatil.net/a-better-way-to-use-icon-fonts</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[CSS & SCSS & Sass]]></title>
