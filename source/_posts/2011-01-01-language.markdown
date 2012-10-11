@@ -1,0 +1,11 @@
+---
+layout: post
+title: "Language"
+date: 2011-01-01 01:01
+comments: true
+categories: 
+---
+
+hello font icon
+
+<i class="icon-bolt">test</i>
