@@ -33,6 +33,7 @@ destination: public
 plugins: plugins
 code_dir: downloads/code
 category_dir: blog/categories
+# markdown: maruku
 markdown: rdiscount
 pygments: false # default python pygments have been replaced by pygments.rb
 
@@ -67,12 +68,12 @@ github_skip_forks: true
 twitter_user: 
 twitter_tweet_count: 1
 twitter_show_replies: false
-twitter_follow_button: true
+twitter_follow_button: false
 twitter_show_follower_count: false
-twitter_tweet_button: true
+twitter_tweet_button: false
 
 # Google +1
-google_plus_one: true
+google_plus_one: false
 google_plus_one_size: medium
 
 # Google Plus Profile
@@ -89,11 +90,11 @@ delicious_user:
 delicious_count: 1
 
 # Disqus Comments
-disqus_short_name: zx1986
+disqus_short_name:
 disqus_show_comment_count: false
 
 # Google Analytics
 google_analytics_tracking_id:
 
 # Facebook Like
-facebook_like: true
+facebook_like: false
