@@ -1,0 +1,18 @@
+[submodule ".themes/BlogTheme"]
+	path = .themes/BlogTheme
+	url = http://github.com/rastersize/BlogTheme.git
+[submodule ".themes/bootstrap-theme"]
+	path = .themes/bootstrap-theme
+	url = http://github.com/bkutil/bootstrap-theme.git
+[submodule ".themes/compbits"]
+	path = .themes/compbits
+	url = http://github.com/iwinux/compbits.git
+[submodule ".themes/darkstripes"]
+	path = .themes/darkstripes
+	url = http://github.com/amelandri/darkstripes.git
+[submodule ".themes/foxslide"]
+	path = .themes/foxslide
+	url = http://github.com/sevenadrian/foxslide.git
+[submodule ".themes/oct2"]
+	path = .themes/oct2
+	url = http://github.com/bijumon/oct2.git
