@@ -2,11 +2,12 @@
 
 This is an Octopress theme based on a "DarkStripes" theme
 
-Please read:
-http://melandri.net/2012/07/23/darkstripes-octopress-theme-released/
-http://melandri.net/2012/02/14/octopress-theme-customization/
+Please read:   
+http://melandri.net/2012/07/23/darkstripes-octopress-theme-released/   
+http://melandri.net/2012/02/14/octopress-theme-customization/   
 
-If you use this theme, take two minutes and add it to this page: https://github.com/amelandri/darkstripes/wiki
+If you use this theme, take two minutes and add it to this page:    
+https://github.com/amelandri/darkstripes/wiki
 
 ## License
 
