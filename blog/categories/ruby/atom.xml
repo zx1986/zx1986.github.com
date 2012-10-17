@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | 張旭]]></title>
   <link href="http://zx1986.github.com/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://zx1986.github.com/"/>
-  <updated>2012-07-19T11:18:05+08:00</updated>
+  <updated>2012-10-17T17:17:14+08:00</updated>
   <id>http://zx1986.github.com/</id>
   <author>
     <name><![CDATA[zx1986]]></name>
@@ -47,7 +47,15 @@
     <link href="http://zx1986.github.com/blog/jekyll.html"/>
     <updated>2012-07-16T21:50:00+08:00</updated>
     <id>http://zx1986.github.com/blog/jekyll</id>
-    <content type="html"><![CDATA[<h4>Reference</h4>
+    <content type="html"><![CDATA[<p>https://github.com/mojombo/jekyll <br/>
+http://octopress.org/blog/2011/07/23/octopress-20-surfaces/ <br/>
+http://ruhoh.com/how-it-works/
+http://liquidmarkup.org/</p>
+
+<p>http://yihui.name/cn/2012/02/hello-jekyll/
+http://freemind.pluskid.org/technology/the-unbearable-madness-of-static-blog-generators/</p>
+
+<h4>Reference</h4>
 
 <ul>
 <li><a href="https://github.com/mojombo/jekyll/">https://github.com/mojombo/jekyll/</a></li>
