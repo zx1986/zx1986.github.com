@@ -57,7 +57,7 @@ Programming Language 是單數，是一個統稱，底下有許多種不同類�
    
 具有程式化規則的語言
 
-<i class="icon-book"></i>    
-1. <http://en.wikipedia.org/wiki/Programming_language>   
-2. <http://en.wikipedia.org/wiki/Software>   
-3. <http://en.wikipedia.org/wiki/Traditional_Chinese_medicine>
+<i class="icon-book"></i>   
+* <http://en.wikipedia.org/wiki/Programming_language>   
+* <http://en.wikipedia.org/wiki/Software>   
+* <http://en.wikipedia.org/wiki/Traditional_Chinese_medicine>
