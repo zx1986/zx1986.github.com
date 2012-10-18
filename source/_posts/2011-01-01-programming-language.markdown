@@ -34,9 +34,9 @@ categories: programming
 直接從英文字面去看「Programming Language」。   
 Programming 可以解釋成『程式化的』或『可以程式化的』，   
 Language 直接理解就可以，就是『語言』。    
-Programming Language 是單數，是一個統稱，底下有許多種不同類型的語言。   
+注意，Programming Language 是單數，是一個統稱，底下有許多種不同類型的語言。   
 
-就像是英文、日文、俄文，都是人類溝通用的語言（for human being），簡稱語言。   
+就像是英文、日文、俄文，都是人類（human being）溝通用的語言，簡稱語言。   
 如果是鳥類溝通用的語言，或許有孔雀語、鴿子語、信天翁語，可以簡稱爲鳥語。   
 
 『程式化的語言』或『可以程式化的語言』，簡稱「程式語言」，   
@@ -44,13 +44,15 @@ Programming Language 是單數，是一個統稱，底下有許多種不同類�
 「程式語言」是人類與電腦（硬體或軟體）溝通的語言。   
 
 既然是語言，就有其語法、規則、慣例、特性。   
-像是讀書時死背硬記的英文語法、片語規則，什麼過去式進行式破刀式破劍式。   
+像是讀書時死背硬記的英文語法、片語規則、過去式進行式、破刀式破劍式。   
 日文、俄文當然又有其各自的規則與玩法，而且都不盡相同。
    
 > 每一種程式語言可以被看作是一套包含語法、詞彙和含義的正式規範。   
 
-然而最原始的、赤裸裸的程式語言：機械碼（二進位碼），   
-是類似 The Martix 中複雜的 0 與 1 的組合，一般人類是無法解讀的（除非你是 Neo）。      
+最原始的、最赤裸裸的程式語言：機械碼（二進位碼）    
+類似 The Martix 中複雜的 0 與 1 的組合，一般人類是無法解讀的（除非你是 Neo）。      
+
+
 
 > 高階語言的出現使得電腦程式語言不再過度地倚賴某種特定的機器或環境。   
 > 因為高階語言在不同的平台上會被編譯成不同的機器語言，而不是直接被機器執行。   
@@ -58,6 +60,6 @@ Programming Language 是單數，是一個統稱，底下有許多種不同類�
 具有程式化規則的語言
 
 <i class="icon-book"></i>   
-* <http://en.wikipedia.org/wiki/Programming_language>   
-* <http://en.wikipedia.org/wiki/Software>   
-* <http://en.wikipedia.org/wiki/Traditional_Chinese_medicine>
+- <http://en.wikipedia.org/wiki/Software>   
+- <http://en.wikipedia.org/wiki/Programming_language>   
+- <http://en.wikipedia.org/wiki/Traditional_Chinese_medicine>
