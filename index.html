@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>張旭</title>
+  <title>YOU SHOULD NOT BE HERE! - this blog is under construction ...</title>
   <meta name="author" content="zx1986">
 
   
-  <meta name="description" content="# Passenger
-server { listen 8080; server_name localhost; root /Users/laas/proged/rack_test/public; passenger_enabled on; rack_env production; &hellip;">
+  <meta name="description" content=" YOU SHOULD NOT BE HERE! ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -25,7 +24,7 @@ server { listen 8080; server_name localhost; root /Users/laas/proged/rack_test/p
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="張旭" type="application/atom+xml">
+  <link href="/atom.xml" rel="alternate" title="this blog is under construction ..." type="application/atom+xml">
   <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -35,7 +34,7 @@ server { listen 8080; server_name localhost; root /Users/laas/proged/rack_test/p
 
 </head>
 
-<body   >
+<body   class="no-sidebar"  >
   <header role="banner"><hgroup>
   <div id="logo">
   	<div id="logoLeft">{</div>
@@ -43,9 +42,9 @@ server { listen 8080; server_name localhost; root /Users/laas/proged/rack_test/p
   	<div id="logoRight">}</div>
   	<div class="clear"></div>
   </div>
-  <h1><a href="/">張旭</a></h1>
+  <h1><a href="/">this blog is under construction ...</a></h1>
   
-    <h2>about.me/zx1986</h2>
+    <h2>about.me/zx9816</h2>
   
   <div class="clear"></div>
 </hgroup>
@@ -71,166 +70,34 @@ server { listen 8080; server_name localhost; root /Users/laas/proged/rack_test/p
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+
+<article role="article">
+
   
-  
-  
-    <article>
-      
   <header>
-    
-      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
-        <h1 class="entry-title"><a href="/blog/nginx.html">Nginx</a></h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-11T11:04:00+08:00" pubdate data-updated="true">Oct 11<span>th</span>, 2012</time>
-        
-      </p>
+    <h1 class="entry-title">YOU SHOULD NOT BE HERE!</h1>
     
   </header>
+  
+
+  <img class="center" src="http://www.moviequotesandmore.com/image-files/avatar-6.jpg" title="" >
 
 
-  <div class="entry-content"><pre><code># Passenger
-server {
-  listen 8080;
-  server_name localhost;
-  root /Users/laas/proged/rack_test/public;
-  passenger_enabled on;
-  rack_env production;
-  passenger_min_instances 4;
-}
+  
 
-# Unicorn
-upstream unicorn_server {
-  server unix:/Users/laas/proged/rack_test/tmp/unicorn.sock fail_timeout=0;
-}
+</article>
 
-server {
-  listen 8081;
-  server_name localhost;
-  root /Users/laas/proged/rack_test/public;
 
-  location / {
-    proxy_pass http://unicorn_server;
-  }
-}
 
-# Thin
-upstream thin_server{
-  server unix:/Users/laas/proged/rack_test/tmp/thin.0.sock fail_timeout=0;
-  server unix:/Users/laas/proged/rack_test/tmp/thin.1.sock fail_timeout=0;
-  server unix:/Users/laas/proged/rack_test/tmp/thin.2.sock fail_timeout=0;
-  server unix:/Users/laas/proged/rack_test/tmp/thin.3.sock fail_timeout=0;
-}
-
-server {
-  listen 8082;
-  server_name localhost;
-  root /Users/laas/proged/rack_test/public;
-
-  location / {
-    proxy_pass http://thin_server;
-  }
-}
-</code></pre>
 </div>
-  
-  
 
 
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/nginx.html">Nginx</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/hp-dl380p-gen8.html">HP DL380p Gen8</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/debugging-javascript.html">Debugging Javascript</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/twig.html">Twig</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/icon-fonts.html">Icon Fonts</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/scss.html">CSS, Sass, SCSS</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/less.html">LESS</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/ruhoh.html">使用 Ruhoh 寫 Blog</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/octopress.html">使用 Octopress 寫 Blog</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/jekyll.html">Jekyll 網頁產生器</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/html.html">HTML</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/programming-language.html">Programming Language</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-
-  
-</aside>
 
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - zx1986 -
+  Copyright &copy; 2013 - zx1986 -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

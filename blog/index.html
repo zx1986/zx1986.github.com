@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Jekyll 網頁產生器 - this blog is under construction ...</title>
+  <title>this blog is under construction ...</title>
   <meta name="author" content="zx1986">
 
   
-  <meta name="description" content="https://github.com/mojombo/jekyll http://octopress.org/blog/2011/07/23/octopress-20-surfaces/ http://ruhoh.com/how-it-works/
-http://liquidmarkup.org &hellip;">
+  <meta name="description" content="# Passenger
+server { listen 8080; server_name localhost; root /Users/laas/proged/rack_test/public; passenger_enabled on; rack_env production; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@ http://liquidmarkup.org &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zx1986.github.com/blog/jekyll.html">
+  <link rel="canonical" href="http://zx1986.github.com/blog/index.html">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -71,13 +71,16 @@ http://liquidmarkup.org &hellip;">
 </nav>
   <div id="main">
     <div id="content">
-      <div>
-<article class="hentry" role="article">
+      <div class="blog-index">
   
+  
+  
+    <article>
+      
   <header>
     
-      
-        <h1 class="entry-title">Jekyll 網頁產生器</h1>
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/nginx.html">Nginx</a></h1>
       
     
     
@@ -94,82 +97,71 @@ http://liquidmarkup.org &hellip;">
   
 
 
-<time datetime="2012-07-16T21:50:00+08:00" pubdate data-updated="true">Jul 16<span>th</span>, 2012</time>
+<time datetime="2012-10-11T11:04:00+08:00" pubdate data-updated="true">Oct 11<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>https://github.com/mojombo/jekyll <br/>
-http://octopress.org/blog/2011/07/23/octopress-20-surfaces/ <br/>
-http://ruhoh.com/how-it-works/
-http://liquidmarkup.org/</p>
+  <div class="entry-content"><pre><code># Passenger
+server {
+  listen 8080;
+  server_name localhost;
+  root /Users/laas/proged/rack_test/public;
+  passenger_enabled on;
+  rack_env production;
+  passenger_min_instances 4;
+}
 
-<p>http://yihui.name/cn/2012/02/hello-jekyll/
-http://freemind.pluskid.org/technology/the-unbearable-madness-of-static-blog-generators/</p>
+# Unicorn
+upstream unicorn_server {
+  server unix:/Users/laas/proged/rack_test/tmp/unicorn.sock fail_timeout=0;
+}
 
-<h4>Reference</h4>
+server {
+  listen 8081;
+  server_name localhost;
+  root /Users/laas/proged/rack_test/public;
 
-<ul>
-<li><a href="https://github.com/mojombo/jekyll/">https://github.com/mojombo/jekyll/</a></li>
-<li><a href="http://jekyllbootstrap.com/">http://jekyllbootstrap.com/</a></li>
-</ul>
+  location / {
+    proxy_pass http://unicorn_server;
+  }
+}
 
+# Thin
+upstream thin_server{
+  server unix:/Users/laas/proged/rack_test/tmp/thin.0.sock fail_timeout=0;
+  server unix:/Users/laas/proged/rack_test/tmp/thin.1.sock fail_timeout=0;
+  server unix:/Users/laas/proged/rack_test/tmp/thin.2.sock fail_timeout=0;
+  server unix:/Users/laas/proged/rack_test/tmp/thin.3.sock fail_timeout=0;
+}
+
+server {
+  listen 8082;
+  server_name localhost;
+  root /Users/laas/proged/rack_test/public;
+
+  location / {
+    proxy_pass http://thin_server;
+  }
+}
+</code></pre>
 </div>
-
-
-  <footer>
-    <p class="meta">
-      
   
-
-<span class="byline author vcard">Posted by <span class="fn">zx1986</span></span>
-
-      
-
-
-
-
-
-
-
-
   
 
 
-<time datetime="2012-07-16T21:50:00+08:00" pubdate data-updated="true">Jul 16<span>th</span>, 2012</time>
-      
-
-<span class="categories">
+    </article>
   
-    <a class='category' href='/blog/categories/ruby/'>Ruby</a>
-  
-</span>
-
-
-    </p>
+  <div class="pagination">
     
-      <div class="sharing">
-  
-  
-  
-</div>
-
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
     
-    <p class="meta">
-      
-        <a class="basic-alignment left articlenav" href="/blog/html.html" title="Previous Post: HTML">&laquo; HTML</a>
-      
-      
-        <a class="basic-alignment right articlenav" href="/blog/octopress.html" title="Next Post: 使用 Octopress 寫 Blog">使用 Octopress 寫 Blog &raquo;</a>
-      
-    </p>
-  </footer>
-</article>
-
+    <a href="/blog/archives">Blog Archives</a>
+    
+  </div>
 </div>
-
 <aside class="sidebar">
   
     <section>
@@ -234,7 +226,6 @@ http://freemind.pluskid.org/technology/the-unbearable-madness-of-static-blog-gen
 
   
 </aside>
-
 
     </div>
   </div>
