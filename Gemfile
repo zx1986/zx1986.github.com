@@ -17,6 +17,7 @@ group :development do
   gem 'guard'
   gem 'guard-livereload'
   gem 'maruku'
+  gem 'rb-inotify'
 end
 
 gem 'sinatra', '~> 1.3.5'
