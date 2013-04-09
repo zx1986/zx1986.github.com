@@ -3,7 +3,7 @@
   <title><![CDATA[張旭]]></title>
   <link href="http://zx1986.github.com/atom.xml" rel="self"/>
   <link href="http://zx1986.github.com/"/>
-  <updated>2013-04-09T15:18:24+08:00</updated>
+  <updated>2013-04-09T15:46:06+08:00</updated>
   <id>http://zx1986.github.com/</id>
   <author>
     <name><![CDATA[zx1986]]></name>
@@ -11,5 +11,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+    <entry>
+      
+
+
+
+
+<title type="html"><![CDATA[font-awesome testing]]></title>
+<link href="http://zx1986.github.com/blog/font-awesome-testing.html"/>
+<updated>2013-04-09T15:43:03+08:00</updated>
+<id>http://zx1986.github.com/blog/font-awesome-testing</id>
+
+
+      <content type="html"><![CDATA[<p><i class="icon-flag icon-4x icon-border"></i></p>
+]]></content>
+    </entry>
   
 </feed>
