@@ -1,3 +1,3 @@
-## Octopress Code of <http://zx1986.github.io>
+## Octopress Source of <http://zx1986.github.io>
 
-Octopress is [Jekyll](https://github.com/mojombo/jekyll) blogging at its finest.
+Octopress is base on [Jekyll](https://github.com/mojombo/jekyll).
