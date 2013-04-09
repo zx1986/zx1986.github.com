@@ -29,7 +29,7 @@ article {
   .entry-title {
     margin: 0;
     a { text-decoration: none;
-      &:hover { text-decoration: underline; }
+      &:hover { text-decoration: none; }
     }
     .blog-index & {
       font-size: $h1;
@@ -50,7 +50,7 @@ article {
   &.linklog {
     .entry-title {
       font-size: $h1;
-      a { text-decoration: underline; }
+      a { text-decoration: none; }
     }
     .blog-index & .entry-title { font-size: $h2; }
   }

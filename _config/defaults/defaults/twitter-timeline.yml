@@ -1,0 +1,8 @@
+---
+# -------------------------------- #
+#   Tweet Sidebar Plugin Configs   #
+# -------------------------------- #
+
+twitter:
+  user: zx1986
+  tweet-button: true

@@ -1,0 +1,10 @@
+---
+layout: post
+title: "testing 2"
+date: 2013-04-09T16:28:41+08:00
+comments: true
+external-url: 
+categories: 
+---
+
+<i class="icon-book icon-4x"></i>
