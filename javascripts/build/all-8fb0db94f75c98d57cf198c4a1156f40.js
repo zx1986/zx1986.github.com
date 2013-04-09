@@ -1,4 +1,4 @@
-/* Octopress fingerprint: 0ba13956c93994af727585d417f2b3f3 */
+/* Octopress fingerprint: 8fb0db94f75c98d57cf198c4a1156f40 */
 /*! Modernizr 2.6.2 (Custom Build) | MIT & BSD
  * Build: http://modernizr.com/download/#-video-shiv-cssclasses-addtest-testprop-testallprops-domprefixes-forms_placeholder-load
  */
