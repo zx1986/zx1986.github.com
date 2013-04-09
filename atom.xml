@@ -3,7 +3,7 @@
   <title><![CDATA[張旭]]></title>
   <link href="http://zx1986.github.com/atom.xml" rel="self"/>
   <link href="http://zx1986.github.com/"/>
-  <updated>2013-04-09T16:28:03+08:00</updated>
+  <updated>2013-04-09T16:29:40+08:00</updated>
   <id>http://zx1986.github.com/</id>
   <author>
     <name><![CDATA[zx1986]]></name>
@@ -11,6 +11,22 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+    <entry>
+      
+
+
+
+
+<title type="html"><![CDATA[testing 2]]></title>
+<link href="http://zx1986.github.com/blog/testing-2.html"/>
+<updated>2013-04-09T16:28:41+08:00</updated>
+<id>http://zx1986.github.com/blog/testing-2</id>
+
+
+      <content type="html"><![CDATA[<p><i class="icon-book icon-4x"></i></p>
+]]></content>
+    </entry>
   
     <entry>
       
