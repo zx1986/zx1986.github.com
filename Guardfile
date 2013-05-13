@@ -36,3 +36,7 @@ guard :shell do
     js_assets.compile
   end
 end
+
+guard 'livereload' do
+  watch(%r{public/.+\.(css|js|html)})
+end

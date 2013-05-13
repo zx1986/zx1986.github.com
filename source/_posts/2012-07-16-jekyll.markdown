@@ -1,0 +1,21 @@
+---
+layout: post
+title: "Jekyll 網頁產生器"
+date: 2012-07-16 21:50
+comments: true
+categories: Ruby
+author: zx1986
+published: true
+---
+
+https://github.com/mojombo/jekyll   
+http://octopress.org/blog/2011/07/23/octopress-20-surfaces/   
+http://ruhoh.com/how-it-works/
+http://liquidmarkup.org/
+
+http://yihui.name/cn/2012/02/hello-jekyll/
+http://freemind.pluskid.org/technology/the-unbearable-madness-of-static-blog-generators/
+
+#### Reference
+- <https://github.com/mojombo/jekyll/>
+- <http://jekyllbootstrap.com/>

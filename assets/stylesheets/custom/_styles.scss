@@ -7,8 +7,5 @@ body {
 
 a, a:hover {
     text-decoration: none;
-}
-
-aside.sidebar > ul:hover {
-    color: black;
+    outline: 0;
 }

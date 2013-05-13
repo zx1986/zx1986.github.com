@@ -22,6 +22,7 @@ group :development do
   gem 'guard-shell'
   gem 'guard-compass'
   gem 'guard-coffeescript'
+  gem 'guard-livereload'
   gem 'rb-inotify', :require => false
   gem 'rb-fsevent', :require => false
   gem 'rb-fchange', :require => false

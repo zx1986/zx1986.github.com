@@ -45,7 +45,7 @@
     @include transition(color .5s);
   }
   &:hover p a, &:hover li a {
-    color: $sidebar-link-color;
+/*  color: $sidebar-link-color; */
     &:hover { color: $sidebar-link-color-hover; }
   }
 }
