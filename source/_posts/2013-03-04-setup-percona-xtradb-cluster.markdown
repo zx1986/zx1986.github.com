@@ -22,12 +22,14 @@ Codership 致力於研究及實做高擴展性且快速的資料庫同步（Repl
 它爲 DBMS 類型的應用（即常見的 Database 軟體）建立了一個 Replication 介面，
 這個介面（Interface）介於 Database 軟體與 Replication Servcie Provider（即 Replicator）之間。
 
+[WSREP Group][3] 則是討論與建立這個標準的開放性羣組。
+
 > wsrep API defines a set of application callbacks and replication library calls necessary to implement synchronous writeset replication of transactional databases and similar applications. It aims to abstract and isolate replication implementation from application details.
 
 #### Galera Replicator
 
 Galera 是一套根據 WSREP 標準實做出來的 Replication 函式庫。
-Galera 的運作架構可以參考：<i class="icon-external-link icon-sx"> </i><http://www.codership.com/products/galera_replication>
+Galera 的運作架構可以參考[它們的說明][4]。
 
 其原則就是：
 當對 Cluster 中其中一個 Node 做寫入（Write）時，
@@ -35,8 +37,7 @@ Galera 會自動將寫入動作 Replication 到 Cluster 其他的 Node 上。
 
 > Galera implements wsrep pluggable interface, and can provide several replication modes and topologies, including the ultimate Synchronous Multi-Master replication.
 
-<i class="icon-external-link icon-sx"> </i><https://launchpad.net/galera>
-
+https://launchpad.net/galera
 
 #### MySQL Galera Cluster
 
@@ -45,19 +46,17 @@ Galera 會自動將寫入動作 Replication 到 Cluster 其他的 Node 上。
 
 > MySQL/Galera cluster uses Galera library for the replication implementation. To interface with Galera replication, we have enhanced MySQL server to support replication API definition in the wsrep API project.
 
-<i class="icon-external-link icon-sx"> </i><http://www.codership.com/products/mysql_galera>
-
+http://www.codership.com/products/mysql_galera
 
 #### MariaDB Galera Cluster
 
 相較於 MySQL 要打 Patch，MariaDB 直接推出包好的 MariaDB Galera Cluster：
-<i class="icon-external-link icon-sx"> </i><https://downloads.mariadb.org/mariadb-galera/>
+https://downloads.mariadb.org/mariadb-galera/
 
 MariaDB 還針對不同的 Linux 發佈版提供了套件庫：
-<i class="icon-external-link icon-sx"> </i><https://downloads.mariadb.org/mariadb/repositories/>
+https://downloads.mariadb.org/mariadb/repositories/
 
 MariaDB Galera Cluster 是 Percona XtraDB Cluster 之外的另一個選擇。
-
 
 #### Percona XtraDB Cluster（PXC）
 
@@ -152,4 +151,4 @@ http://www.mysqlperformanceblog.com/2013/01/29/how-to-start-a-percona-xtradb-clu
 [1]: http://www.codership.com/company/
 [2]: https://launchpad.net/wsrep/
 [3]: https://launchpad.net/wsrep-group/
-
+[4]: http://www.codership.com/products/galera_replication/
