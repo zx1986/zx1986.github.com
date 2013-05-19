@@ -1,4 +1,8 @@
 ---
+# -------------------------- #
+#      Deployment Config     #
+# -------------------------- #
+
 deploy_branch: master
 deploy_dir: _deploy
 deploy_default: push
