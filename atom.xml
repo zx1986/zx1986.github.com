@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title><![CDATA[張旭]]></title>
-  <link href="http://zx1986.github.com/atom.xml" rel="self"/>
-  <link href="http://zx1986.github.com/"/>
-  <updated>2013-04-09T18:51:50+08:00</updated>
-  <id>http://zx1986.github.com/</id>
+  <link href="http://zx1986.github.io/atom.xml" rel="self"/>
+  <link href="http://zx1986.github.io/"/>
+  <updated>2013-05-19T22:03:27+08:00</updated>
+  <id>http://zx1986.github.io/</id>
   <author>
     <name><![CDATA[zx1986]]></name>
     
@@ -18,13 +18,155 @@
 
 
 
-<title type="html"><![CDATA[testing 2]]></title>
-<link href="http://zx1986.github.com/blog/testing-2.html"/>
-<updated>2013-04-09T16:28:41+08:00</updated>
-<id>http://zx1986.github.com/blog/testing-2</id>
+<title type="html"><![CDATA[安裝 Percona XtraDB Cluster]]></title>
+<link href="http://zx1986.github.io/blog/setup-percona-xtradb-cluster.html"/>
+<updated>2013-03-04T17:15:00+08:00</updated>
+<id>http://zx1986.github.io/blog/setup-percona-xtradb-cluster</id>
+<category term="cluster" /><category term="database" />
 
+      <content type="html"><![CDATA[<h2>背景知識</h2>
 
-      <content type="html"><![CDATA[<p><i class="icon-book icon-4x"></i></p>
+<h4>Codership</h4>
+
+<p><a href="http://www.codership.com/company/">Codership</a> 是一家成立於 2007 年的公司，公司的 Founder 都是 Database 專家。
+Codership 致力於研究及實做高擴展性且快速的資料庫同步機制（Replication），
+並帶頭制定了名爲 WSREP 的 API 標準，且根據這套 API 實做了 Galera 同步器（Replicator）。</p>
+
+<h4>WSREP（Write Set REPlication）</h4>
+
+<p><a href="https://launchpad.net/wsrep/">WSREP</a> 是一個爲 DBMS（DataBase Management System）設計的 API 標準，
+它爲 DBMS 類型的應用程式建立了一個 Replication 介面（Interface），
+這個介面位於 DBMS 軟體與 Replication Servcie Provider（即 Replicator）之間。
+<a href="https://launchpad.net/wsrep-group/">WSREP Group</a> 是討論與建立這個標準的開放性羣組。</p>
+
+<blockquote>
+<p>WSREP API defines a set of application callbacks and replication library calls necessary to implement synchronous writeset replication of transactional databases and similar applications. It aims to abstract and isolate replication implementation from application details.</p>
+</blockquote>
+
+<h4>Galera Replicator</h4>
+
+<p><a href="https://launchpad.net/galera/">Galera</a> 是一套根據 WSREP 標準實做出來的 Replication 函式庫。
+Galera 的運作架構可以參考<a href="http://www.codership.com/products/galera_replication/">它們的說明</a>。大致的原則是：
+當對 Cluster 中其中一個節點做寫入（Write）時，
+Galera 會自動將寫入動作 Replicate 到 Cluster 其他的節點上。</p>
+
+<blockquote>
+<p>Galera implements WSREP pluggable interface, and can provide several replication modes and topologies, including the ultimate Synchronous Multi-Master replication.</p>
+</blockquote>
+
+<h4>MySQL Galera Cluster</h4>
+
+<p>傳統的 <a href="http://www.codership.com/products/mysql_galera/">MySQL Server</a> 只要打上 WSREP 的 Patch，支援了 WSREP 介面，
+再搭配使用 Galera 函式庫，調整好設定檔，就可以組出一個 Cluster。</p>
+
+<blockquote>
+<p>MySQL/Galera cluster uses Galera library for the replication implementation. To interface with Galera replication, we have enhanced MySQL server to support replication API definition in the wsrep API project.</p>
+</blockquote>
+
+<h4>MariaDB Galera Cluster</h4>
+
+<p>相較於 MySQL 要額外打 Patch，MariaDB 直接推出包好的 <a href="https://downloads.mariadb.org/mariadb-galera/">MariaDB Galera Cluster</a>，
+MariaDB 還針對不同的 Linux 發佈版提供了<a href="https://downloads.mariadb.org/mariadb/repositories/">套件庫</a>。
+它是 Percona XtraDB Cluster 之外的另一個選擇。</p>
+
+<h4>Percona XtraDB Cluster（PXC）</h4>
+
+<p>Percona 是一家專業的 MySQL 顧問與技術公司，
+他們有一個很知名的 MySQL Blog：<a href="http://www.mysqlperformanceblog.com">MySQL Performance</a>；
+Percona 也開發了許多知名的<a href="http://www.percona.com/software">資料庫工具與軟體</a>。</p>
+
+<p>XtraDB 是 Percona 基於 InnoDB 改良出來的一個資料庫引擎。
+在 XtraDB 引擎的基礎上，Percona 發佈了一個修改過的 MySQL：Percona Server，
+而 Percona XtraDB Cluster 則是 Percona Server + Galera Library 的整合產品。
+Percona XtraDB Cluster 的資料庫同步機制是靠 Galera 完成的（即 Write Replication）。 </p>
+
+<h2>安裝 Percona XtraDB Cluster</h2>
+
+<p>最新的 XtraDB 安裝檔：<br>
+<a href="http://www.percona.com/downloads/Percona-XtraDB-Cluster/LATEST/">Percona XtraDB Cluster</a><br>
+<a href="http://www.percona.com/downloads/XtraBackup/LATEST/">XtraBackup</a></p>
+
+<p>以 Red Hat 環境（RHEL，Cent OS）爲例。</p>
+
+<figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div><div data-line='2' class='line-number'></div><div data-line='3' class='line-number'></div><div data-line='4' class='line-number'></div><div data-line='5' class='line-number'></div><div data-line='6' class='line-number'></div><div data-line='7' class='line-number'></div><div data-line='8' class='line-number'></div><div data-line='9' class='line-number'></div><div data-line='10' class='line-number'></div><div data-line='11' class='line-number'></div><div data-line='12' class='line-number'></div><div data-line='13' class='line-number'></div><div data-line='14' class='line-number'></div><div data-line='15' class='line-number'></div><div data-line='16' class='line-number'></div><div data-line='17' class='line-number'></div><div data-line='18' class='line-number'></div><div data-line='19' class='line-number'></div><div data-line='20' class='line-number'></div><div data-line='21' class='line-number'></div><div data-line='22' class='line-number'></div><div data-line='23' class='line-number'></div><div data-line='24' class='line-number'></div></pre></td><td class='main  bash'><pre><div class='line'>rpm -Uhv http://www.percona.com/downloads/percona-release/percona-release-0.0-1.x86_64.rpm
+</div><div class='line'>yum install Percona-XtraDB-Cluster-server Percona-XtraDB-Cluster-client percona-xtrabackup
+</div><div class='line'>vim /etc/my.cnf
+</div><div class='line'> </div><div class='line'>    <span class="o">[</span>mysqld<span class="o">]</span>
+</div><div class='line'>    <span class="nv">wsrep_provider</span><span class="o">=</span>/usr/lib64/libgalera_smm.so
+</div><div class='line'>    <span class="nv">wsrep_cluster_name</span><span class="o">=</span>叢集的名稱
+</div><div class='line'>    <span class="nv">wsrep_cluster_address</span><span class="o">=</span>gcomm://節點一的位址,節點二的位址,節點三的位址
+</div><div class='line'>    <span class="nv">wsrep_slave_threads</span><span class="o">=</span>4
+</div><div class='line'>    <span class="nv">wsrep_sst_method</span><span class="o">=</span>rsync
+</div><div class='line'>    <span class="nv">binlog_format</span><span class="o">=</span>ROW
+</div><div class='line'>    <span class="nv">default_storage_engine</span><span class="o">=</span>InnoDB
+</div><div class='line'>    <span class="nv">innodb_autoinc_lock_mode</span><span class="o">=</span>2
+</div><div class='line'>    <span class="nv">innodb_locks_unsafe_for_binlog</span><span class="o">=</span>1
+</div><div class='line'> </div><div class='line'>service mysql start --wsrep-cluster-address<span class="o">=</span><span class="s2">&quot;gcomm://&quot;</span>
+</div><div class='line'>mysql -e <span class="s2">&quot;CREATE FUNCTION fnv1a_64 RETURNS INTEGER SONAME &#39;libfnv1a_udf.so&#39;&quot;</span>
+</div><div class='line'>mysql -e <span class="s2">&quot;CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME &#39;libfnv_udf.so&#39;&quot;</span>
+</div><div class='line'>mysql -e <span class="s2">&quot;CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME &#39;libmurmur_udf.so&#39;&quot;</span>
+</div><div class='line'>mysqladmin -u root password <span class="s1">&#39;12345678&#39;</span>
+</div><div class='line'>service mysql stop
+</div><div class='line'>service mysql start
+</div><div class='line'>mysql -u root -p
+</div><div class='line'>mysql&gt; show status like <span class="s1">&#39;wsrep_%&#39;</span>;
+</div></pre></td></tr></table></div></figure>
+
+<p>以上是第一個節點的設定，其他節點只要重複到啓動 MySQL 那個步驟，
+並將啓動的指令改爲：<code>service mysql start</code></p>
+
+<ul>
+<li><code>--wsrep-cluster-address=&quot;gcomm://&quot;</code> 參數代表初始化一個全新的叢集！</li>
+</ul>
+
+<h4>SST</h4>
+
+<blockquote>
+<p>State Snapshot Transfer is the full copy of data from one node to another.</p>
+</blockquote>
+
+<p>SST 是 State Snapshot Transfer 的縮寫，指的是 PXC 各節點間同步資料的方式。
+可以在 /etc/my.cnf 中透過 wsrep_sst_method 參數來設定。
+PXC 有三種同步方式，分別是：</p>
+
+<ul>
+<li>wsrep_sst_method=mysqldump</li>
+</ul>
+
+<blockquote>
+<p>If you use mysqldump SST it should be the same as this mysql client connection address plus you need to set wsrep_sst_auth variable to hold user:password pair. The user should be privileged enough to read system tables from donor and create system tables on this node. For simplicity that could be just the root user. Note that it also means that you need to properly set up the privileges on the new node before attempting to join the cluster.</p>
+</blockquote>
+
+<ul>
+<li>wsrep_sst_method=rsync</li>
+</ul>
+
+<blockquote>
+<p>If you use rsync SST, wsrep_sst_auth is not necessary unless your SST script makes use of it.</p>
+</blockquote>
+
+<ul>
+<li>wsrep_sst_method=xtrabackup</li>
+</ul>
+
+<blockquote>
+<p>If you use xtrabackup as SST method, it will use /usr/bin/wsrep_sst_xtrabackup provided in Percona-XtraDB-Cluster-server package. And this script also needs user password if you have a password for root@localhost.</p>
+</blockquote>
+
+<p>要使用 <a href="http://serverfault.com/questions/389190/xtrabackup-for-sst-with-xtradb-cluster">xtrabackup 當作 SST method</a> 時，
+需要設定 Database 的 root password 到 /etc/my.cnf 內，
+例如：<code>wsrep_sst_auth=root:12345678</code></p>
+
+<p>PXC 官方手冊：<br>
+<a href="http://www.percona.com/doc/percona-xtradb-cluster/installation.html">http://www.percona.com/doc/percona-xtradb-cluster/installation.html</a><br>
+<a href="http://www.percona.com/doc/percona-xtradb-cluster/manual/bootstrap.html">http://www.percona.com/doc/percona-xtradb-cluster/manual/bootstrap.html</a>   </p>
+
+<p>PXC 專有名詞：<br>
+<a href="http://www.percona.com/doc/percona-xtradb-cluster/glossary.html">http://www.percona.com/doc/percona-xtradb-cluster/glossary.html</a></p>
+
+<p>Reference：<br>
+<a href="http://www.mysqlperformanceblog.com/2013/01/29/how-to-start-a-percona-xtradb-cluster/">http://www.mysqlperformanceblog.com/2013/01/29/how-to-start-a-percona-xtradb-cluster/</a><br>
+<a href="http://www.percona.com/files/presentations/WEBINAR-percona-xtradb-cluster-installation-and-setup.pdf">http://www.percona.com/files/presentations/WEBINAR-percona-xtradb-cluster-installation-and-setup.pdf</a>   </p>
 ]]></content>
     </entry>
   
@@ -34,13 +176,402 @@
 
 
 
-<title type="html"><![CDATA[font-awesome testing]]></title>
-<link href="http://zx1986.github.com/blog/font-awesome-testing.html"/>
-<updated>2013-04-09T15:43:03+08:00</updated>
-<id>http://zx1986.github.com/blog/font-awesome-testing</id>
+<title type="html"><![CDATA[Nginx]]></title>
+<link href="http://zx1986.github.io/blog/nginx.html"/>
+<updated>2012-10-11T11:04:00+08:00</updated>
+<id>http://zx1986.github.io/blog/nginx</id>
+<category term="web server" />
+
+      <content type="html"><![CDATA[<div class="highlight"><pre><code class="text"># Passenger
+server {
+  listen 8080;
+  server_name localhost;
+  root /Users/laas/proged/rack_test/public;
+  passenger_enabled on;
+  rack_env production;
+  passenger_min_instances 4;
+}
+
+# Unicorn
+upstream unicorn_server {
+  server unix:/Users/laas/proged/rack_test/tmp/unicorn.sock fail_timeout=0;
+}
+
+server {
+  listen 8081;
+  server_name localhost;
+  root /Users/laas/proged/rack_test/public;
+
+  location / {
+    proxy_pass http://unicorn_server;
+  }
+}
+
+# Thin
+upstream thin_server{
+  server unix:/Users/laas/proged/rack_test/tmp/thin.0.sock fail_timeout=0;
+  server unix:/Users/laas/proged/rack_test/tmp/thin.1.sock fail_timeout=0;
+  server unix:/Users/laas/proged/rack_test/tmp/thin.2.sock fail_timeout=0;
+  server unix:/Users/laas/proged/rack_test/tmp/thin.3.sock fail_timeout=0;
+}
+
+server {
+  listen 8082;
+  server_name localhost;
+  root /Users/laas/proged/rack_test/public;
+
+  location / {
+    proxy_pass http://thin_server;
+  }
+}
+</code></pre></div>]]></content>
+    </entry>
+  
+    <entry>
+      
 
 
-      <content type="html"><![CDATA[<p><i class="icon-flag icon-4x icon-border"></i></p>
+
+
+<title type="html"><![CDATA[HP DL380p Gen8]]></title>
+<link href="http://zx1986.github.io/blog/hp-dl380p-gen8.html"/>
+<updated>2012-08-10T08:57:00+08:00</updated>
+<id>http://zx1986.github.io/blog/hp-dl380p-gen8</id>
+
+
+      <content type="html"><![CDATA[]]></content>
+    </entry>
+  
+    <entry>
+      
+
+
+
+
+<title type="html"><![CDATA[Debugging Javascript]]></title>
+<link href="http://zx1986.github.io/blog/debugging-javascript.html"/>
+<updated>2012-08-04T15:19:00+08:00</updated>
+<id>http://zx1986.github.io/blog/debugging-javascript</id>
+<category term="javascript" />
+
+      <content type="html"><![CDATA[<p>讀了這個 <a href="http://fixingthesejquery.com">Slide</a>，想做個筆記。</p>
+
+<p>首先，要認識各個瀏覽器的 Debugger。
+Firefox，Chrome，甚至 IE，都有它們自己的 Debugger。
+這些 Debugger 長得都很像，熟悉了其中一種，其他都大同小异。
+各個 Debugger 預設的啟動快捷鍵大都是<code>F12</code>。</p>
+
+<p>Firefox 除了非常知名的 Debug Plugin：<a href="https://getfirebug.com">Firebug</a>。
+還內建了個更炫的玩意：3D View。
+在網頁中<code>點擊右鍵</code>，選擇<code>檢視元素</code>，右下角有一個<code>3D View</code>按鈕。
+它可以讓你在三維環境中，檢視每個網頁元素（DOM Element）。
+在分析多層 CSS Layer（z-index）的網頁時，非常實用！</p>
+
+<p>使用 jQuery 出現<code>jQuery is not defined</code>或<code>$ is not defined</code>時，
+請先檢查 jQuery 的引入路徑是否正確，
+<code>$</code>別名符號是否已經被其他的 Javascrip Library 用走了？
+可以用<code>jQuery.noConflict()</code>函式檢查一下。</p>
+
+<p>出現<code>jQuery.fn.somePlugin is not defined</code>時，
+先檢查 Plugin Library 是否有在載入 jQuery Library 之後載入。</p>
+
+<p>善用 Debugger 中的 breakpoint（斷點）設定。
+在想要設定斷點的 Javascript 語句後，
+加入一行<code>debugger;</code>即可輕鬆設定斷點。</p>
+
+<p>Debugger 中找到一個叫<code>watch expression</code>的地方，
+直接輸入想要檢查的變數，它會把這個變數的身家通通翻出來。
+例如輸入：<code>this</code></p>
+
+<p>使用<code>window.alert(&#39;錯誤訊息或變數&#39;)</code>不是個好主意。
+改用<code>console.log(&#39;錯誤訊息或變數&#39;)</code>搭配 Debugger 的 Console 視窗是好主意！
+例如<code>console.log($(&quot;&quot;your selector&quot;).length)</code>可以檢查元素是否存在。
+Console 視窗還有一大堆 <a href="http://getfirebug.com/wiki/index.php/Console_API">API function</a> 。</p>
+
+<p>搭配 jQuery 的 Javascript 建議寫法：</p>
+<div class="highlight"><pre><code class="text">(function($)){
+    $(document).ready(function(){
+
+            // your code ...
+
+    });
+}(jQuery); // take $ as jQuery
+</code></pre></div>
+<p>以確定整個 DOM 文件載入完成後，才執行你寫的 Javascript 腳本。</p>
+
+<blockquote>
+<p>When you call $(&#39;a&#39;), it returns all the links on the page at the time it was called, and .click(fn) adds your handler to only those elements. When new links are added, they are not affected.</p>
+</blockquote>
+<div class="highlight"><pre><code class="text">$(document).bind(&quot;click&quot;, function(e)
+{
+  if ($(e.target).is(&quot;a&quot;)
+  {
+    // this === document
+  }
+});
+
+$(document).delegate(&quot;a&quot;, &quot;click&quot;, function(e)
+{
+    // this === clicked anchor
+});
+
+$(&quot;a&quot;).live(&quot;click&quot;, function(e)
+{
+    // this === clicked anchor
+});
+</code></pre></div>
+<p>注意，呼叫 this 的 jQuery 物件時，是用<code>$(this)</code>，不是<code>$(&#39;this&#39;)</code>。</p>
+]]></content>
+    </entry>
+  
+    <entry>
+      
+
+
+
+
+<title type="html"><![CDATA[Twig]]></title>
+<link href="http://zx1986.github.io/blog/twig.html"/>
+<updated>2012-07-19T16:39:00+08:00</updated>
+<id>http://zx1986.github.io/blog/twig</id>
+<category term="php" />
+
+      <content type="html"><![CDATA[<h4>Reference</h4>
+
+<ul>
+<li><a href="http://coding.smashingmagazine.com/2011/10/17/getting-started-with-php-templating/">http://coding.smashingmagazine.com/2011/10/17/getting-started-with-php-templating/</a></li>
+</ul>
+]]></content>
+    </entry>
+  
+    <entry>
+      
+
+
+
+
+<title type="html"><![CDATA[Icon Fonts]]></title>
+<link href="http://zx1986.github.io/blog/icon-fonts.html"/>
+<updated>2012-07-19T11:16:00+08:00</updated>
+<id>http://zx1986.github.io/blog/icon-fonts</id>
+<category term="css" /><category term="font" />
+
+      <content type="html"><![CDATA[<h4>Reference</h4>
+
+<ul>
+<li><a href="http://yatil.net/a-better-way-to-use-icon-fonts">http://yatil.net/a-better-way-to-use-icon-fonts</a></li>
+<li><a href="http://24ways.org/2011/displaying-icons-with-fonts-and-data-attributes">http://24ways.org/2011/displaying-icons-with-fonts-and-data-attributes</a></li>
+<li><a href="http://css-tricks.com/examples/IconFont/">http://css-tricks.com/examples/IconFont/</a></li>
+</ul>
+]]></content>
+    </entry>
+  
+    <entry>
+      
+
+
+
+
+<title type="html"><![CDATA[CSS, Sass, SCSS]]></title>
+<link href="http://zx1986.github.io/blog/scss.html"/>
+<updated>2012-07-19T10:36:00+08:00</updated>
+<id>http://zx1986.github.io/blog/scss</id>
+<category term="css" />
+
+      <content type="html"><![CDATA[<p>CSS &lt; Sass &lt; SCSS</p>
+
+<ul>
+<li><a href="http://sass-lang.com/">http://sass-lang.com/</a></li>
+</ul>
+]]></content>
+    </entry>
+  
+    <entry>
+      
+
+
+
+
+<title type="html"><![CDATA[LESS]]></title>
+<link href="http://zx1986.github.io/blog/less.html"/>
+<updated>2012-07-19T10:36:00+08:00</updated>
+<id>http://zx1986.github.io/blog/less</id>
+<category term="css" />
+
+      <content type="html"><![CDATA[<p>Sass v.s. LESS</p>
+
+<p>LESS could work on client side, or work with NodeJS on server side.</p>
+
+<ul>
+<li><a href="http://lesscss.org/">http://lesscss.org/</a></li>
+<li><a href="http://www.lesscss.net/">http://www.lesscss.net/</a></li>
+</ul>
+]]></content>
+    </entry>
+  
+    <entry>
+      
+
+
+
+
+<title type="html"><![CDATA[使用 Ruhoh 寫 Blog]]></title>
+<link href="http://zx1986.github.io/blog/ruhoh.html"/>
+<updated>2012-07-16T22:00:00+08:00</updated>
+<id>http://zx1986.github.io/blog/ruhoh</id>
+<category term="markdown" /><category term="ruby" />
+
+      <content type="html"><![CDATA[<h4>Reference</h4>
+
+<ul>
+<li><a href="http://ruhoh.com/usage/">http://ruhoh.com/usage/</a></li>
+<li><a href="http://ruhoh.com/how-it-works/">http://ruhoh.com/how-it-works/</a></li>
+</ul>
+]]></content>
+    </entry>
+  
+    <entry>
+      
+
+
+
+
+<title type="html"><![CDATA[使用 Octopress 寫 Blog]]></title>
+<link href="http://zx1986.github.io/blog/octopress.html"/>
+<updated>2012-07-16T21:55:00+08:00</updated>
+<id>http://zx1986.github.io/blog/octopress</id>
+<category term="markdown" /><category term="ruby" />
+
+      <content type="html"><![CDATA[<h4>Reference</h4>
+
+<ul>
+<li><a href="http://octopress.org/docs/">http://octopress.org/docs/</a></li>
+</ul>
+]]></content>
+    </entry>
+  
+    <entry>
+      
+
+
+
+
+<title type="html"><![CDATA[Jekyll 網頁產生器]]></title>
+<link href="http://zx1986.github.io/blog/jekyll.html"/>
+<updated>2012-07-16T21:50:00+08:00</updated>
+<id>http://zx1986.github.io/blog/jekyll</id>
+<category term="ruby" />
+
+      <content type="html"><![CDATA[<p><a href="https://github.com/mojombo/jekyll">https://github.com/mojombo/jekyll</a><br>
+<a href="http://octopress.org/blog/2011/07/23/octopress-20-surfaces/">http://octopress.org/blog/2011/07/23/octopress-20-surfaces/</a><br>
+<a href="http://ruhoh.com/how-it-works/">http://ruhoh.com/how-it-works/</a>
+<a href="http://liquidmarkup.org/">http://liquidmarkup.org/</a></p>
+
+<p><a href="http://yihui.name/cn/2012/02/hello-jekyll/">http://yihui.name/cn/2012/02/hello-jekyll/</a>
+<a href="http://freemind.pluskid.org/technology/the-unbearable-madness-of-static-blog-generators/">http://freemind.pluskid.org/technology/the-unbearable-madness-of-static-blog-generators/</a></p>
+
+<h4>Reference</h4>
+
+<ul>
+<li><a href="https://github.com/mojombo/jekyll/">https://github.com/mojombo/jekyll/</a></li>
+<li><a href="http://jekyllbootstrap.com/">http://jekyllbootstrap.com/</a></li>
+</ul>
+]]></content>
+    </entry>
+  
+    <entry>
+      
+
+
+
+
+<title type="html"><![CDATA[HTML]]></title>
+<link href="http://zx1986.github.io/blog/html.html"/>
+<updated>2012-01-01T01:01:00+08:00</updated>
+<id>http://zx1986.github.io/blog/html</id>
+
+
+      <content type="html"><![CDATA[<h3>HyperText Markup Language</h3>
+
+<p><a href="http://zh.wikipedia.org/wiki/HTML">http://zh.wikipedia.org/wiki/HTML</a></p>
+]]></content>
+    </entry>
+  
+    <entry>
+      
+
+
+
+
+<title type="html"><![CDATA[Programming Language]]></title>
+<link href="http://zx1986.github.io/blog/programming-language.html"/>
+<updated>2011-01-01T01:01:00+08:00</updated>
+<id>http://zx1986.github.io/blog/programming-language</id>
+<category term="programming" />
+
+      <content type="html"><![CDATA[<p>我想，學習某項領域的知識，先了解其概觀，理解基本元素、專有名詞是很必要的。   </p>
+
+<p>例如：<br>
+學習中醫，得先理解「五行」、「陰陽」、「經絡」這些名詞。<br>
+學習數學，則需要明白「加」、「減」、「乘」、「除」的意義。</p>
+
+<p>而關於電腦科學，必須先初淺的知道硬體與軟體這回事。<br>
+在眼可見、手可觸的硬體之中，有五感不可及的軟體存在著。   </p>
+
+<p>「軟體」可以解釋的範圍很廣。<br>
+作業系統（Operation System，常見的 Windows、OS X、Ubuntu）是軟體，<br>
+應用程式（Application，包括手機上的 App）是軟體，<br>
+驅動程式（Driver，ATi 或 nVIDIA 的顯示卡驅動）也是軟體，<br>
+腳本檔案（Script，bash、python、php、ruby 等語言寫的檔案）也可以算是軟體。   </p>
+
+<blockquote>
+<p>軟體（Software）是一系列按照特定順序組織的電腦數據和指令的集合。<br>
+一般來講軟體被劃分為系統軟體、應用軟體，和介於這兩者之間的中介軟體。<br>
+其中系統軟體為電腦使用提供最基本的功能，但是並不針對某一特定應用領域。<br>
+而應用軟體則恰好相反，不同的應用軟體根據用戶和所服務的領域提供不同的功能。   </p>
+</blockquote>
+
+<p>維基百科說的『按照特定順序組織的電腦數據和指令的集合』可以看成就是「程式語言」。   </p>
+
+<blockquote>
+<p>程式語言（Programming Language），又稱程式設計語言（Program Design Language）。<br>
+在過去的幾十年間，大量的程式語言被發明、被取代、被修改或組合在一起。   </p>
+</blockquote>
+
+<p>直接從英文字面去看「Programming Language」。<br>
+Programming 可以解釋成『程式化的』或『可以程式化的』，<br>
+Language 直接理解就可以，就是『語言』。<br>
+注意，Programming Language 是單數，是一個統稱，底下有許多種不同類型的語言。   </p>
+
+<p>就像是英文、日文、俄文，都是人類（human being）溝通用的語言，簡稱語言。<br>
+如果是鳥類溝通用的語言，或許有孔雀語、鴿子語、信天翁語，可以簡稱爲鳥語。   </p>
+
+<p>『程式化的語言』或『可以程式化的語言』，簡稱「程式語言」，<br>
+「程式語言」這個名詞就類似「人類語言」、「鳥類語言」。<br>
+「程式語言」是人類與電腦（硬體或軟體）溝通的語言。   </p>
+
+<p>既然是語言，就有其語法、規則、慣例、特性。<br>
+像是讀書時死背硬記的英文語法、片語規則、過去式進行式、破刀式破劍式。<br>
+日文、俄文當然又有其各自的規則與玩法，而且都不盡相同。</p>
+
+<blockquote>
+<p>每一種程式語言可以被看作是一套包含語法、詞彙和含義的正式規範。   </p>
+</blockquote>
+
+<p>最原始的、最赤裸裸的程式語言：機械碼（二進位碼）<br>
+類似 The Martix 中複雜的 0 與 1 的組合，一般人類是無法解讀的（除非你是 Neo）。      </p>
+
+<blockquote>
+<p>高階語言的出現使得電腦程式語言不再過度地倚賴某種特定的機器或環境。<br>
+因為高階語言在不同的平台上會被編譯成不同的機器語言，而不是直接被機器執行。   </p>
+</blockquote>
+
+<p>具有程式化規則的語言</p>
+
+<p><i class="icon-book"></i><br>
+- <a href="http://en.wikipedia.org/wiki/Software">http://en.wikipedia.org/wiki/Software</a><br>
+- <a href="http://en.wikipedia.org/wiki/Programming_language">http://en.wikipedia.org/wiki/Programming_language</a><br>
+- <a href="http://en.wikipedia.org/wiki/Traditional_Chinese_medicine">http://en.wikipedia.org/wiki/Traditional_Chinese_medicine</a></p>
 ]]></content>
     </entry>
   

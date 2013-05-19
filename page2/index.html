@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Page Not Found - 張旭</title>
+  <title>張旭</title>
   <meta name="author" content="zx1986">
   
   <meta name="Generator" content="Jekyll & Octopress (http://octopress.org)">
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zx1986.github.io/404.html">
+  <link rel="canonical" href="http://zx1986.github.io/page2/index.html">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="張旭" type="application/atom+xml">
   
@@ -68,23 +68,109 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div>
-<article role="article">
+      <div class="blog-index">
   
+    
+
+
+
+
+
+
+
+
+
+
+    <article >
+      
   <header>
-    <h1 class="entry-title">Page Not Found</h1>
+    <h1 class="entry-title">
+
+<a href="/blog/nginx.html">Nginx</a>
+
+</h1>
+
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-11T11:04:00+08:00" pubdate data-updated="true">Oct 11<span>th</span>, 2012</time>
+         &bull; <a rel="bookmark" href="/blog/nginx.html">Permalink</a>
+      </p>
     
   </header>
+
+<div class="entry-content"><div class="highlight"><pre><code class="text"># Passenger
+server {
+  listen 8080;
+  server_name localhost;
+  root /Users/laas/proged/rack_test/public;
+  passenger_enabled on;
+  rack_env production;
+  passenger_min_instances 4;
+}
+
+# Unicorn
+upstream unicorn_server {
+  server unix:/Users/laas/proged/rack_test/tmp/unicorn.sock fail_timeout=0;
+}
+
+server {
+  listen 8081;
+  server_name localhost;
+  root /Users/laas/proged/rack_test/public;
+
+  location / {
+    proxy_pass http://unicorn_server;
+  }
+}
+
+# Thin
+upstream thin_server{
+  server unix:/Users/laas/proged/rack_test/tmp/thin.0.sock fail_timeout=0;
+  server unix:/Users/laas/proged/rack_test/tmp/thin.1.sock fail_timeout=0;
+  server unix:/Users/laas/proged/rack_test/tmp/thin.2.sock fail_timeout=0;
+  server unix:/Users/laas/proged/rack_test/tmp/thin.3.sock fail_timeout=0;
+}
+
+server {
+  listen 8082;
+  server_name localhost;
+  root /Users/laas/proged/rack_test/public;
+
+  location / {
+    proxy_pass http://thin_server;
+  }
+}
+</code></pre></div></div>
+
+  <footer>
+    
+    
+  </footer>
+
+
+    </article>
   
-  <p>Oops, I couldn&#39;t find that page! Sorry about that.</p>
-
-<p>Maybe try the search box (top right), or look through the <a href="/archives/">archives</a>?</p>
-
-  
-</article>
-
-
-
+  <div class="pagination">
+    
+      <a class="prev" href="3">&larr; Older</a>
+    
+    <a href="/archives/">Blog Archives</a>
+    
+    <a class="next" href="1">Newer &rarr;</a>
+    
+  </div>
 </div>
 
 <aside class="sidebar">
