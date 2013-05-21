@@ -250,8 +250,8 @@ git push -h
 畫面上半部是簡單明瞭的指令與情境說明，
 畫面中間是一個模擬的 Console 端介面，
 畫面下半部是當前情境下資料夾內的狀況。
-雖然內容都是英文，但是用字遣詞並不難，
-就當成是在玩電動闖關，邊玩邊學。</p>
+雖然內容都是英文，但用字遣詞並不難，
+就當成是玩電動闖關，邊玩邊學。</p>
 
 <p>當進行到 Remote Repositories 這個關卡時，
 如果對 Repository、Local、Remote 不大瞭解，
@@ -269,7 +269,7 @@ git push -h
 <p>Git Repository 裡預設的 Trunk Branch（主幹）稱為「master」，
 其他的 Branch（分支）則由使用者自行命名，
 master 這個 branch 也是可以被改成其他名字的。
-（其實 Git 的世界並沒有 Trunk 這種講法，那是 SVN 的習慣。
+（其實 Git 的世界並沒有 Trunk 這種講法，那是 SVN 的習慣，
 在 Git 的世界，應該說那是“一個被叫做 master 的 branch”。）</p>
 
 <p>Git 是一個分散式的版本控制系統，不同於 SVN 的 Server/Client 架構，
@@ -287,8 +287,8 @@ Git 預設就可以使用 ssh 互相進行 Repository 傳輸了。</p>
 <p>假設遠端的電腦叫做 Remote；本地端的電腦叫做 Local。
 Remote 上面有一個 Git Repository 資料夾叫做 remote_repository。</p>
 
-<p>要將 remote_repository 複製到 Local 上並命名為 local_repository，
-在 Local 上執行：</p>
+<p>要將 remote_repository 複製到 Local 並命名為 local_repository，
+在 Local 執行：</p>
 <div class="highlight"><pre><code class="text">Local$ git clone 「Remote 使用者帳號@Remote 位址」:「remote_repository 在 Remote 上的路徑」   local_repository
 </code></pre></div>
 <p>如果您執行過 scp 指令，相信對這個 git clone 格式會覺得很熟悉。</p>
@@ -311,9 +311,9 @@ Local 可以在 local_repository 裡發展它的檔案。</p>
 </ul>
 
 <blockquote>
-<p>git fetch - Download objects and refs from another repository
-git merge - Join two or more development histories together
-git pull - Fetch from and merge with another repository or a local branch</p>
+<p>git fetch - Download objects and refs from another repository.<br>
+git merge - Join two or more development histories together.<br>
+git pull - Fetch from and merge with another repository or a local branch.   </p>
 </blockquote>
 
 <p>「git pull」等於先執行了「git fetch」，然後再自動執行「git merge」。
@@ -350,7 +350,7 @@ Server$ cd origin
 <div class="highlight"><pre><code class="text">Server$ git init --bare
 </code></pre></div>
 <p>這個動作會產生一個 <a href="http://www.saintsjd.com/2011/01/what-is-a-bare-git-repository/">Bare Git Repository</a>，
-該資料夾底下會產生以下檔案與資料夾：</p>
+該資料夾下會產生：</p>
 <div class="highlight"><pre><code class="text">branches/
 config
 description
@@ -379,9 +379,8 @@ Local$ git push origin master
 <h3>Git Repository Hosting</h3>
 
 <p>Git Repository 除了使用 git 協定或 ssh 協定，
-還可以使用 http、https 等方式傳輸、瀏覽、管理。</p>
-
-<p>如果不想要用簡單的 Bare Git Repository 架設 Repository Server，
+還可以使用 http、https 等方式傳輸、瀏覽、管理。
+如果不想要用簡單的 Bare Git Repository 架設 Repository Server，
 有些 Open Source 的工具可以選擇：</p>
 
 <ul>
