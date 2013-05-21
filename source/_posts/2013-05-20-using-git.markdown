@@ -160,8 +160,8 @@ Try Git 會帶着你練習基礎的 Git 指令，
 畫面上半部是簡單明瞭的指令與情境說明，
 畫面中間是一個模擬的 Console 端介面，
 畫面下半部是當前情境下資料夾內的狀況。
-雖然內容都是英文，但是用字遣詞並不難，
-就當成是在玩電動闖關，邊玩邊學。
+雖然內容都是英文，但用字遣詞並不難，
+就當成是玩電動闖關，邊玩邊學。
 
 當進行到 Remote Repositories 這個關卡時，
 如果對 Repository、Local、Remote 不大瞭解，
@@ -179,7 +179,7 @@ Try Git 會帶着你練習基礎的 Git 指令，
 Git Repository 裡預設的 Trunk Branch（主幹）稱為「master」，
 其他的 Branch（分支）則由使用者自行命名，
 master 這個 branch 也是可以被改成其他名字的。
-（其實 Git 的世界並沒有 Trunk 這種講法，那是 SVN 的習慣。
+（其實 Git 的世界並沒有 Trunk 這種講法，那是 SVN 的習慣，
 在 Git 的世界，應該說那是“一個被叫做 master 的 branch”。）
 
 Git 是一個分散式的版本控制系統，不同於 SVN 的 Server/Client 架構，
@@ -197,8 +197,8 @@ Git 預設就可以使用 ssh 互相進行 Repository 傳輸了。
 假設遠端的電腦叫做 Remote；本地端的電腦叫做 Local。
 Remote 上面有一個 Git Repository 資料夾叫做 remote_repository。
 
-要將 remote_repository 複製到 Local 上並命名為 local_repository，
-在 Local 上執行：
+要將 remote_repository 複製到 Local 並命名為 local_repository，
+在 Local 執行：
 
     Local$ git clone 「Remote 使用者帳號@Remote 位址」:「remote_repository 在 Remote 上的路徑」   local_repository
 
@@ -221,9 +221,9 @@ Local 可以在 local_repository 裡發展它的檔案。
 
 * 補充說明
 
-> git fetch - Download objects and refs from another repository
-> git merge - Join two or more development histories together
-> git pull - Fetch from and merge with another repository or a local branch
+> git fetch - Download objects and refs from another repository.   
+> git merge - Join two or more development histories together.   
+> git pull - Fetch from and merge with another repository or a local branch.   
 
 「git pull」等於先執行了「git fetch」，然後再自動執行「git merge」。
 有人建議少用「git pull」，多用「git fetch」然後「git merge」。
@@ -259,7 +259,7 @@ Local 可以在 local_repository 裡發展它的檔案。
     Server$ git init --bare
 
 這個動作會產生一個 [Bare Git Repository][2]，
-該資料夾底下會產生以下檔案與資料夾：
+該資料夾下會產生：
 
     branches/
     config
@@ -293,7 +293,6 @@ Local 上一個叫 local_project 的資料夾要上傳到 Server 進行統一管
 
 Git Repository 除了使用 git 協定或 ssh 協定，
 還可以使用 http、https 等方式傳輸、瀏覽、管理。
-
 如果不想要用簡單的 Bare Git Repository 架設 Repository Server，
 有些 Open Source 的工具可以選擇：
 
