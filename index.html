@@ -408,49 +408,49 @@ Local$ git push origin master
 
 <p>GitCafe 的 Git <a href="https://gitcafe.com/GitCafe/Help/blob/master/Git/Git_Cheat_Sheet.md">作弊表</a>。</p>
 
-<p><strong>Git Cheating Sheet</strong></p>
-<div class="highlight"><pre><code class="text">git init                # 將當前資料夾進行 Git 初始化
+<p><em>Git Cheating Sheet</em></p>
+<div class="highlight"><pre><code class="text">git init         # 將當前資料夾進行 Git 初始化
 
-git add .               # 將當前資料夾內所有檔案加入 Git 追蹤（tracking 或 staging）
-git add 檔案名稱         # 把當前資料夾內某個檔案加入 Git 追蹤（tracking 或 staging）
+git add .        # 將當前資料夾內所有檔案加入 Git 追蹤（tracking 或 staging）
+git add 檔案名稱 # 把當前資料夾內某個檔案加入 Git 追蹤（tracking 或 staging）
 
-git commit -a           # 將目前的變動送繳 Git 進行紀錄，會進入編寫修改訊息的畫面
-git commit -a -m &quot;*&quot;    # commit 時直接寫入修改訊息，不進入編寫修改訊息的畫面
+git status       # 查詢從上一次 commit 到現在，資料夾裡有哪些變化，各個檔案處於什麼狀況
 
-git tag v1.0            # 將當前 commit 過後的檔案版本命名為 v1.0
+git commit -a         # 將目前的變動送繳 Git 進行紀錄，會進入編寫修改訊息的畫面
+git commit -a -m &quot;*&quot;  # commit 時直接寫入修改訊息，不進入編寫修改訊息的畫面
 
-git status              # 查詢從上一次 commit 到現在，資料夾裡有哪些變化，各個檔案處於什麼狀況
+git tag v1.0          # 將當前 commit 過後的檔案版本命名為 v1.0
 
-git diff                                # 比較所有檔案的內容與上一次 commit 時有何差異
-git diff v1.0 v2.0                      # 比較 v1.0 與 v2.0 兩個版本間所有檔案的內容
-git diff v1.0:檔案名稱 v2.0:檔案名稱      # 比較 v1.0 與 v2.0 兩個版本間某個檔案的內容
+git diff                             # 比較所有檔案的內容與上一次 commit 時有何差異
+git diff v1.0 v2.0                   # 比較 v1.0 與 v2.0 兩個版本間所有檔案的內容
+git diff v1.0:檔案名稱 v2.0:檔案名稱 # 比較 v1.0 與 v2.0 兩個版本間某個檔案的內容
 
 git log                         # 查詢所有版本的修改狀況，顯示各版本的 hash 編號
 git log -p                      # 查詢哪幾行被修改
 git log --stat --summary        # 查詢每個版本間變動的檔案跟行數
 
 git show v1.0                   # 查詢 v1.0 版裡的修改內容
-git show v1.0:檔案名稱           # 查詢某個檔案在 v1.0 時的內容
+git show v1.0:檔案名稱          # 查詢某個檔案在 v1.0 時的內容
 
-git show HEAD             # 看此版本修改的資料
-git show HEAD^            # 看此版本前一版的修改的資料
-git show HEAD^^           # 看此版本前前一版的修改的資料
+git show HEAD          # 看此版本修改的資料
+git show HEAD^         # 看此版本前一版的修改的資料
+git show HEAD^^        # 看此版本前前一版的修改的資料
 
-git grep &quot;*&quot; v1.0       # 查詢 0.01 版裡頭有沒有某些內容
-git grep &quot;*&quot;            # 查詢現在的版本裡有沒有某些內容
+git grep &quot;*&quot; v1.0      # 查詢 0.01 版裡頭有沒有某些內容
+git grep &quot;*&quot;           # 查詢現在的版本裡有沒有某些內容
 
-git branch                     # 查看現有的分支
-git branch 分支名稱             # 建立新的分支
-git branch 分支名稱 v1.0        # 依照 v1.0 版本裡的內容來建立一個分支
-git branch -d 分支名稱          # 刪除某個分支
+git branch                # 查看現有的分支
+git branch 分支名稱       # 建立新的分支
+git branch 分支名稱 v1.0  # 依照 v1.0 版本裡的內容來建立一個分支
+git branch -d 分支名稱    # 刪除某個分支
 
 git merge 某個分支名稱    # 將當前所在的分支與某個分支合併，如果出現衝突，會紀錄在有衝突的檔案中
 
 git checkout master       # 切換到主幹上
-git checkout 分支名稱      # 切換到某個分支上
+git checkout 分支名稱     # 切換到某個分支上
 
-git checkout HEAD   # 將所有檔案恢復到上次 commit 的狀態
-git checkout -- 檔案名稱   # 將某個檔案恢復到上次 commit 的狀態
+git checkout HEAD         # 將所有檔案恢復到上次 commit 的狀態
+git checkout -- 檔案名稱  # 將某個檔案恢復到上次 commit 的狀態
 
 git reset --hard 某個版本的 hash 編號   # 整個 Repository 恢復到某個版本的狀態
 
@@ -459,12 +459,12 @@ git gc                # 維護 Git 資料庫，重組物件
 git fsck --full       # 應該是類似 Git 磁碟重組之類的東西
 </code></pre></div>
 <p>Reference：<br>
-<a href="http://github.com/schacon/whygitisbetter">http://github.com/schacon/whygitisbetter</a>
+<a href="http://github.com/schacon/whygitisbetter">http://github.com/schacon/whygitisbetter</a><br>
+<a href="http://git-scm.com/documentation">http://git-scm.com/documentation</a><br>
 <a href="http://gitcafe.com/riku/GitTips">http://gitcafe.com/riku/GitTips</a><br>
-<a href="http://git-scm.com/documentation">http://git-scm.com/documentation</a>
 <a href="http://gitimmersion.com/">http://gitimmersion.com/</a><br>
 <a href="http://gitref.org">http://gitref.org</a><br>
-<a href="http://rypress.com/tutorials/git/">http://rypress.com/tutorials/git/</a>   </p>
+<a href="http://rypress.com/tutorials/git/">http://rypress.com/tutorials/git/</a>    </p>
 </div>
 
   <footer>
