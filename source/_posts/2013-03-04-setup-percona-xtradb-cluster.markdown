@@ -8,6 +8,9 @@ categories:
 - Cluster
 ---
 
+很簡單地說，Percona XtraDB Cluster 就是 MySQL 打上了一些特殊的 patch，
+讓 MySQL 可以將某一節點上的寫入動作，重製到其他節點上。
+
 ## 背景知識
  
 #### Codership
@@ -66,32 +69,30 @@ Percona XtraDB Cluster 的資料庫同步機制是靠 Galera 完成的（即 Wri
 
 以 Red Hat 環境（RHEL，Cent OS）爲例。
 
-``` bash
-rpm -Uhv http://www.percona.com/downloads/percona-release/percona-release-0.0-1.x86_64.rpm
-yum install Percona-XtraDB-Cluster-server Percona-XtraDB-Cluster-client percona-xtrabackup
-vim /etc/my.cnf
+    rpm -Uhv http://www.percona.com/downloads/percona-release/percona-release-0.0-1.x86_64.rpm
+    yum install Percona-XtraDB-Cluster-server Percona-XtraDB-Cluster-client percona-xtrabackup
+    vim /etc/my.cnf
 
-    [mysqld]
-    wsrep_provider=/usr/lib64/libgalera_smm.so
-    wsrep_cluster_name=叢集的名稱
-    wsrep_cluster_address=gcomm://節點一的位址,節點二的位址,節點三的位址
-    wsrep_slave_threads=4
-    wsrep_sst_method=rsync
-    binlog_format=ROW
-    default_storage_engine=InnoDB
-    innodb_autoinc_lock_mode=2
-    innodb_locks_unsafe_for_binlog=1
+        [mysqld]
+        wsrep_provider=/usr/lib64/libgalera_smm.so
+        wsrep_cluster_name=叢集的名稱
+        wsrep_cluster_address=gcomm://節點一的位址,節點二的位址,節點三的位址
+        wsrep_slave_threads=4
+        wsrep_sst_method=rsync
+        binlog_format=ROW
+        default_storage_engine=InnoDB
+        innodb_autoinc_lock_mode=2
+        innodb_locks_unsafe_for_binlog=1
 
-service mysql start --wsrep-cluster-address="gcomm://"
-mysql -e "CREATE FUNCTION fnv1a_64 RETURNS INTEGER SONAME 'libfnv1a_udf.so'"
-mysql -e "CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME 'libfnv_udf.so'"
-mysql -e "CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME 'libmurmur_udf.so'"
-mysqladmin -u root password '12345678'
-service mysql stop
-service mysql start
-mysql -u root -p
-mysql> show status like 'wsrep_%';
-```
+    service mysql start --wsrep-cluster-address="gcomm://"
+    mysql -e "CREATE FUNCTION fnv1a_64 RETURNS INTEGER SONAME 'libfnv1a_udf.so'"
+    mysql -e "CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME 'libfnv_udf.so'"
+    mysql -e "CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME 'libmurmur_udf.so'"
+    mysqladmin -u root password '12345678'
+    service mysql stop
+    service mysql start
+    mysql -u root -p
+    mysql> show status like 'wsrep_%';
 
 以上是第一個節點的設定，其他節點只要重複到啓動 MySQL 那個步驟，
 並將啓動的指令改爲：`service mysql start`

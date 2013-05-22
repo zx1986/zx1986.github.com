@@ -52,14 +52,11 @@ Language 直接理解就可以，就是『語言』。
 最原始的、最赤裸裸的程式語言：機械碼（二進位碼）    
 類似 The Martix 中複雜的 0 與 1 的組合，一般人類是無法解讀的（除非你是 Neo）。      
 
-
-
 > 高階語言的出現使得電腦程式語言不再過度地倚賴某種特定的機器或環境。   
 > 因為高階語言在不同的平台上會被編譯成不同的機器語言，而不是直接被機器執行。   
    
 具有程式化規則的語言
 
-<i class="icon-book"></i>   
 - <http://en.wikipedia.org/wiki/Software>   
 - <http://en.wikipedia.org/wiki/Programming_language>   
 - <http://en.wikipedia.org/wiki/Traditional_Chinese_medicine>

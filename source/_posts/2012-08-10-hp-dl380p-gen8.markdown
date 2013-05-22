@@ -4,4 +4,5 @@ title: "HP DL380p Gen8"
 date: 2012-08-10 08:57
 comments: true
 categories: 
+- Hardware
 ---

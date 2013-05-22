@@ -16,6 +16,5 @@ http://liquidmarkup.org/
 http://yihui.name/cn/2012/02/hello-jekyll/
 http://freemind.pluskid.org/technology/the-unbearable-madness-of-static-blog-generators/
 
-#### Reference
 - <https://github.com/mojombo/jekyll/>
 - <http://jekyllbootstrap.com/>

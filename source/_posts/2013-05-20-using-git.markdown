@@ -226,8 +226,8 @@ git merge - Join two or more development histories together.
 git pull - Fetch from and merge with another repository or a local branch.   
 
 `git pull` 等於先執行了 `git fetch`，然後再自動執行 `git merge` 。
-[有人建議][4]少用 `git pull`，改用 `git fetch` 搭配 `git merge` 。
-[也有人建議][5]應當多使用 `git rebase` 或 `git pull --rebase` 。
+[有前輩建議][4]少用 `git pull`，改用 `git fetch` 搭配 `git merge` 。
+[也有前輩建議][5]應當多使用 `git rebase` 或 `git pull --rebase` 。
 
 ### SVN 式的往日時光
 

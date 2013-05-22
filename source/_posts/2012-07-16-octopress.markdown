@@ -6,5 +6,4 @@ comments: true
 categories: [Ruby, Markdown]
 ---
 
-#### Reference
 + <http://octopress.org/docs/>
