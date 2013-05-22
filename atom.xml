@@ -3,7 +3,7 @@
   <title><![CDATA[張旭]]></title>
   <link href="http://zx1986.github.io/atom.xml" rel="self"/>
   <link href="http://zx1986.github.io/"/>
-  <updated>2013-05-22T15:59:56+08:00</updated>
+  <updated>2013-05-22T16:53:41+08:00</updated>
   <id>http://zx1986.github.io/</id>
   <author>
     <name><![CDATA[zx1986]]></name>
@@ -225,15 +225,13 @@ Local 可以在 local_repository 裡發展它的檔案。</p>
 <li>補充說明</li>
 </ul>
 
-<blockquote>
 <p>git fetch - Download objects and refs from another repository.<br>
 git merge - Join two or more development histories together.<br>
 git pull - Fetch from and merge with another repository or a local branch.   </p>
-</blockquote>
 
-<p>「git pull」等於先執行了「git fetch」，然後再自動執行「git merge」。
-<a href="http://longair.net/blog/2009/04/16/git-fetch-and-merge">有人建議少用「git pull」，改用「git fetch」搭配「git merge」</a>。
-<a href="http://ihower.tw/blog/archives/3843">也有人建議應當多使用「git pull &ndash;rebase」</a>。</p>
+<p><code>git pull</code> 等於先執行了 <code>git fetch</code>，然後再自動執行 <code>git merge</code> 。
+<a href="http://longair.net/blog/2009/04/16/git-fetch-and-merge">有人建議</a>少用 <code>git pull</code>，改用 <code>git fetch</code> 搭配 <code>git merge</code> 。
+<a href="http://ihower.tw/blog/archives/3843">也有人建議</a>應當多使用 <code>git rebase</code> 或 <code>git pull --rebase</code> 。</p>
 
 <h3>SVN 式的往日時光</h3>
 
