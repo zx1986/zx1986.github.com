@@ -3,7 +3,7 @@
   <title><![CDATA[張旭]]></title>
   <link href="http://zx1986.github.io/atom.xml" rel="self"/>
   <link href="http://zx1986.github.io/"/>
-  <updated>2013-05-22T17:03:20+08:00</updated>
+  <updated>2013-05-22T23:45:25+08:00</updated>
   <id>http://zx1986.github.io/</id>
   <author>
     <name><![CDATA[zx1986]]></name>
@@ -230,8 +230,8 @@ git merge - Join two or more development histories together.<br>
 git pull - Fetch from and merge with another repository or a local branch.   </p>
 
 <p><code>git pull</code> 等於先執行了 <code>git fetch</code>，然後再自動執行 <code>git merge</code> 。
-<a href="http://longair.net/blog/2009/04/16/git-fetch-and-merge">有人建議</a>少用 <code>git pull</code>，改用 <code>git fetch</code> 搭配 <code>git merge</code> 。
-<a href="http://ihower.tw/blog/archives/3843">也有人建議</a>應當多使用 <code>git rebase</code> 或 <code>git pull --rebase</code> 。</p>
+<a href="http://longair.net/blog/2009/04/16/git-fetch-and-merge">有前輩建議</a>少用 <code>git pull</code>，改用 <code>git fetch</code> 搭配 <code>git merge</code> 。
+<a href="http://ihower.tw/blog/archives/3843">也有前輩建議</a>應當多使用 <code>git rebase</code> 或 <code>git pull --rebase</code> 。</p>
 
 <h3>SVN 式的往日時光</h3>
 
@@ -394,7 +394,10 @@ git fsck --full       # 應該是類似 Git 磁碟重組之類的東西
 <id>http://zx1986.github.io/blog/setup-percona-xtradb-cluster</id>
 <category term="cluster" /><category term="database" />
 
-      <content type="html"><![CDATA[<h2>背景知識</h2>
+      <content type="html"><![CDATA[<p>很簡單地說，Percona XtraDB Cluster 就是 MySQL 打上了一些特殊的 patch，
+讓 MySQL 可以將某一節點上的寫入動作，重製到其他節點上。</p>
+
+<h2>背景知識</h2>
 
 <h4>Codership</h4>
 
@@ -457,31 +460,31 @@ Percona XtraDB Cluster 的資料庫同步機制是靠 Galera 完成的（即 Wri
 <a href="http://www.percona.com/downloads/XtraBackup/LATEST/">XtraBackup</a></p>
 
 <p>以 Red Hat 環境（RHEL，Cent OS）爲例。</p>
+<div class="highlight"><pre><code class="text">rpm -Uhv http://www.percona.com/downloads/percona-release/percona-release-0.0-1.x86_64.rpm
+yum install Percona-XtraDB-Cluster-server Percona-XtraDB-Cluster-client percona-xtrabackup
+vim /etc/my.cnf
 
-<figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div><div data-line='2' class='line-number'></div><div data-line='3' class='line-number'></div><div data-line='4' class='line-number'></div><div data-line='5' class='line-number'></div><div data-line='6' class='line-number'></div><div data-line='7' class='line-number'></div><div data-line='8' class='line-number'></div><div data-line='9' class='line-number'></div><div data-line='10' class='line-number'></div><div data-line='11' class='line-number'></div><div data-line='12' class='line-number'></div><div data-line='13' class='line-number'></div><div data-line='14' class='line-number'></div><div data-line='15' class='line-number'></div><div data-line='16' class='line-number'></div><div data-line='17' class='line-number'></div><div data-line='18' class='line-number'></div><div data-line='19' class='line-number'></div><div data-line='20' class='line-number'></div><div data-line='21' class='line-number'></div><div data-line='22' class='line-number'></div><div data-line='23' class='line-number'></div><div data-line='24' class='line-number'></div></pre></td><td class='main  bash'><pre><div class='line'>rpm -Uhv http://www.percona.com/downloads/percona-release/percona-release-0.0-1.x86_64.rpm
-</div><div class='line'>yum install Percona-XtraDB-Cluster-server Percona-XtraDB-Cluster-client percona-xtrabackup
-</div><div class='line'>vim /etc/my.cnf
-</div><div class='line'> </div><div class='line'>    <span class="o">[</span>mysqld<span class="o">]</span>
-</div><div class='line'>    <span class="nv">wsrep_provider</span><span class="o">=</span>/usr/lib64/libgalera_smm.so
-</div><div class='line'>    <span class="nv">wsrep_cluster_name</span><span class="o">=</span>叢集的名稱
-</div><div class='line'>    <span class="nv">wsrep_cluster_address</span><span class="o">=</span>gcomm://節點一的位址,節點二的位址,節點三的位址
-</div><div class='line'>    <span class="nv">wsrep_slave_threads</span><span class="o">=</span>4
-</div><div class='line'>    <span class="nv">wsrep_sst_method</span><span class="o">=</span>rsync
-</div><div class='line'>    <span class="nv">binlog_format</span><span class="o">=</span>ROW
-</div><div class='line'>    <span class="nv">default_storage_engine</span><span class="o">=</span>InnoDB
-</div><div class='line'>    <span class="nv">innodb_autoinc_lock_mode</span><span class="o">=</span>2
-</div><div class='line'>    <span class="nv">innodb_locks_unsafe_for_binlog</span><span class="o">=</span>1
-</div><div class='line'> </div><div class='line'>service mysql start --wsrep-cluster-address<span class="o">=</span><span class="s2">&quot;gcomm://&quot;</span>
-</div><div class='line'>mysql -e <span class="s2">&quot;CREATE FUNCTION fnv1a_64 RETURNS INTEGER SONAME &#39;libfnv1a_udf.so&#39;&quot;</span>
-</div><div class='line'>mysql -e <span class="s2">&quot;CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME &#39;libfnv_udf.so&#39;&quot;</span>
-</div><div class='line'>mysql -e <span class="s2">&quot;CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME &#39;libmurmur_udf.so&#39;&quot;</span>
-</div><div class='line'>mysqladmin -u root password <span class="s1">&#39;12345678&#39;</span>
-</div><div class='line'>service mysql stop
-</div><div class='line'>service mysql start
-</div><div class='line'>mysql -u root -p
-</div><div class='line'>mysql&gt; show status like <span class="s1">&#39;wsrep_%&#39;</span>;
-</div></pre></td></tr></table></div></figure>
+    [mysqld]
+    wsrep_provider=/usr/lib64/libgalera_smm.so
+    wsrep_cluster_name=叢集的名稱
+    wsrep_cluster_address=gcomm://節點一的位址,節點二的位址,節點三的位址
+    wsrep_slave_threads=4
+    wsrep_sst_method=rsync
+    binlog_format=ROW
+    default_storage_engine=InnoDB
+    innodb_autoinc_lock_mode=2
+    innodb_locks_unsafe_for_binlog=1
 
+service mysql start --wsrep-cluster-address=&quot;gcomm://&quot;
+mysql -e &quot;CREATE FUNCTION fnv1a_64 RETURNS INTEGER SONAME &#39;libfnv1a_udf.so&#39;&quot;
+mysql -e &quot;CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME &#39;libfnv_udf.so&#39;&quot;
+mysql -e &quot;CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME &#39;libmurmur_udf.so&#39;&quot;
+mysqladmin -u root password &#39;12345678&#39;
+service mysql stop
+service mysql start
+mysql -u root -p
+mysql&gt; show status like &#39;wsrep_%&#39;;
+</code></pre></div>
 <p>以上是第一個節點的設定，其他節點只要重複到啓動 MySQL 那個步驟，
 並將啓動的指令改爲：<code>service mysql start</code></p>
 
@@ -607,7 +610,7 @@ server {
 <link href="http://zx1986.github.io/blog/hp-dl380p-gen8.html"/>
 <updated>2012-08-10T08:57:00+08:00</updated>
 <id>http://zx1986.github.io/blog/hp-dl380p-gen8</id>
-
+<category term="hardware" />
 
       <content type="html"><![CDATA[]]></content>
     </entry>
@@ -706,9 +709,7 @@ $(&quot;a&quot;).live(&quot;click&quot;, function(e)
 <id>http://zx1986.github.io/blog/twig</id>
 <category term="php" />
 
-      <content type="html"><![CDATA[<h4>Reference</h4>
-
-<ul>
+      <content type="html"><![CDATA[<ul>
 <li><a href="http://coding.smashingmagazine.com/2011/10/17/getting-started-with-php-templating/">http://coding.smashingmagazine.com/2011/10/17/getting-started-with-php-templating/</a></li>
 </ul>
 ]]></content>
@@ -726,9 +727,7 @@ $(&quot;a&quot;).live(&quot;click&quot;, function(e)
 <id>http://zx1986.github.io/blog/icon-fonts</id>
 <category term="css" /><category term="font" />
 
-      <content type="html"><![CDATA[<h4>Reference</h4>
-
-<ul>
+      <content type="html"><![CDATA[<ul>
 <li><a href="http://yatil.net/a-better-way-to-use-icon-fonts">http://yatil.net/a-better-way-to-use-icon-fonts</a></li>
 <li><a href="http://24ways.org/2011/displaying-icons-with-fonts-and-data-attributes">http://24ways.org/2011/displaying-icons-with-fonts-and-data-attributes</a></li>
 <li><a href="http://css-tricks.com/examples/IconFont/">http://css-tricks.com/examples/IconFont/</a></li>
@@ -791,9 +790,7 @@ $(&quot;a&quot;).live(&quot;click&quot;, function(e)
 <id>http://zx1986.github.io/blog/ruhoh</id>
 <category term="markdown" /><category term="ruby" />
 
-      <content type="html"><![CDATA[<h4>Reference</h4>
-
-<ul>
+      <content type="html"><![CDATA[<ul>
 <li><a href="http://ruhoh.com/usage/">http://ruhoh.com/usage/</a></li>
 <li><a href="http://ruhoh.com/how-it-works/">http://ruhoh.com/how-it-works/</a></li>
 </ul>
@@ -812,9 +809,7 @@ $(&quot;a&quot;).live(&quot;click&quot;, function(e)
 <id>http://zx1986.github.io/blog/octopress</id>
 <category term="markdown" /><category term="ruby" />
 
-      <content type="html"><![CDATA[<h4>Reference</h4>
-
-<ul>
+      <content type="html"><![CDATA[<ul>
 <li><a href="http://octopress.org/docs/">http://octopress.org/docs/</a></li>
 </ul>
 ]]></content>
@@ -840,8 +835,6 @@ $(&quot;a&quot;).live(&quot;click&quot;, function(e)
 <p><a href="http://yihui.name/cn/2012/02/hello-jekyll/">http://yihui.name/cn/2012/02/hello-jekyll/</a>
 <a href="http://freemind.pluskid.org/technology/the-unbearable-madness-of-static-blog-generators/">http://freemind.pluskid.org/technology/the-unbearable-madness-of-static-blog-generators/</a></p>
 
-<h4>Reference</h4>
-
 <ul>
 <li><a href="https://github.com/mojombo/jekyll/">https://github.com/mojombo/jekyll/</a></li>
 <li><a href="http://jekyllbootstrap.com/">http://jekyllbootstrap.com/</a></li>
@@ -864,6 +857,10 @@ $(&quot;a&quot;).live(&quot;click&quot;, function(e)
       <content type="html"><![CDATA[<h3>HyperText Markup Language</h3>
 
 <p><a href="http://zh.wikipedia.org/wiki/HTML">http://zh.wikipedia.org/wiki/HTML</a></p>
+
+<p>Haml</p>
+
+<p>Jade</p>
 ]]></content>
     </entry>
   
@@ -938,10 +935,11 @@ Language 直接理解就可以，就是『語言』。<br>
 
 <p>具有程式化規則的語言</p>
 
-<p><i class="icon-book"></i><br>
-- <a href="http://en.wikipedia.org/wiki/Software">http://en.wikipedia.org/wiki/Software</a><br>
-- <a href="http://en.wikipedia.org/wiki/Programming_language">http://en.wikipedia.org/wiki/Programming_language</a><br>
-- <a href="http://en.wikipedia.org/wiki/Traditional_Chinese_medicine">http://en.wikipedia.org/wiki/Traditional_Chinese_medicine</a></p>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Software">http://en.wikipedia.org/wiki/Software</a><br></li>
+<li><a href="http://en.wikipedia.org/wiki/Programming_language">http://en.wikipedia.org/wiki/Programming_language</a><br></li>
+<li><a href="http://en.wikipedia.org/wiki/Traditional_Chinese_medicine">http://en.wikipedia.org/wiki/Traditional_Chinese_medicine</a></li>
+</ul>
 ]]></content>
     </entry>
   
