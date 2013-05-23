@@ -10,5 +10,5 @@ Sass v.s. LESS
 
 LESS could work on client side, or work with NodeJS on server side.
 
-+ <http://lesscss.org/>
-+ <http://www.lesscss.net/>
++ http://lesscss.org/
++ http://www.lesscss.net/

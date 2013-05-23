@@ -8,4 +8,4 @@ categories: CSS
 
 CSS < Sass < SCSS
 
-+ <http://sass-lang.com/>
++ http://sass-lang.com/

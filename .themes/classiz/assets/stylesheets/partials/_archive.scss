@@ -29,7 +29,7 @@
   }
   article[data-linklog] .entry-title {
     font-size: $h4;
-    a { text-decoration: underline; }
+    a { text-decoration: none; }
   }
   a.category, time {
     @extend .sans;

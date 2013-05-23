@@ -6,4 +6,4 @@ comments: true
 categories: PHP
 ---
 
-+ <http://coding.smashingmagazine.com/2011/10/17/getting-started-with-php-templating/>
++ http://coding.smashingmagazine.com/2011/10/17/getting-started-with-php-templating/

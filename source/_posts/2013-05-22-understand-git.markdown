@@ -4,7 +4,6 @@ title: "理解 Git"
 date: 2013-05-22T15:49:35+08:00
 comments: true
 external-url: 
-published: false
 categories: 
 - Git
 ---

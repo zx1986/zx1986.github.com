@@ -6,7 +6,8 @@ comments: true
 categories: Javascript
 ---
 
-讀了這個 [Slide](http://fixingthesejquery.com)，想做個筆記。
+讀了一個很棒的 JavaScript/jQuery Debug [投影片](http://fixingthesejquery.com)，
+做個筆記。
 
 首先，要認識各個瀏覽器的 Debugger。
 Firefox，Chrome，甚至 IE，都有它們自己的 Debugger。

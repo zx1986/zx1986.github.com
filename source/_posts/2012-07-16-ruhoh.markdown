@@ -6,5 +6,5 @@ comments: true
 categories: [Ruby, Markdown]
 ---
 
-+ <http://ruhoh.com/usage/>
-+ <http://ruhoh.com/how-it-works/>
++ http://ruhoh.com/usage/
++ http://ruhoh.com/how-it-works/

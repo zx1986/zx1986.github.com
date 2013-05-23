@@ -4,7 +4,6 @@ title: "使用 Github"
 date: 2013-05-22T15:53:47+08:00
 comments: true
 external-url: 
-published: false
 categories: 
 - Git
 ---

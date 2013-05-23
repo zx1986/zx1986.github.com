@@ -8,9 +8,8 @@ categories:
 
 ### HyperText Markup Language
 
-<http://zh.wikipedia.org/wiki/HTML>
+http://zh.wikipedia.org/wiki/HTML
 
+### Haml
 
-Haml
-
-Jade
+### Jade
