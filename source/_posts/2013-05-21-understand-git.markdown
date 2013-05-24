@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "理解 Git"
-date: 2013-05-22T15:49:35+08:00
+title: "瞭解 Git"
+date: 2013-05-21T15:49:35+08:00
 comments: true
 external-url: 
 categories: 

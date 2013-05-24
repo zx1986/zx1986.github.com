@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "安裝 Percona XtraDB Cluster"
-date: 2013-03-04 17:15
+date: 2013-05-25 23:55
 comments: true
 categories:
 - Database

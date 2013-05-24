@@ -1,9 +1,10 @@
 ---
 layout: post
 title: "Programming Language"
-date: 2011-01-01 01:01
+date: 2012-01-01 01:01
 comments: true
-categories: programming
+categories:
+- Code
 ---
 
 我想，學習某項領域的知識，了解其概觀，

@@ -1,0 +1,11 @@
+---
+layout: post
+title: "Medium"
+date: 2012-07-17T12:52:59+08:00
+comments: true
+external-url: 
+categories: 
+- Blog
+---
+
+medium.com
