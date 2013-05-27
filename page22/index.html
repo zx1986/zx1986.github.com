@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: markdown - 張旭</title>
+  <title>張旭</title>
   <meta name="author" content="zx1986">
   
   <meta name="Generator" content="Jekyll & Octopress (http://octopress.org)">
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zx1986.github.io/categories/markdown/index.html">
+  <link rel="canonical" href="http://zx1986.github.io/page22/index.html">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="張旭" type="application/atom+xml">
   
@@ -39,11 +39,11 @@
   <link href="/octopress-favicon.png" rel="icon">
 </head>
 
-<body  id="archive"   >
+<body   >
   <header role="banner"><hgroup>
   <h1><a href="/">張旭</a></h1>
   
-    <h2>I am looking for a job, give me a chance to work with you :-)</h2>
+    <h2>Born in Hainan, China. Live in Taiwan.</h2>
   
 </hgroup>
 
@@ -68,90 +68,109 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div>
-<article role="article">
+      <div class="blog-index">
   
+    
+
+
+
+
+
+
+
+
+
+
+    <article >
+      
   <header>
-    <h1 class="entry-title">Category: Markdown</h1>
+    <h1 class="entry-title">
+
+<a href="/blog/nginx.html">Nginx</a>
+
+</h1>
+
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-11T11:04:00+08:00" pubdate data-updated="true">Oct 11<span>th</span>, 2012</time>
+         &bull; <a rel="bookmark" href="/blog/nginx.html">Permalink</a>
+      </p>
     
   </header>
+
+<div class="entry-content"><div class="highlight"><pre><code class="text"># Passenger
+server {
+  listen 8080;
+  server_name localhost;
+  root /Users/laas/proged/rack_test/public;
+  passenger_enabled on;
+  rack_env production;
+  passenger_min_instances 4;
+}
+
+# Unicorn
+upstream unicorn_server {
+  server unix:/Users/laas/proged/rack_test/tmp/unicorn.sock fail_timeout=0;
+}
+
+server {
+  listen 8081;
+  server_name localhost;
+  root /Users/laas/proged/rack_test/public;
+
+  location / {
+    proxy_pass http://unicorn_server;
+  }
+}
+
+# Thin
+upstream thin_server{
+  server unix:/Users/laas/proged/rack_test/tmp/thin.0.sock fail_timeout=0;
+  server unix:/Users/laas/proged/rack_test/tmp/thin.1.sock fail_timeout=0;
+  server unix:/Users/laas/proged/rack_test/tmp/thin.2.sock fail_timeout=0;
+  server unix:/Users/laas/proged/rack_test/tmp/thin.3.sock fail_timeout=0;
+}
+
+server {
+  listen 8082;
+  server_name localhost;
+  root /Users/laas/proged/rack_test/public;
+
+  location / {
+    proxy_pass http://thin_server;
+  }
+}
+</code></pre></div></div>
+
+  <footer>
+    
+    
+  </footer>
+
+
+    </article>
   
-  <div id="blog-archives" class="category">
-
-
-
-  
-  <h2>2012</h2>
-
-
-
-
-
-
-
-
-
-
-
-
-<article >
-  
-<h1 class="entry-title">
-
-<a href="/blog/ruhoh.html">使用 Ruhoh 寫 Blog</a>
-
-</h1>
-
-<time datetime="2012-07-16T22:00:00+08:00" pubdate><span class='month'>Jul</span> <span class='day'>16</span> <span class='year'>2012</span></time>
-<footer>
-  
-  
-  
-  <span class="categories">posted in <a class='category' href='/categories/markdown/'>markdown</a>, <a class='category' href='/categories/ruby/'>ruby</a></span>
-  
-</footer>
-
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<article >
-  
-<h1 class="entry-title">
-
-<a href="/blog/octopress.html">使用 Octopress 寫 Blog</a>
-
-</h1>
-
-<time datetime="2012-07-16T21:55:00+08:00" pubdate><span class='month'>Jul</span> <span class='day'>16</span> <span class='year'>2012</span></time>
-<footer>
-  
-  
-  
-  <span class="categories">posted in <a class='category' href='/categories/markdown/'>markdown</a>, <a class='category' href='/categories/ruby/'>ruby</a></span>
-  
-</footer>
-
-</article>
-
-</div>
-
-  
-</article>
-
-
-
+  <div class="pagination">
+    
+      <a class="prev" href="23">&larr; Older</a>
+    
+    <a href="/archives/">Blog Archives</a>
+    
+    <a class="next" href="21">Newer &rarr;</a>
+    
+  </div>
 </div>
 
 <aside class="sidebar">
@@ -161,7 +180,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/using-git.html">使用 Git</a>
+        <a href="/blog/puppet.html">使用 Puppet</a>
       </li>
     
       <li class="post">
@@ -169,15 +188,99 @@
       </li>
     
       <li class="post">
+        <a href="/blog/sqlite.html">使用 SQLite</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/grep.html">grep &amp; ack-grep &amp; ag</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/sed.html">sed</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/awk.html">awk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/resque.html">Resque</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/redis.html">redis</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/git-flow.html">使用 git-flow</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/using-github.html">使用 Github</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/understand-git.html">瞭解 Git</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/using-git.html">使用 Git</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ruby-on-rails.html">Ruby on Rails</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ruby-and-rvm-and-gem.html">Ruby &amp; RVM &amp; Gem</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/socketio.html">Socket.io</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/nodejs-and-nvm-and-npm.html">Nodejs &amp; NVM &amp; NPM</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/zeromq.html">ZeroMQ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/rabbitmq.html">RabbitMQ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/vagrant.html">虛擬機工具 Vagrant</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/vmware.html">vmware</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/kvm.html">KVM - Kernel-based VM</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/nginx.html">Nginx</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hp-dl380p-gen8.html">HP DL380p Gen8</a>
+        <a href="/blog/hp-proliant-dl-server.html">HP ProLiant DL Server</a>
       </li>
     
       <li class="post">
         <a href="/blog/debugging-javascript.html">Debugging Javascript</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/less.html">LESS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/compass.html">Compass</a>
       </li>
     
       <li class="post">
@@ -189,11 +292,11 @@
       </li>
     
       <li class="post">
-        <a href="/blog/scss.html">CSS, Sass, SCSS</a>
+        <a href="/blog/scss.html">CSS &amp; Sass &amp; SCSS</a>
       </li>
     
       <li class="post">
-        <a href="/blog/less.html">LESS</a>
+        <a href="/blog/medium.html">Medium</a>
       </li>
     
       <li class="post">
@@ -205,11 +308,11 @@
       </li>
     
       <li class="post">
-        <a href="/blog/jekyll.html">Jekyll 網頁產生器</a>
+        <a href="/blog/jekyll.html">Jekyll</a>
       </li>
     
       <li class="post">
-        <a href="/blog/html.html">HTML</a>
+        <a href="/blog/html.html">HTML &amp; Haml &amp; Jade</a>
       </li>
     
       <li class="post">
