@@ -30,7 +30,7 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/build/all-a919ed3d97a4066758618163b29a9c36.js"></script>
+  <script src="/javascripts/build/all-1b489568a4017249a4f22419e107ed31.js"></script>
   
 
   
@@ -44,7 +44,7 @@
   <h1><a href="/">張旭</a></h1>
   
   <h2 class="looking-for-job">
-    I am looking for a job, give me a chance<b>.</b>
+    I am looking for a job, give me a chance
     <span> to work with you. <i class="icon-smile"></i></span>
   </h2>
 </hgroup>
@@ -88,7 +88,7 @@
   <header>
     <h1 class="entry-title">
 
-<a href="/blog/setup-percona-xtradb-cluster.html">安裝 Percona XtraDB Cluster</a>
+<a href="/blog/zabbix.html">Zabbix</a>
 
 </h1>
 
@@ -106,158 +106,13 @@
   
 
 
-<time datetime="2013-05-25T23:55:00+08:00" pubdate data-updated="true">May 25<span>th</span>, 2013</time>
-         &bull; <a rel="bookmark" href="/blog/setup-percona-xtradb-cluster.html">Permalink</a>
+<time datetime="2013-05-28T14:52:20+08:00" pubdate data-updated="true">May 28<span>th</span>, 2013</time>
+         &bull; <a rel="bookmark" href="/blog/zabbix.html">Permalink</a>
       </p>
     
   </header>
 
-<div class="entry-content"><p>很簡單地說，Percona XtraDB Cluster 就是 MySQL 打上了一些特殊的 patch，
-讓 MySQL 可以將某一節點上的寫入動作，重製到其他節點上。</p>
-
-<h2>背景知識</h2>
-
-<h4>Codership</h4>
-
-<p><a href="http://www.codership.com/company/">Codership</a> 是一家成立於 2007 年的公司，公司的 Founder 都是 Database 專家。
-Codership 致力於研究及實做高擴展性且快速的資料庫同步機制（Replication），
-並帶頭制定了名爲 WSREP 的 API 標準，且根據這套 API 實做了 Galera 同步器（Replicator）。</p>
-
-<h4>WSREP（Write Set REPlication）</h4>
-
-<p><a href="https://launchpad.net/wsrep/">WSREP</a> 是一個爲 DBMS（DataBase Management System）設計的 API 標準，
-它爲 DBMS 類型的應用程式建立了一個 Replication 介面（Interface），
-這個介面位於 DBMS 軟體與 Replication Servcie Provider（即 Replicator）之間。
-<a href="https://launchpad.net/wsrep-group/">WSREP Group</a> 是討論與建立這個標準的開放性羣組。</p>
-
-<blockquote>
-<p>WSREP API defines a set of application callbacks and replication library calls necessary to implement synchronous writeset replication of transactional databases and similar applications. It aims to abstract and isolate replication implementation from application details.</p>
-</blockquote>
-
-<h4>Galera Replicator</h4>
-
-<p><a href="https://launchpad.net/galera/">Galera</a> 是一套根據 WSREP 標準實做出來的 Replication 函式庫。
-Galera 的運作架構可以參考<a href="http://www.codership.com/products/galera_replication/">它們的說明</a>。大致的原則是：
-當對 Cluster 中其中一個節點做寫入（Write）時，
-Galera 會自動將寫入動作 Replicate 到 Cluster 其他的節點上。</p>
-
-<blockquote>
-<p>Galera implements WSREP pluggable interface, and can provide several replication modes and topologies, including the ultimate Synchronous Multi-Master replication.</p>
-</blockquote>
-
-<h4>MySQL Galera Cluster</h4>
-
-<p>傳統的 <a href="http://www.codership.com/products/mysql_galera/">MySQL Server</a> 只要打上 WSREP 的 Patch，支援了 WSREP 介面，
-再搭配使用 Galera 函式庫，調整好設定檔，就可以組出一個 Cluster。</p>
-
-<blockquote>
-<p>MySQL/Galera cluster uses Galera library for the replication implementation. To interface with Galera replication, we have enhanced MySQL server to support replication API definition in the wsrep API project.</p>
-</blockquote>
-
-<h4>MariaDB Galera Cluster</h4>
-
-<p>相較於 MySQL 要額外打 Patch，MariaDB 直接推出包好的 <a href="https://downloads.mariadb.org/mariadb-galera/">MariaDB Galera Cluster</a>，
-MariaDB 還針對不同的 Linux 發佈版提供了<a href="https://downloads.mariadb.org/mariadb/repositories/">套件庫</a>。
-它是 Percona XtraDB Cluster 之外的另一個選擇。</p>
-
-<h4>Percona XtraDB Cluster（PXC）</h4>
-
-<p>Percona 是一家專業的 MySQL 顧問與技術公司，
-他們有一個很知名的 MySQL Blog：<a href="http://www.mysqlperformanceblog.com">MySQL Performance</a>；
-Percona 也開發了許多知名的<a href="http://www.percona.com/software">資料庫工具與軟體</a>。</p>
-
-<p>XtraDB 是 Percona 基於 InnoDB 改良出來的一個資料庫引擎。
-在 XtraDB 引擎的基礎上，Percona 發佈了一個修改過的 MySQL：Percona Server，
-而 Percona XtraDB Cluster 則是 Percona Server + Galera Library 的整合產品。
-Percona XtraDB Cluster 的資料庫同步機制是靠 Galera 完成的（即 Write Replication）。 </p>
-
-<h2>安裝 Percona XtraDB Cluster</h2>
-
-<p>最新的 XtraDB 安裝檔：<br>
-<a href="http://www.percona.com/downloads/Percona-XtraDB-Cluster/LATEST/">Percona XtraDB Cluster</a><br>
-<a href="http://www.percona.com/downloads/XtraBackup/LATEST/">XtraBackup</a></p>
-
-<p>以 Red Hat 環境（RHEL，Cent OS）爲例。</p>
-<div class="highlight"><pre><code class="text">rpm -Uhv http://www.percona.com/downloads/percona-release/percona-release-0.0-1.x86_64.rpm
-yum install Percona-XtraDB-Cluster-server Percona-XtraDB-Cluster-client percona-xtrabackup
-vim /etc/my.cnf
-
-    [mysqld]
-    wsrep_provider=/usr/lib64/libgalera_smm.so
-    wsrep_cluster_name=叢集的名稱
-    wsrep_cluster_address=gcomm://節點一的位址,節點二的位址,節點三的位址
-    wsrep_slave_threads=4
-    wsrep_sst_method=rsync
-    binlog_format=ROW
-    default_storage_engine=InnoDB
-    innodb_autoinc_lock_mode=2
-    innodb_locks_unsafe_for_binlog=1
-
-service mysql start --wsrep-cluster-address=&quot;gcomm://&quot;
-mysql -e &quot;CREATE FUNCTION fnv1a_64 RETURNS INTEGER SONAME &#39;libfnv1a_udf.so&#39;&quot;
-mysql -e &quot;CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME &#39;libfnv_udf.so&#39;&quot;
-mysql -e &quot;CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME &#39;libmurmur_udf.so&#39;&quot;
-mysqladmin -u root password &#39;12345678&#39;
-service mysql stop
-service mysql start
-mysql -u root -p
-mysql&gt; show status like &#39;wsrep_%&#39;;
-</code></pre></div>
-<p>以上是第一個節點的設定，其他節點只要重複到啓動 MySQL 那個步驟，
-並將啓動的指令改爲：<code>service mysql start</code></p>
-
-<ul>
-<li><code>--wsrep-cluster-address=&quot;gcomm://&quot;</code> 參數代表初始化一個全新的叢集！</li>
-</ul>
-
-<h4>SST</h4>
-
-<blockquote>
-<p>State Snapshot Transfer is the full copy of data from one node to another.</p>
-</blockquote>
-
-<p>SST 是 State Snapshot Transfer 的縮寫，指的是 PXC 各節點間同步資料的方式。
-可以在 /etc/my.cnf 中透過 wsrep_sst_method 參數來設定。
-PXC 有三種同步方式，分別是：</p>
-
-<ul>
-<li>wsrep_sst_method=mysqldump</li>
-</ul>
-
-<blockquote>
-<p>If you use mysqldump SST it should be the same as this mysql client connection address plus you need to set wsrep_sst_auth variable to hold user:password pair. The user should be privileged enough to read system tables from donor and create system tables on this node. For simplicity that could be just the root user. Note that it also means that you need to properly set up the privileges on the new node before attempting to join the cluster.</p>
-</blockquote>
-
-<ul>
-<li>wsrep_sst_method=rsync</li>
-</ul>
-
-<blockquote>
-<p>If you use rsync SST, wsrep_sst_auth is not necessary unless your SST script makes use of it.</p>
-</blockquote>
-
-<ul>
-<li>wsrep_sst_method=xtrabackup</li>
-</ul>
-
-<blockquote>
-<p>If you use xtrabackup as SST method, it will use /usr/bin/wsrep_sst_xtrabackup provided in Percona-XtraDB-Cluster-server package. And this script also needs user password if you have a password for root@localhost.</p>
-</blockquote>
-
-<p>要使用 <a href="http://serverfault.com/questions/389190/xtrabackup-for-sst-with-xtradb-cluster">xtrabackup 當作 SST method</a> 時，
-需要設定 Database 的 root password 到 /etc/my.cnf 內，
-例如：<code>wsrep_sst_auth=root:12345678</code></p>
-
-<p>PXC 官方手冊：<br>
-<a href="http://www.percona.com/doc/percona-xtradb-cluster/installation.html">http://www.percona.com/doc/percona-xtradb-cluster/installation.html</a><br>
-<a href="http://www.percona.com/doc/percona-xtradb-cluster/manual/bootstrap.html">http://www.percona.com/doc/percona-xtradb-cluster/manual/bootstrap.html</a>   </p>
-
-<p>PXC 專有名詞：<br>
-<a href="http://www.percona.com/doc/percona-xtradb-cluster/glossary.html">http://www.percona.com/doc/percona-xtradb-cluster/glossary.html</a></p>
-
-<p>Reference：<br>
-<a href="http://www.mysqlperformanceblog.com/2013/01/29/how-to-start-a-percona-xtradb-cluster/">http://www.mysqlperformanceblog.com/2013/01/29/how-to-start-a-percona-xtradb-cluster/</a><br>
-<a href="http://www.percona.com/files/presentations/WEBINAR-percona-xtradb-cluster-installation-and-setup.pdf">http://www.percona.com/files/presentations/WEBINAR-percona-xtradb-cluster-installation-and-setup.pdf</a>   </p>
+<div class="entry-content"><p><a href="http://www.zabbix.com/">http://www.zabbix.com/</a></p>
 </div>
 
   <footer>
@@ -284,6 +139,14 @@ PXC 有三種同步方式，分別是：</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/webmin.html">Webmin</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/zabbix.html">Zabbix</a>
+      </li>
     
       <li class="post">
         <a href="/blog/puppet.html">使用 Puppet</a>

@@ -3,7 +3,7 @@
   <title><![CDATA[張旭]]></title>
   <link href="http://zx1986.github.io/atom.xml" rel="self"/>
   <link href="http://zx1986.github.io/"/>
-  <updated>2013-05-28T13:03:29+08:00</updated>
+  <updated>2013-05-28T15:08:53+08:00</updated>
   <id>http://zx1986.github.io/</id>
   <author>
     <name><![CDATA[zx1986]]></name>
@@ -11,6 +11,38 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+    <entry>
+      
+
+
+
+
+<title type="html"><![CDATA[Webmin]]></title>
+<link href="http://zx1986.github.io/blog/webmin.html"/>
+<updated>2013-05-28T14:53:26+08:00</updated>
+<id>http://zx1986.github.io/blog/webmin</id>
+<category term="linux" /><category term="system" />
+
+      <content type="html"><![CDATA[<p><a href="http://www.webmin.com/">http://www.webmin.com/</a></p>
+]]></content>
+    </entry>
+  
+    <entry>
+      
+
+
+
+
+<title type="html"><![CDATA[Zabbix]]></title>
+<link href="http://zx1986.github.io/blog/zabbix.html"/>
+<updated>2013-05-28T14:52:20+08:00</updated>
+<id>http://zx1986.github.io/blog/zabbix</id>
+<category term="linux" /><category term="network" /><category term="system" />
+
+      <content type="html"><![CDATA[<p><a href="http://www.zabbix.com/">http://www.zabbix.com/</a></p>
+]]></content>
+    </entry>
   
     <entry>
       
@@ -990,36 +1022,6 @@ git fsck --full       # 應該是類似 Git 磁碟重組之類的東西
 <updated>2013-04-25T11:56:21+08:00</updated>
 <id>http://zx1986.github.io/blog/rabbitmq</id>
 <category term="message queue" />
-
-      <content type="html"><![CDATA[]]></content>
-    </entry>
-  
-    <entry>
-      
-
-
-
-
-<title type="html"><![CDATA[虛擬機工具 Vagrant]]></title>
-<link href="http://zx1986.github.io/blog/vagrant.html"/>
-<updated>2013-04-01T17:04:17+08:00</updated>
-<id>http://zx1986.github.io/blog/vagrant</id>
-<category term="virtualization" />
-
-      <content type="html"><![CDATA[]]></content>
-    </entry>
-  
-    <entry>
-      
-
-
-
-
-<title type="html"><![CDATA[vmware]]></title>
-<link href="http://zx1986.github.io/blog/vmware.html"/>
-<updated>2013-04-01T10:04:32+08:00</updated>
-<id>http://zx1986.github.io/blog/vmware</id>
-<category term="virtualization" />
 
       <content type="html"><![CDATA[]]></content>
     </entry>
