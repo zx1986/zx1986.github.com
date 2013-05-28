@@ -3,7 +3,7 @@
   <title><![CDATA[張旭]]></title>
   <link href="http://zx1986.github.io/atom.xml" rel="self"/>
   <link href="http://zx1986.github.io/"/>
-  <updated>2013-05-27T23:47:20+08:00</updated>
+  <updated>2013-05-28T12:32:36+08:00</updated>
   <id>http://zx1986.github.io/</id>
   <author>
     <name><![CDATA[zx1986]]></name>
@@ -25,9 +25,10 @@
 <category term="linux" /><category term="ruby" />
 
       <content type="html"><![CDATA[<p><a href="http://puppetlabs.com/">Puppet</a> 
-是一個用 Ruby 語言開發的 Client/Server 式的配置、設定、服務管理工具。</p>
+是用 Ruby 語言開發的 Client/Server 式的配置、設定、服務管理工具。</p>
 
-<p>簡單講，所有機器的配置集中在 Puppet Server 上管理，
+<p>簡單描述一下，
+就是所有機器的配置集中在 Puppet Server 上管理，
 Puppet Client 機器連線到 Puppet Server，
 Puppet Server 根據 Puppet Client 提供的資訊，
 動態產生正確的配置，對 Puppet Client 進行設定。</p>
@@ -472,7 +473,7 @@ PXC 有三種同步方式，分別是：</p>
 
 
 
-<title type="html"><![CDATA[redis]]></title>
+<title type="html"><![CDATA[Redis]]></title>
 <link href="http://zx1986.github.io/blog/redis.html"/>
 <updated>2013-05-23T17:04:00+08:00</updated>
 <id>http://zx1986.github.io/blog/redis</id>
