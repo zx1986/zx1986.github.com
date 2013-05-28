@@ -10,9 +10,10 @@ categories:
 ---
 
 [Puppet](http://puppetlabs.com/) 
-是一個用 Ruby 語言開發的 Client/Server 式的配置、設定、服務管理工具。
+是用 Ruby 語言開發的 Client/Server 式的配置、設定、服務管理工具。
 
-簡單講，所有機器的配置集中在 Puppet Server 上管理，
+簡單描述一下，
+就是所有機器的配置集中在 Puppet Server 上管理，
 Puppet Client 機器連線到 Puppet Server，
 Puppet Server 根據 Puppet Client 提供的資訊，
 動態產生正確的配置，對 Puppet Client 進行設定。

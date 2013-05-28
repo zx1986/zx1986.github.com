@@ -2,5 +2,20 @@
 // Add styles here to make changes without digging in too much
 
 a, a:hover {
-    text-decoration: none;
+  text-decoration: none;
+}
+
+.looking-for-job span {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  letter-spacing: -0.5em;
+  transition: all 0.3s;
+  transition-delay: 0s;
+  transition-timing-function: ease;
+}
+
+hgroup:hover span {
+  opacity: 1;
+  letter-spacing: 0em;
 }
