@@ -30,7 +30,7 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/build/all-1b489568a4017249a4f22419e107ed31.js"></script>
+  <script src="/javascripts/build/all-5aed1b1dad3de1cb00b37be41b3ba9c1.js"></script>
   
 
   
@@ -88,7 +88,7 @@
   <header>
     <h1 class="entry-title">
 
-<a href="/blog/hp-proliant-dl-server.html">HP ProLiant DL Server</a>
+<a href="/blog/nginx.html">Nginx</a>
 
 </h1>
 
@@ -106,17 +106,55 @@
   
 
 
-<time datetime="2012-08-10T08:57:00+08:00" pubdate data-updated="true">Aug 10<span>th</span>, 2012</time>
-         &bull; <a rel="bookmark" href="/blog/hp-proliant-dl-server.html">Permalink</a>
+<time datetime="2012-10-11T11:04:00+08:00" pubdate data-updated="true">Oct 11<span>th</span>, 2012</time>
+         &bull; <a rel="bookmark" href="/blog/nginx.html">Permalink</a>
       </p>
     
   </header>
 
-<div class="entry-content"><p>Gen7<br>
-Gen8   </p>
+<div class="entry-content"><div class="highlight"><pre><code class="text"># Passenger
+server {
+  listen 8080;
+  server_name localhost;
+  root /Users/laas/proged/rack_test/public;
+  passenger_enabled on;
+  rack_env production;
+  passenger_min_instances 4;
+}
 
-<p><a href="http://h10010.www1.hp.com/wwpc/pscmisc/vac/us/en/sm/proliant/proliant-dl.html">http://h10010.www1.hp.com/wwpc/pscmisc/vac/us/en/sm/proliant/proliant-dl.html</a></p>
-</div>
+# Unicorn
+upstream unicorn_server {
+  server unix:/Users/laas/proged/rack_test/tmp/unicorn.sock fail_timeout=0;
+}
+
+server {
+  listen 8081;
+  server_name localhost;
+  root /Users/laas/proged/rack_test/public;
+
+  location / {
+    proxy_pass http://unicorn_server;
+  }
+}
+
+# Thin
+upstream thin_server{
+  server unix:/Users/laas/proged/rack_test/tmp/thin.0.sock fail_timeout=0;
+  server unix:/Users/laas/proged/rack_test/tmp/thin.1.sock fail_timeout=0;
+  server unix:/Users/laas/proged/rack_test/tmp/thin.2.sock fail_timeout=0;
+  server unix:/Users/laas/proged/rack_test/tmp/thin.3.sock fail_timeout=0;
+}
+
+server {
+  listen 8082;
+  server_name localhost;
+  root /Users/laas/proged/rack_test/public;
+
+  location / {
+    proxy_pass http://thin_server;
+  }
+}
+</code></pre></div></div>
 
   <footer>
     
@@ -142,6 +180,10 @@ Gen8   </p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/gluster.html">Gluster</a>
+      </li>
     
       <li class="post">
         <a href="/blog/webmin.html">Webmin</a>
@@ -281,6 +323,10 @@ Gen8   </p>
     
       <li class="post">
         <a href="/blog/jekyll.html">Jekyll</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/openstack.html">OpenStack</a>
       </li>
     
       <li class="post">
