@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "在 Medium 寫 Blog"
-date: 2012-07-17T12:52:59+08:00
+title: "Medium"
+date: 2013-05-30T12:52:59+08:00
 comments: true
 external-url: 
 categories: 
