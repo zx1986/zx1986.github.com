@@ -30,7 +30,7 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/build/all-30925cb658557077ff3e9add035fedee.js"></script>
+  <script src="/javascripts/build/all-ea3b495bac3c0f655d8787fca70a37fb.js"></script>
   
 
   
@@ -112,12 +112,10 @@
     
   </header>
 
-<div class="entry-content"><p>本文記錄 RHEL 6.3 x86_64 環境中安裝 Gitlab 的過程。
+<div class="entry-content"><p>本文記錄 RHEL 6.3 x86_64 環境中安裝 Gitlab 的過程。<br>
 如果是 Ubuntu 的環境要安裝 Gitlab，可以直接參考<a href="https://github.com/gitlabhq/gitlabhq#installation">官方的安裝手冊</a>。</p>
 
 <h2>安裝相依性套件</h2>
-
-<p>先安裝 EPEL 套件庫：</p>
 
 <ol>
 <li>cd /opt</li>
@@ -139,8 +137,8 @@
 <li>service postfix start</li>
 </ol>
 
-<p>如果EPEL 套件庫少東西，請到 <a href="http://pkgs.org/">http://pkgs.org/</a> 把套件手動補齊。
-比較常有問題的以下這幾個套件：</p>
+<p>如果EPEL 套件庫少東西，請到 <a href="http://pkgs.org/">http://pkgs.org/</a> 把套件手動補齊。<br>
+比較常有問題的是以下這幾個套件：</p>
 
 <ul>
 <li>gdbm-devel</li>
@@ -175,20 +173,18 @@
 <li>cd /home/git/temp</li>
 <li>wget -c &ldquo;<a href="http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p392.tar.gz">http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p392.tar.gz</a>&rdquo;</li>
 <li>tar zxvf ruby-1.9.3-p392.tar.gz &amp;&amp; cd ruby-1.9.3-p392</li>
-<li>./configure &ndash;prefix=/home/git/ruby</li>
+<li>./configure &ndash;&ndash;prefix=/home/git/ruby</li>
 <li>make</li>
 <li>make install</li>
-<li><p>vim ~/.bash_profile
-<figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'>    PATH=$HOME/ruby/bin:$PATH:$HOME/bin;</div></pre></td></tr></table></div></figure></p></li>
-<li><p>vim ~/.bashrc
-<figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'>PATH=$HOME/ruby/bin:$PATH:$HOME/bin;</div></pre></td></tr></table></div></figure></p></li>
-<li><p>source ~/.bash_profile</p></li>
-<li><p>which ruby</p></li>
-<li><p>ruby &ndash;version</p></li>
-<li><p>gem install bundler</p></li>
-<li><p>gem install charlock_holmes &ndash;version &#39;0.6.9&#39;</p></li>
-<li><p>cd ~</p></li>
-<li><p>rm -rf ~/temp</p></li>
+<li>vim ~/.bash_profile   <code>PATH=$HOME/ruby/bin:$PATH:$HOME/bin;</code></li>
+<li>vim ~/.bashrc   <code>PATH=$HOME/ruby/bin:$PATH:$HOME/bin;</code></li>
+<li>source ~/.bash_profile</li>
+<li>which ruby</li>
+<li>ruby &ndash;&ndash;version</li>
+<li>gem install bundler</li>
+<li>gem install charlock_holmes &ndash;&ndash;version &#39;0.6.9&#39;</li>
+<li>cd ~</li>
+<li>rm -rf ~/temp</li>
 </ol>
 
 <h2>設定資料庫</h2>
@@ -211,20 +207,24 @@
 <li>git clone <a href="http://github.com/gitlabhq/gitlab-shell.git">http://github.com/gitlabhq/gitlab-shell.git</a></li>
 <li>cd gitlab-shell</li>
 <li>cp config.yml.example config.yml</li>
-<li><p>vim config.yml
+<li>vim config.yml</li>
+</ol>
+
 <figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div><div data-line='2' class='line-number'></div><div data-line='3' class='line-number'></div><div data-line='4' class='line-number'></div><div data-line='5' class='line-number'></div><div data-line='6' class='line-number'></div><div data-line='7' class='line-number'></div><div data-line='8' class='line-number'></div><div data-line='9' class='line-number'></div><div data-line='10' class='line-number'></div><div data-line='11' class='line-number'></div><div data-line='12' class='line-number'></div><div data-line='13' class='line-number'></div><div data-line='14' class='line-number'></div><div data-line='15' class='line-number'></div><div data-line='16' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'># GitLab user. git by default
 </div><div class='line'>user: git
 </div><div class='line'> </div><div class='line'># Url to gitlab instance. Used for api calls. Should be ends with slash.
-</div><div class='line'>gitlab_url: &quot;<a href="http://test-git.mfc.cwb/">http://test-git.mfc.cwb/</a>&quot;
+</div><div class='line'>gitlab_url: "http://test-git.mfc.cwb/"
 </div><div class='line'> </div><div class='line'>http_settings:
 </div><div class='line'>#  user: someone
 </div><div class='line'>#  password: somepass
-</div><div class='line'>  self_signed_cert: false
+</div><div class='line'>   self_signed_cert: false
 </div><div class='line'> </div><div class='line'># Repositories path
-</div><div class='line'>repos_path: &quot;/home/git/repositories&quot;
+</div><div class='line'>repos_path: "/home/git/repositories"
 </div><div class='line'> </div><div class='line'># File used as authorized_keys for gitlab user
-</div><div class='line'>auth_file: &quot;/home/git/.ssh/authorized_keys&quot;</div></pre></td></tr></table></div></figure></p></li>
-<li><p>/home/git/gitlab-shell/bin/install</p></li>
+</div><div class='line'>auth_file: "/home/git/.ssh/authorized_keys"</div></pre></td></tr></table></div></figure>
+
+<ol>
+<li>/home/git/gitlab-shell/bin/install</li>
 </ol>
 
 <h2>安裝 Gitlab</h2>
@@ -232,33 +232,38 @@
 <ol>
 <li>su - git</li>
 <li>cd /home/git</li>
-<li>git config &ndash;global user.name  &ldquo;GitLab&rdquo;</li>
-<li>git config &ndash;global user.email &ldquo;<a href="mailto:gitlab@gitlab.YOUR.HOST">gitlab@gitlab.YOUR.HOST</a>&rdquo;</li>
+<li>git config &ndash;&ndash;global user.name  &ldquo;GitLab&rdquo;</li>
+<li>git config &ndash;&ndash;global user.email &ldquo;<a href="mailto:gitlab@gitlab.YOUR.HOST">gitlab@gitlab.YOUR.HOST</a>&rdquo;</li>
 <li>mkdir gitlab-satellites</li>
 <li>git clone <a href="http://github.com/gitlabhq/gitlabhq.git">http://github.com/gitlabhq/gitlabhq.git</a> gitlab</li>
 <li>cd gitlab</li>
 <li>git checkout 5-0-stable</li>
 <li>more VERSION</li>
 <li>cp config/gitlab.yml.example config/gitlab.yml</li>
-<li><p>vim config/gitlab.yml
-<figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div><div data-line='2' class='line-number'></div><div data-line='3' class='line-number'></div><div data-line='4' class='line-number'></div><div data-line='5' class='line-number'></div><div data-line='6' class='line-number'></div><div data-line='7' class='line-number'></div><div data-line='8' class='line-number'></div><div data-line='9' class='line-number'></div><div data-line='10' class='line-number'></div><div data-line='11' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'>  ## GitLab settings
+<li>vim config/gitlab.yml</li>
+</ol>
+
+<figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div><div data-line='2' class='line-number'></div><div data-line='3' class='line-number'></div><div data-line='4' class='line-number'></div><div data-line='5' class='line-number'></div><div data-line='6' class='line-number'></div><div data-line='7' class='line-number'></div><div data-line='8' class='line-number'></div><div data-line='9' class='line-number'></div><div data-line='10' class='line-number'></div><div data-line='11' class='line-number'></div><div data-line='12' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'>## GitLab settings
 </div><div class='line'>  gitlab:
-</div><div class='line'>    ## Web server settings
-</div><div class='line'>    host: test-git.mfc.cwb
-</div><div class='line'>    port: 80
-</div><div class='line'>    https: false
-</div><div class='line'>    user: git
-</div><div class='line'> </div><div class='line'>  ## Gravatar
+</div><div class='line'> </div><div class='line'>## Web server settings
+</div><div class='line'>  host: test-git.mfc.cwb
+</div><div class='line'>  port: 80
+</div><div class='line'>  https: false
+</div><div class='line'>  user: git
+</div><div class='line'> </div><div class='line'>## Gravatar
 </div><div class='line'>  gravatar:
-</div><div class='line'>    enabled: false</div></pre></td></tr></table></div></figure></p></li>
-<li><p>mkdir tmp/pids/</p></li>
-<li><p>chown -R git log/ tmp/</p></li>
-<li><p>chmod -R u+rwX  log/ tmp/</p></li>
-<li><p>cp config/unicorn.rb.example config/unicorn.rb</p></li>
-<li><p>vim config/unicorn.rb
-<figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'>  listen &quot;127.0.0.1:8080&quot;</div></pre></td></tr></table></div></figure></p></li>
-<li><p>cp config/database.yml.mysql config/database.yml</p></li>
-<li><p>vim config/database.yml
+</div><div class='line'>  enabled: false</div></pre></td></tr></table></div></figure>
+
+<ol>
+<li>mkdir tmp/pids/</li>
+<li>chown -R git log/ tmp/</li>
+<li>chmod -R u+rwX  log/ tmp/</li>
+<li>cp config/unicorn.rb.example config/unicorn.rb</li>
+<li>vim config/unicorn.rb   <code>listen &quot;127.0.0.1:8080&quot;</code></li>
+<li>cp config/database.yml.mysql config/database.yml</li>
+<li>vim config/database.yml</li>
+</ol>
+
 <figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div><div data-line='2' class='line-number'></div><div data-line='3' class='line-number'></div><div data-line='4' class='line-number'></div><div data-line='5' class='line-number'></div><div data-line='6' class='line-number'></div><div data-line='7' class='line-number'></div><div data-line='8' class='line-number'></div><div data-line='9' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'>production:
 </div><div class='line'>  adapter: mysql2
 </div><div class='line'>  encoding: utf8
@@ -266,29 +271,31 @@
 </div><div class='line'>  database: gitlab
 </div><div class='line'>  pool: 5
 </div><div class='line'>  username: gitlab
-</div><div class='line'>  password: &quot;12345678&quot;
-</div><div class='line'>  host: localhost</div></pre></td></tr></table></div></figure></p></li>
-<li><p>cd /home/git/gitlab</p></li>
-<li><p>-編輯 Gemfile 並將所有 git:// 與 https:// 改成 http://-</p></li>
-<li><p>bundle install &ndash;no-deployment</p></li>
-<li><p>bundle install &ndash;deployment &ndash;without development test postgres</p></li>
-<li><p>bundle exec rake gitlab:setup RAILS_ENV=production</p></li>
-<li><p>-bundle exec rake db:seed_fu RAILS_ENV=production-</p></li>
-<li><p>bundle exec rake gitlab:env:info RAILS_ENV=production</p></li>
-<li><p>bundle exec rake gitlab:check RAILS_ENV=production</p></li>
+</div><div class='line'>  password: "12345678"
+</div><div class='line'>  host: localhost</div></pre></td></tr></table></div></figure>
+
+<ol>
+<li>cd /home/git/gitlab</li>
+<li><del>編輯 Gemfile 並將所有 git:// 與 https:// 改成 http://</del></li>
+<li>bundle install &ndash;&ndash;no-deployment</li>
+<li>bundle install &ndash;&ndash;deployment &ndash;&ndash;without development test postgres</li>
+<li>bundle exec rake gitlab:setup RAILS_ENV=production</li>
+<li><del>bundle exec rake db:seed_fu RAILS_ENV=production</del></li>
+<li>bundle exec rake gitlab:env:info RAILS_ENV=production</li>
+<li>bundle exec rake gitlab:check RAILS_ENV=production</li>
 </ol>
 
 <ul>
 <li>碰到 invalid gem format for /path/to/cache/xxx.gem 問題，
-直接刪掉該 cache 的 gem，再重跑 bundle install 即可</li>
+刪掉該 cache 的 gem，再重跑 bundle install 即可</li>
 </ul>
 
 <h2>設定 Gitlab 啓動腳本</h2>
 
 <ol>
 <li>su - root</li>
-<li>curl &ndash;output /etc/init.d/gitlab <a href="https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab">https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab</a></li>
-<li>chkconfig &ndash;add gitlab</li>
+<li>curl &ndash;&ndash;output /etc/init.d/gitlab <a href="https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab">https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab</a></li>
+<li>chkconfig &ndash;&ndash;add gitlab</li>
 <li>chkconfig gitlab on</li>
 <li>chmod +x /etc/init.d/gitlab</li>
 <li>/etc/init.d/gitlab start</li>
@@ -301,20 +308,24 @@
 <ol>
 <li>su - root</li>
 <li>yum install httpd</li>
-<li><p>vim /etc/httpd/conf/httpd.conf
-<figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div><div data-line='2' class='line-number'></div><div data-line='3' class='line-number'></div><div data-line='4' class='line-number'></div><div data-line='5' class='line-number'></div><div data-line='6' class='line-number'></div><div data-line='7' class='line-number'></div><div data-line='8' class='line-number'></div><div data-line='9' class='line-number'></div><div data-line='10' class='line-number'></div><div data-line='11' class='line-number'></div><div data-line='12' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'>  NameVirtualHost *:80
-</div><div class='line'> </div><div class='line'>  &lt;VirtualHost *:80&gt;
-</div><div class='line'>            ServerName gitlab.YOUR.HOST
-</div><div class='line'>            DocumentRoot /home/git/gitlab/public
-</div><div class='line'>            CustomLog logs/gitlab-access.log combined
-</div><div class='line'>            ErrorLog logs/gitlab-error.log
-</div><div class='line'> </div><div class='line'>            ProxyPass /  <a href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a>
-</div><div class='line'>            ProxyPassReverse /  <a href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a>
-</div><div class='line'>            ProxyPreserveHost On
-</div><div class='line'>  &lt;/VirtualHost&gt;</div></pre></td></tr></table></div></figure></p></li>
-<li><p>chmod 755 /home/git</p></li>
-<li><p>chkconfig httpd on</p></li>
-<li><p>service httpd restart</p></li>
+<li>vim /etc/httpd/conf/httpd.conf</li>
+</ol>
+
+<figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div><div data-line='2' class='line-number'></div><div data-line='3' class='line-number'></div><div data-line='4' class='line-number'></div><div data-line='5' class='line-number'></div><div data-line='6' class='line-number'></div><div data-line='7' class='line-number'></div><div data-line='8' class='line-number'></div><div data-line='9' class='line-number'></div><div data-line='10' class='line-number'></div><div data-line='11' class='line-number'></div><div data-line='12' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'>NameVirtualHost *:80
+</div><div class='line'> </div><div class='line'>&lt;VirtualHost *:80>
+</div><div class='line'>    ServerName gitlab.YOUR.HOST
+</div><div class='line'>    DocumentRoot /home/git/gitlab/public
+</div><div class='line'>    CustomLog logs/gitlab-access.log combined
+</div><div class='line'>    ErrorLog logs/gitlab-error.log
+</div><div class='line'> </div><div class='line'>    ProxyPass /  http://127.0.0.1:8080/
+</div><div class='line'>    ProxyPassReverse /  http://127.0.0.1:8080/
+</div><div class='line'>    ProxyPreserveHost On
+</div><div class='line'>&lt;/VirtualHost></div></pre></td></tr></table></div></figure>
+
+<ol>
+<li>chmod 755 /home/git</li>
+<li>chkconfig httpd on</li>
+<li>service httpd restart</li>
 </ol>
 
 <p>Gitlab 預設帳號：<a href="mailto:admin@local.host">admin@local.host</a><br>
@@ -349,7 +360,7 @@ Gitlab 預設密碼：5iveL!fe   </p>
       </li>
     
       <li class="post">
-        <a href="/blog/gitlab-ci.html">Gitlab CI</a>
+        <a href="/blog/gitlab-ci.html">安裝 Gitlab CI</a>
       </li>
     
       <li class="post">

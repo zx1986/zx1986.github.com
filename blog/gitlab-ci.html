@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Gitlab CI - 張旭</title>
+  <title>安裝 Gitlab CI - 張旭</title>
   <meta name="author" content="zx1986">
   
   <meta name="Generator" content="Jekyll & Octopress (http://octopress.org)">
@@ -30,7 +30,7 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/build/all-30925cb658557077ff3e9add035fedee.js"></script>
+  <script src="/javascripts/build/all-ea3b495bac3c0f655d8787fca70a37fb.js"></script>
   
 
   
@@ -87,7 +87,7 @@
   <header>
     <h1 class="entry-title">
 
-Gitlab CI
+安裝 Gitlab CI
 
 </h1>
 
@@ -111,7 +111,11 @@ Gitlab CI
     
   </header>
 
-<div class="entry-content"><p>在 RHEL（Red Hat/CentOS/Fedora）環境安裝 Gitlab CI；<br>
+<div class="entry-content"><h2>關於 Continous Integration</h2>
+
+<p>&hellip;&hellip;</p>
+
+<p>在 RHEL（Red Hat/CentOS/Fedora）環境安裝 Gitlab CI；<br>
 以下安裝過程爲 RHEL 6.3 x86_64 中的執行記錄。</p>
 
 <h2>Install Required Packages</h2>
@@ -164,7 +168,7 @@ Gitlab CI
 
 <ol>
 <li>su - gitlab_ci</li>
-<li>\curl -L <a href="https://get.rvm.io">https://get.rvm.io</a> | bash -s stable &ndash;ruby</li>
+<li>\curl -L <a href="https://get.rvm.io">https://get.rvm.io</a> | bash -s stable &ndash;&ndash;ruby</li>
 <li>echo &ldquo;source /home/gitlab_ci/.rvm/scripts/rvm&rdquo; &gt;&gt; ~/.bashrc</li>
 </ol>
 
@@ -179,9 +183,11 @@ Gitlab CI
 <li>mkdir -p tmp/pids</li>
 <li>mkdir -p tmp/sockets</li>
 <li>gem install bundler</li>
-<li>bundle &ndash;without development test</li>
+<li>bundle &ndash;&ndash;without development test</li>
 <li>cp config/database.yml.mysql config/database.yml</li>
-<li><p>vim config/database.yml
+<li>vim config/database.yml</li>
+</ol>
+
 <figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div><div data-line='2' class='line-number'></div><div data-line='3' class='line-number'></div><div data-line='4' class='line-number'></div><div data-line='5' class='line-number'></div><div data-line='6' class='line-number'></div><div data-line='7' class='line-number'></div><div data-line='8' class='line-number'></div><div data-line='9' class='line-number'></div><div data-line='10' class='line-number'></div><div data-line='11' class='line-number'></div><div data-line='12' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'>    production:
 </div><div class='line'>      adapter: mysql2
 </div><div class='line'>      encoding: utf8
@@ -189,20 +195,22 @@ Gitlab CI
 </div><div class='line'>      database: gitlab_ci
 </div><div class='line'>      pool: 5
 </div><div class='line'>      username: gitlab_ci
-</div><div class='line'>      password: &quot;12345678&quot;
+</div><div class='line'>      password: "12345678"
 </div><div class='line'>      host: localhost
 </div><div class='line'>      # socket: /tmp/mysql.sock
-</div><div class='line'> </div><div class='line'>    ......</div></pre></td></tr></table></div></figure></p></li>
-<li><p>bundle exec rake db:setup RAILS_ENV=production</p></li>
-<li><p>bundle exec whenever -w RAILS_ENV=production</p></li>
-<li><p>crontab -l</p></li>
+</div><div class='line'> </div><div class='line'>    ......</div></pre></td></tr></table></div></figure>
+
+<ol>
+<li>bundle exec rake db:setup RAILS_ENV=production</li>
+<li>bundle exec whenever -w RAILS_ENV=production</li>
+<li>crontab -l</li>
 </ol>
 
 <h2>Setup gitlab_ci Service Script</h2>
 
 <ol>
 <li>su - root</li>
-<li>wget <a href="https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/init.d/gitlab_ci">https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/init.d/gitlab_ci</a> -P /etc/init.d/ &ndash;no-check-certificate</li>
+<li>wget <a href="https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/init.d/gitlab_ci">https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/init.d/gitlab_ci</a> -P /etc/init.d/ &ndash;&ndash;no-check-certificate</li>
 <li>chmod +x /etc/init.d/gitlab_ci</li>
 <li>/etc/init.d/gitlab_ci start</li>
 <li>/etc/init.d/gitlab_ci status</li>
@@ -212,18 +220,22 @@ Gitlab CI
 
 <ol>
 <li>yum install nginx</li>
-<li>wget <a href="https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/nginx/gitlab_ci">https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/nginx/gitlab_ci</a> -P /etc/nginx/conf.d/ &ndash;no-check-certificate</li>
+<li>wget <a href="https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/nginx/gitlab_ci">https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/nginx/gitlab_ci</a> -P /etc/nginx/conf.d/ &ndash;&ndash;no-check-certificate</li>
 <li>mv /etc/nginx/gitlab_ci /etc/nginx/gitlab_ci.conf</li>
-<li><p>vim /etc/nginx/gitlab_ci.conf
+<li>vim /etc/nginx/gitlab_ci.conf</li>
+</ol>
+
 <figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div><div data-line='2' class='line-number'></div><div data-line='3' class='line-number'></div><div data-line='4' class='line-number'></div><div data-line='5' class='line-number'></div><div data-line='6' class='line-number'></div><div data-line='7' class='line-number'></div><div data-line='8' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'>    ......
 </div><div class='line'> </div><div class='line'>    server {
-</div><div class='line'>      listen YOUR_SERVER_IP:80;<br>
-</div><div class='line'>      server_name YOUR_SERVER_NAME;<br>
+</div><div class='line'>      listen YOUR_SERVER_IP:80;         
+</div><div class='line'>      server_name YOUR_SERVER_NAME;          
 </div><div class='line'>      root /home/gitlab_ci/gitlab-ci/public;
-</div><div class='line'> </div><div class='line'>    ......</div></pre></td></tr></table></div></figure></p></li>
-<li><p>chkconfig nginx on</p></li>
-<li><p>service nginx start</p></li>
-<li><p>netstat -ltn</p></li>
+</div><div class='line'> </div><div class='line'>    ......</div></pre></td></tr></table></div></figure>
+
+<ol>
+<li>chkconfig nginx on</li>
+<li>service nginx start</li>
+<li>netstat -ltn</li>
 </ol>
 
 <p>Gitlab Default Account: <a href="mailto:admin@local.host">admin@local.host</a><br>
@@ -255,7 +267,7 @@ Gitlab Default Password: 5iveL!fe      </p>
 
 <span class="categories">
   
-    <a class='category' href='/categories/git/'>git</a>, <a class='category' href='/categories/linux/'>linux</a>, <a class='category' href='/categories/system/'>system</a>
+    <a class='category' href='/categories/git/'>git</a>, <a class='category' href='/categories/linux/'>linux</a>, <a class='category' href='/categories/test/'>test</a>
   
 </span>
 
@@ -316,7 +328,7 @@ Gitlab Default Password: 5iveL!fe      </p>
       </li>
     
       <li class="post">
-        <a href="/blog/gitlab-ci.html">Gitlab CI</a>
+        <a href="/blog/gitlab-ci.html">安裝 Gitlab CI</a>
       </li>
     
       <li class="post">
