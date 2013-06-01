@@ -30,7 +30,7 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/build/all-7cb02c3198a8800ad613eb446f1d9e95.js"></script>
+  <script src="/javascripts/build/all-30925cb658557077ff3e9add035fedee.js"></script>
   
 
   
@@ -88,7 +88,7 @@
   <header>
     <h1 class="entry-title">
 
-<a href="/blog/setup-percona-xtradb-cluster.html">安裝 Percona XtraDB Cluster</a>
+<a href="/blog/puppet.html">使用 Puppet</a>
 
 </h1>
 
@@ -106,158 +106,215 @@
   
 
 
-<time datetime="2013-05-25T23:55:00+08:00" pubdate data-updated="true">May 25<span>th</span>, 2013</time>
-         &bull; <a rel="bookmark" href="/blog/setup-percona-xtradb-cluster.html">Permalink</a>
+<time datetime="2013-05-26T21:43:54+08:00" pubdate data-updated="true">May 26<span>th</span>, 2013</time>
+         &bull; <a rel="bookmark" href="/blog/puppet.html">Permalink</a>
       </p>
     
   </header>
 
-<div class="entry-content"><p>很簡單地說，Percona XtraDB Cluster 就是 MySQL 打上了一些特殊的 patch，
-讓 MySQL 可以將某一節點上的寫入動作，重製到其他節點上。</p>
+<div class="entry-content"><p><a href="http://puppetlabs.com/">Puppet</a> 
+是用 Ruby 語言開發的 Client/Server 式的配置、設定、服務管理工具。</p>
 
-<h2>背景知識</h2>
+<p>簡單描述一下，
+就是所有機器的配置集中在 Puppet Server 上管理，
+Puppet Client 機器連線到 Puppet Server，
+Puppet Server 根據 Puppet Client 提供的資訊，
+動態產生正確的配置，對 Puppet Client 進行設定。</p>
 
-<h4>Codership</h4>
+<p>Puppet Client 使用的是一個叫 facter 的工具取得主機基本資訊，
+Puppet Server 根據傳來的資訊（例如：IP，hostname，OS）產生對應的配置內容。</p>
 
-<p><a href="http://www.codership.com/company/">Codership</a> 是一家成立於 2007 年的公司，公司的 Founder 都是 Database 專家。
-Codership 致力於研究及實做高擴展性且快速的資料庫同步機制（Replication），
-並帶頭制定了名爲 WSREP 的 API 標準，且根據這套 API 實做了 Galera 同步器（Replicator）。</p>
+<p>在 Ubuntu 系統上安裝 Puppet 非常簡單：</p>
+<div class="highlight"><pre><code class="text">sudo apt-get install ruby-full # 安裝 Ruby 環境
+sudo apt-get install facter # 安裝 Facter 後可以直接執行 facter 測試一下
+sudo apt-get install puppet # Puppet Client 套件 
+sudo apt-get install puppetmaster # Puppet Server 套件，Puppet Client 不需安裝
 
-<h4>WSREP（Write Set REPlication）</h4>
-
-<p><a href="https://launchpad.net/wsrep/">WSREP</a> 是一個爲 DBMS（DataBase Management System）設計的 API 標準，
-它爲 DBMS 類型的應用程式建立了一個 Replication 介面（Interface），
-這個介面位於 DBMS 軟體與 Replication Servcie Provider（即 Replicator）之間。
-<a href="https://launchpad.net/wsrep-group/">WSREP Group</a> 是討論與建立這個標準的開放性羣組。</p>
-
-<blockquote>
-<p>WSREP API defines a set of application callbacks and replication library calls necessary to implement synchronous writeset replication of transactional databases and similar applications. It aims to abstract and isolate replication implementation from application details.</p>
-</blockquote>
-
-<h4>Galera Replicator</h4>
-
-<p><a href="https://launchpad.net/galera/">Galera</a> 是一套根據 WSREP 標準實做出來的 Replication 函式庫。
-Galera 的運作架構可以參考<a href="http://www.codership.com/products/galera_replication/">它們的說明</a>。大致的原則是：
-當對 Cluster 中其中一個節點做寫入（Write）時，
-Galera 會自動將寫入動作 Replicate 到 Cluster 其他的節點上。</p>
-
-<blockquote>
-<p>Galera implements WSREP pluggable interface, and can provide several replication modes and topologies, including the ultimate Synchronous Multi-Master replication.</p>
-</blockquote>
-
-<h4>MySQL Galera Cluster</h4>
-
-<p>傳統的 <a href="http://www.codership.com/products/mysql_galera/">MySQL Server</a> 只要打上 WSREP 的 Patch，支援了 WSREP 介面，
-再搭配使用 Galera 函式庫，調整好設定檔，就可以組出一個 Cluster。</p>
-
-<blockquote>
-<p>MySQL/Galera cluster uses Galera library for the replication implementation. To interface with Galera replication, we have enhanced MySQL server to support replication API definition in the wsrep API project.</p>
-</blockquote>
-
-<h4>MariaDB Galera Cluster</h4>
-
-<p>相較於 MySQL 要額外打 Patch，MariaDB 直接推出包好的 <a href="https://downloads.mariadb.org/mariadb-galera/">MariaDB Galera Cluster</a>，
-MariaDB 還針對不同的 Linux 發佈版提供了<a href="https://downloads.mariadb.org/mariadb/repositories/">套件庫</a>。
-它是 Percona XtraDB Cluster 之外的另一個選擇。</p>
-
-<h4>Percona XtraDB Cluster（PXC）</h4>
-
-<p>Percona 是一家專業的 MySQL 顧問與技術公司，
-他們有一個很知名的 MySQL Blog：<a href="http://www.mysqlperformanceblog.com">MySQL Performance</a>；
-Percona 也開發了許多知名的<a href="http://www.percona.com/software">資料庫工具與軟體</a>。</p>
-
-<p>XtraDB 是 Percona 基於 InnoDB 改良出來的一個資料庫引擎。
-在 XtraDB 引擎的基礎上，Percona 發佈了一個修改過的 MySQL：Percona Server，
-而 Percona XtraDB Cluster 則是 Percona Server + Galera Library 的整合產品。
-Percona XtraDB Cluster 的資料庫同步機制是靠 Galera 完成的（即 Write Replication）。 </p>
-
-<h2>安裝 Percona XtraDB Cluster</h2>
-
-<p>最新的 XtraDB 安裝檔：<br>
-<a href="http://www.percona.com/downloads/Percona-XtraDB-Cluster/LATEST/">Percona XtraDB Cluster</a><br>
-<a href="http://www.percona.com/downloads/XtraBackup/LATEST/">XtraBackup</a></p>
-
-<p>以 Red Hat 環境（RHEL，Cent OS）爲例。</p>
-<div class="highlight"><pre><code class="text">rpm -Uhv http://www.percona.com/downloads/percona-release/percona-release-0.0-1.x86_64.rpm
-yum install Percona-XtraDB-Cluster-server Percona-XtraDB-Cluster-client percona-xtrabackup
-vim /etc/my.cnf
-
-    [mysqld]
-    wsrep_provider=/usr/lib64/libgalera_smm.so
-    wsrep_cluster_name=叢集的名稱
-    wsrep_cluster_address=gcomm://節點一的位址,節點二的位址,節點三的位址
-    wsrep_slave_threads=4
-    wsrep_sst_method=rsync
-    binlog_format=ROW
-    default_storage_engine=InnoDB
-    innodb_autoinc_lock_mode=2
-    innodb_locks_unsafe_for_binlog=1
-
-service mysql start --wsrep-cluster-address=&quot;gcomm://&quot;
-mysql -e &quot;CREATE FUNCTION fnv1a_64 RETURNS INTEGER SONAME &#39;libfnv1a_udf.so&#39;&quot;
-mysql -e &quot;CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME &#39;libfnv_udf.so&#39;&quot;
-mysql -e &quot;CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME &#39;libmurmur_udf.so&#39;&quot;
-mysqladmin -u root password &#39;12345678&#39;
-service mysql stop
-service mysql start
-mysql -u root -p
-mysql&gt; show status like &#39;wsrep_%&#39;;
+# 在 Redhat 環境，Puppet Client 套件叫：puppet
+# 在 Redhat 環境，Puppet Server 套件叫：puppet-server
 </code></pre></div>
-<p>以上是第一個節點的設定，其他節點只要重複到啓動 MySQL 那個步驟，
-並將啓動的指令改爲：<code>service mysql start</code></p>
+<p>Puppet 看待裝置或服務的哲學跟 UNIX 很像：
+每一個裝置、服務對 Puppet 來說，都是一個「資源（Resource）」。</p>
 
-<ul>
-<li><code>--wsrep-cluster-address=&quot;gcomm://&quot;</code> 參數代表初始化一個全新的叢集！</li>
-</ul>
+<h3>*.pp 檔</h3>
 
-<h4>SST</h4>
+<p>Puppet 解讀名爲 *.pp 的檔案，然後對不同的 Client 編譯產生不同的配置。</p>
 
-<blockquote>
-<p>State Snapshot Transfer is the full copy of data from one node to another.</p>
-</blockquote>
+<p>一個簡單的 test.pp 檔案內容如下：</p>
+<div class="highlight"><pre><code class="text">file
+{
+    &quot;/tmp/test.txt&quot;: content =&gt; &quot;hello, world&quot;;
+}
+</code></pre></div>
+<p>執行：</p>
+<div class="highlight"><pre><code class="text">puppet test.pp
+</code></pre></div>
+<p>執行結果是在 /tmp 底下產生一個 test.txt 檔，且內容爲「hello, world」。</p>
 
-<p>SST 是 State Snapshot Transfer 的縮寫，指的是 PXC 各節點間同步資料的方式。
-可以在 /etc/my.cnf 中透過 wsrep_sst_method 參數來設定。
-PXC 有三種同步方式，分別是：</p>
+<p>*.pp 有一套簡單的文法與規則，其中亦有類別跟繼承等，強烈建議閱讀文件！</p>
 
-<ul>
-<li>wsrep_sst_method=mysqldump</li>
-</ul>
+<h3>Puppet Client/Server 運作流程</h3>
 
-<blockquote>
-<p>If you use mysqldump SST it should be the same as this mysql client connection address plus you need to set wsrep_sst_auth variable to hold user:password pair. The user should be privileged enough to read system tables from donor and create system tables on this node. For simplicity that could be just the root user. Note that it also means that you need to properly set up the privileges on the new node before attempting to join the cluster.</p>
-</blockquote>
+<ol>
+<li><p>Puppet Client 的 puppetd 程式呼叫 facter 程式，
+facter 程式會偵測出 Puppet Client 主機的相關資訊，
+例如 hostname、RAM、Hard Disk、IP 等等。
+Puppet Client 的 puppetd 再透過 SSL 把這些訊息傳到 Puppet Server。</p></li>
+<li><p>Puppet Server 的 puppetmaster 程式檢查 Puppet Client 送來的資訊，
+會使用 Puppet Client 的 hostname 來找到 /etc/puppet/manifest 裡面對應的 node 配置，
+然後分析以及解讀牽涉到的 *.pp 檔或 Puppet 程式碼，
+Puppet Client 使用 facter 生成的訊息會被當成變數傳入這些 *.pp 檔或 Puppet 程式碼。</p></li>
+<li><p>當 Puppet Server 知道需要處理哪些 *.pp 檔後，就會將它們進行解析，
+這個 *.pp 檔解析的動作可以看成是程式的編譯（直譯？）。
+解析會分成幾個階段，首先是語法檢查，語法錯誤就會直接報錯了；
+語法檢查通過，會產生解析的結果，
+這個結果同樣會透過 SSL 傳送回 Puppet Client。</p></li>
+<li><p>Puppet Client 收到 Puppet Server 的解析結果，執行，並把執行的結果回傳。</p></li>
+<li><p>Puppet Server 把 Puppet Client 的執行結果寫到 log。</p></li>
+</ol>
 
-<ul>
-<li>wsrep_sst_method=rsync</li>
-</ul>
+<h3>Puppet Client/Server 配置</h3>
 
-<blockquote>
-<p>If you use rsync SST, wsrep_sst_auth is not necessary unless your SST script makes use of it.</p>
-</blockquote>
+<p>Puppet Client 與 Puppet Server 的安裝、設定、配置，最好都使用 root 帳號。</p>
 
-<ul>
-<li>wsrep_sst_method=xtrabackup</li>
-</ul>
+<p>進行 Client/Server 設置前，請務必千萬確定每臺主機的 hostname！
+Puppet 的 Client/Server 配置有綁定 hostname 進行驗證，
+且要求符合 FQDN 的 hostname。
+請先執行 hostname 並檢查 /etc/hostname 進行確定，
+並確認 /etc/hosts 檔案有正確的 hostname 與 IP 配對。</p>
 
-<blockquote>
-<p>If you use xtrabackup as SST method, it will use /usr/bin/wsrep_sst_xtrabackup provided in Percona-XtraDB-Cluster-server package. And this script also needs user password if you have a password for root@localhost.</p>
-</blockquote>
+<p>連線與驗證都需要 root 身份來進行。
+Puppet Client 與 Server 的系統時間要校正一致，否則認證會出問題！
+務必使用同樣的 NTP Server 進行時間同步！</p>
 
-<p>要使用 <a href="http://serverfault.com/questions/389190/xtrabackup-for-sst-with-xtradb-cluster">xtrabackup 當作 SST method</a> 時，
-需要設定 Database 的 root password 到 /etc/my.cnf 內，
-例如：<code>wsrep_sst_auth=root:12345678</code></p>
+<p>在 Client/Server 環境中，
+Puppet Server 預設讀取 *.pp 的路徑是：</p>
+<div class="highlight"><pre><code class="text">/etc/puppet/manifests/
+</code></pre></div>
+<p>可以編寫一個 /etc/puppet/manifests/site.pp 檔測試：</p>
+<div class="highlight"><pre><code class="text">node default
+{
+    file
+    {
+        &quot;/tmp/puppet_server.message&quot;:
+        content =&gt; &quot;Hello, Puppet Client!&quot;;
+    }
+}
+</code></pre></div>
+<p>第一次進行 Client/Server 的配置連線會需要驗證。</p>
 
-<p>PXC 官方手冊：<br>
-<a href="http://www.percona.com/doc/percona-xtradb-cluster/installation.html">http://www.percona.com/doc/percona-xtradb-cluster/installation.html</a><br>
-<a href="http://www.percona.com/doc/percona-xtradb-cluster/manual/bootstrap.html">http://www.percona.com/doc/percona-xtradb-cluster/manual/bootstrap.html</a>   </p>
+<p>先在 Puppet Client 執行：</p>
+<div class="highlight"><pre><code class="text">puppetd --server 伺服器主機名稱 --test
+</code></pre></div>
+<p>再到 Puppet Server 執行：</p>
+<div class="highlight"><pre><code class="text">puppetca --sign 客戶端主機名稱
+</code></pre></div>
+<p>最後回到 Puppet Client 執行：</p>
+<div class="highlight"><pre><code class="text">puppetd --server 伺服器主機名稱 --test
+</code></pre></div>
+<p>此時，Puppet Client 應該會得到一個 /tmp/puppet_server.message 檔。</p>
 
-<p>PXC 專有名詞：<br>
-<a href="http://www.percona.com/doc/percona-xtradb-cluster/glossary.html">http://www.percona.com/doc/percona-xtradb-cluster/glossary.html</a></p>
+<h3>Puppet CA 驗證</h3>
+
+<p>Puppet 的驗證文件預設在：</p>
+<div class="highlight"><pre><code class="text">/var/lib/puppet/ssl # Puppet Client
+/var/lib/puppet/ssl/ca/ # Puppet Server
+</code></pre></div>
+<p>若某個 Puppet Client 的驗證有問題，
+可以在 Puppet Server 使用 <code>puppetca --clean 主機名稱</code> 刪除認證，
+相關指令可以參考：</p>
+<div class="highlight"><pre><code class="text">puppetca --list --all # 列出目前 Server 所有的 Client
+puppetca --list
+puppetca --sign CLIENT_HOSTNAME
+puppetca --print CLIENT_HOSTNAME
+puppetca --clean CLIENT_HOSTNAME  # 刪除舊的認證
+
+man puppetca
+</code></pre></div>
+<p>如果還是不行，直接到 Puppet Server 的 <code>/var/lib/puppet/ssl/ca/</code> 資料夾，
+找到相對應的 *.pem，刪除，再重新認證 Puppet client。</p>
+
+<h3><a href="http://projects.puppetlabs.com/projects/puppet/wiki/Puppet_Best_Practice2">建議的 /etc/puppet/ 目錄架構</a></h3>
+<div class="highlight"><pre><code class="text">manifests/
+        site.pp
+        templates.pp
+        nodes.pp
+
+modules/
+        {module_name}
+
+modules/user/
+
+services/
+
+clients/
+
+notes/
+
+plugins/
+
+tools/
+</code></pre></div>
+<h3><a href="http://docs.puppetlabs.com/guides/modules.html">使用 Puppet Module</a></h3>
+
+<h3><a href="http://docs.puppetlabs.com/learning/templates.html">使用 Puppet Template</a></h3>
+
+<p>Puppet Template 可以用來動態產生不同的內容。
+應用的情境比較像是同樣的設定檔，但是有些許的設定不盡相同。
+例如都是 httpd 服務，不見得所有 Puppet node 的 httpd.conf 都完全相同。</p>
+
+<p>Puppet Template 檔是使用 Ruby 的 <a href="http://www.ruby-doc.org/stdlib/libdoc/erb/rdoc/classes/ERB.html">ERB Template</a>，並不難寫。 
+Template 的使用也很簡單：</p>
+<div class="highlight"><pre><code class="text">$value = template(&quot;my_template.erb&quot;)
+</code></pre></div>
+<p>my_template.erb 可換成 erb 檔的絕對路徑，
+或把 erb 檔放到 Puppet 預設會找的路徑。
+Red Hat 環境預設是 <code>/var/lib/puppet/templates</code>；
+Ubuntu 環境預設是 <code>/etc/puppet/templates</code>。</p>
+
+<p>可以使用 <code>puppet --configprint templatedir</code> 指令確認路徑，
+實作的建議是把 erb 檔放到各個 Module 資料夾中。</p>
+
+<p>題外話，可以執行 <code>puppet --configprint all</code> 看看 :-)</p>
+
+<h3>Puppet 設定檔範例</h3>
+
+<p><a href="https://github.com/example42/puppet-modules">https://github.com/example42/puppet-modules</a>
+<a href="https://github.com/ghoneycutt/puppet-generic">https://github.com/ghoneycutt/puppet-generic</a><br>
+<a href="https://github.com/jenkinsci/puppet-jenkins">https://github.com/jenkinsci/puppet-jenkins</a><br>
+<a href="https://github.com/jfryman/puppet-nginx">https://github.com/jfryman/puppet-nginx</a></p>
+
+<h3><a href="http://docs.puppetlabs.com/references/glossary.html">Puppet 名詞解釋</a></h3>
+
+<p>catalog : A catalog is the totality of resources, files, properties, etc, for a given system.</p>
+
+<p>manifest : A configuration file written in the Puppet language. These files should have the .pp extension.</p>
+
+<p>module : A collection of classes, resource types, files, and templates, organized around a particular purpose. </p>
+
+<p>node (general noun) : An individual server; for the purposes of discussing Puppet, this generally refers to an agent node.</p>
+
+<p>node (Puppet language keyword) : A collection of classes and/or resources to be applied to the agent node whose unique identifier (“certname”) matches the specified node name. Nodes defined in manifests allow inheritance, although this should be used with care due to the behavior of dynamic variable scoping.</p>
+
+<p>provider : A simple implementation of a type; examples of package providers are dpkg and rpm, and examples of user providers are useradd and netinfo. Most often, providers are just Ruby wrappers around shell commands, and they are usually very short and thus easy to create.</p>
+
+<p>templates : templates are ERB files used to generate configuration files for systems and are used in cases where the configuration file is not static but only requires minor changes based on variables that Puppet can provide (such as hostname). See also distributable file.</p>
+
+<p>type : abstract description of a type of resource. Can be implemented as a native type, plug-in type, or defined type.</p>
+
+<p>agent or agent node : An operating system instance managed by Puppet. This can be an operating system running on its own hardware or a virtual image.</p>
+
+<p>推薦文件：<br>
+<a href="http://puppet.wikidot.com">http://puppet.wikidot.com</a></p>
 
 <p>Reference：<br>
-<a href="http://www.mysqlperformanceblog.com/2013/01/29/how-to-start-a-percona-xtradb-cluster/">http://www.mysqlperformanceblog.com/2013/01/29/how-to-start-a-percona-xtradb-cluster/</a><br>
-<a href="http://www.percona.com/files/presentations/WEBINAR-percona-xtradb-cluster-installation-and-setup.pdf">http://www.percona.com/files/presentations/WEBINAR-percona-xtradb-cluster-installation-and-setup.pdf</a>   </p>
+<a href="http://puppet-manifest-share.googlecode.com/files/puppet-1.0.pdf">http://puppet-manifest-share.googlecode.com/files/puppet-1.0.pdf</a><br>
+<a href="http://www.comeonsa.com/category/puppet/">http://www.comeonsa.com/category/puppet/</a><br>
+<a href="http://bitcube.co.uk/content/puppet-errors-explained">http://bitcube.co.uk/content/puppet-errors-explained</a><br>
+<a href="http://www.example42.com">http://www.example42.com</a><br>
+<a href="http://docs.puppetlabs.com/guides/troubleshooting.html">http://docs.puppetlabs.com/guides/troubleshooting.html</a><br>
+<a href="http://docs.puppetlabs.com/guides/troubleshooting.html">http://docs.puppetlabs.com/guides/troubleshooting.html</a><br>
+<a href="http://blog.akquinet.de/2011/11/23/managing-an-apache-server-with-puppet/">http://blog.akquinet.de/2011/11/23/managing-an-apache-server-with-puppet/</a>    </p>
 </div>
 
   <footer>
@@ -286,11 +343,15 @@ PXC 有三種同步方式，分別是：</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/meteor.html">Meteor</a>
+        <a href="/blog/gitlab.html">安裝 Gitlab</a>
       </li>
     
       <li class="post">
-        <a href="/blog/medium.html">Medium</a>
+        <a href="/blog/gitlab-ci.html">Gitlab CI</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/meteor.html">Meteor</a>
       </li>
     
       <li class="post">

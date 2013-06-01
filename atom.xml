@@ -3,7 +3,7 @@
   <title><![CDATA[張旭]]></title>
   <link href="http://zx1986.github.io/atom.xml" rel="self"/>
   <link href="http://zx1986.github.io/"/>
-  <updated>2013-05-30T16:47:42+08:00</updated>
+  <updated>2013-06-01T23:44:25+08:00</updated>
   <id>http://zx1986.github.io/</id>
   <author>
     <name><![CDATA[zx1986]]></name>
@@ -18,13 +18,219 @@
 
 
 
-<title type="html"><![CDATA[Meteor]]></title>
-<link href="http://zx1986.github.io/blog/meteor.html"/>
-<updated>2013-05-30T16:44:42+08:00</updated>
-<id>http://zx1986.github.io/blog/meteor</id>
-<category term="framework" /><category term="javascript" />
+<title type="html"><![CDATA[安裝 Gitlab]]></title>
+<link href="http://zx1986.github.io/blog/gitlab.html"/>
+<updated>2013-06-01T23:04:05+08:00</updated>
+<id>http://zx1986.github.io/blog/gitlab</id>
+<category term="git" /><category term="linux" />
 
-      <content type="html"><![CDATA[<p><a href="http://docs.meteor.com">http://docs.meteor.com</a></p>
+      <content type="html"><![CDATA[<p>本文記錄 RHEL 6.3 x86_64 環境中安裝 Gitlab 的過程。
+如果是 Ubuntu 的環境要安裝 Gitlab，可以直接參考<a href="https://github.com/gitlabhq/gitlabhq#installation">官方的安裝手冊</a>。</p>
+
+<h2>安裝相依性套件</h2>
+
+<p>先安裝 EPEL 套件庫：</p>
+
+<ol>
+<li>cd /opt</li>
+<li>wget <a href="http://mirror01.idc.hinet.net/EPEL/6/i386/epel-release-6-8.noarch.rpm">http://mirror01.idc.hinet.net/EPEL/6/i386/epel-release-6-8.noarch.rpm</a></li>
+<li>rpm -iUvh epel-release-6-8.noarch.rpm</li>
+<li>yum clean all</li>
+<li>yum list</li>
+<li>yum remove gitosis</li>
+<li>yum groupinstall &ldquo;Development Tools&rdquo; </li>
+<li>yum update &amp;&amp; yum upgrade</li>
+<li>yum install vim python wget curl git openssh-server</li>
+<li>yum install sqlite sqlite-devel mysql mysql-libs mysql-devel</li>
+<li>yum install ncurses-devel libcurl-devel libcurl curl patch sudo</li>
+<li>yum install libxslt-devel libyaml-devel libxml2 libxml2-devel gdbm-devel libffi libffi-devel zlib zlib-devel openssl-devel readline readline-devel curl-devel openssl-devel pcre-devel memcached-devel valgrind-devel ImageMagick-devel ImageMagick libicu libicu-devel make bzip2 autoconf automake libtool bison redis</li>
+<li>chkconfig redis on</li>
+<li>service redis start</li>
+<li>yum install postfix</li>
+<li>chkconfig postfix on</li>
+<li>service postfix start</li>
+</ol>
+
+<p>如果EPEL 套件庫少東西，請到 <a href="http://pkgs.org/">http://pkgs.org/</a> 把套件手動補齊。
+比較常有問題的以下這幾個套件：</p>
+
+<ul>
+<li>gdbm-devel</li>
+<li>libffi-devel</li>
+<li>libicu-devel</li>
+<li>iconv-devel</li>
+<li>valgrind-devel</li>
+<li>ImageMagick-devel</li>
+</ul>
+
+<h2>設定 Gitlab 系統帳號</h2>
+
+<ol>
+<li>useradd git</li>
+<li>passwd git</li>
+<li>chmod 755 /home/git</li>
+<li>su - git</li>
+<li>mkdir -p /home/git/.ssh</li>
+<li>chmod -R 700 /home/git/.ssh</li>
+<li>touch /home/git/.ssh/authorized_keys</li>
+<li>chmod -R 600 /home/git/.ssh/authorized_keys</li>
+<li>ssh-keygen -t rsa</li>
+<li>cat /home/git/.ssh/id_rsa.pub &gt;&gt; /home/git/.ssh/authorized_keys</li>
+</ol>
+
+<h2>安裝 Ruby 環境</h2>
+
+<ol>
+<li>su - git</li>
+<li>mkdir -p /home/git/temp</li>
+<li>mkdir -p /home/git/ruby</li>
+<li>cd /home/git/temp</li>
+<li>wget -c &ldquo;<a href="http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p392.tar.gz">http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p392.tar.gz</a>&rdquo;</li>
+<li>tar zxvf ruby-1.9.3-p392.tar.gz &amp;&amp; cd ruby-1.9.3-p392</li>
+<li>./configure &ndash;prefix=/home/git/ruby</li>
+<li>make</li>
+<li>make install</li>
+<li><p>vim ~/.bash_profile
+<figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'>    PATH=$HOME/ruby/bin:$PATH:$HOME/bin;</div></pre></td></tr></table></div></figure></p></li>
+<li><p>vim ~/.bashrc
+<figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'>PATH=$HOME/ruby/bin:$PATH:$HOME/bin;</div></pre></td></tr></table></div></figure></p></li>
+<li><p>source ~/.bash_profile</p></li>
+<li><p>which ruby</p></li>
+<li><p>ruby &ndash;version</p></li>
+<li><p>gem install bundler</p></li>
+<li><p>gem install charlock_holmes &ndash;version &#39;0.6.9&#39;</p></li>
+<li><p>cd ~</p></li>
+<li><p>rm -rf ~/temp</p></li>
+</ol>
+
+<h2>設定資料庫</h2>
+
+<ol>
+<li>yum install mysql-server mysql myslq-devel</li>
+<li>chkconfig mysqld on</li>
+<li>service mysqld start</li>
+<li>mysql -u root -p</li>
+<li>mysql&gt; CREATE DATABASE IF NOT EXISTS gitlab DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;</li>
+<li>mysql&gt; CREATE USER &#39;gitlab&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;12345678&#39;;</li>
+<li>mysql&gt; GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER ON gitlab.* TO &#39;gitlab&#39;@&#39;localhost&#39;;</li>
+</ol>
+
+<h2>安裝 Gitlab Shell</h2>
+
+<ol>
+<li>su - git</li>
+<li>cd /home/git</li>
+<li>git clone <a href="http://github.com/gitlabhq/gitlab-shell.git">http://github.com/gitlabhq/gitlab-shell.git</a></li>
+<li>cd gitlab-shell</li>
+<li>cp config.yml.example config.yml</li>
+<li><p>vim config.yml
+<figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div><div data-line='2' class='line-number'></div><div data-line='3' class='line-number'></div><div data-line='4' class='line-number'></div><div data-line='5' class='line-number'></div><div data-line='6' class='line-number'></div><div data-line='7' class='line-number'></div><div data-line='8' class='line-number'></div><div data-line='9' class='line-number'></div><div data-line='10' class='line-number'></div><div data-line='11' class='line-number'></div><div data-line='12' class='line-number'></div><div data-line='13' class='line-number'></div><div data-line='14' class='line-number'></div><div data-line='15' class='line-number'></div><div data-line='16' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'># GitLab user. git by default
+</div><div class='line'>user: git
+</div><div class='line'> </div><div class='line'># Url to gitlab instance. Used for api calls. Should be ends with slash.
+</div><div class='line'>gitlab_url: &quot;<a href="http://test-git.mfc.cwb/">http://test-git.mfc.cwb/</a>&quot;
+</div><div class='line'> </div><div class='line'>http_settings:
+</div><div class='line'>#  user: someone
+</div><div class='line'>#  password: somepass
+</div><div class='line'>  self_signed_cert: false
+</div><div class='line'> </div><div class='line'># Repositories path
+</div><div class='line'>repos_path: &quot;/home/git/repositories&quot;
+</div><div class='line'> </div><div class='line'># File used as authorized_keys for gitlab user
+</div><div class='line'>auth_file: &quot;/home/git/.ssh/authorized_keys&quot;</div></pre></td></tr></table></div></figure></p></li>
+<li><p>/home/git/gitlab-shell/bin/install</p></li>
+</ol>
+
+<h2>安裝 Gitlab</h2>
+
+<ol>
+<li>su - git</li>
+<li>cd /home/git</li>
+<li>git config &ndash;global user.name  &ldquo;GitLab&rdquo;</li>
+<li>git config &ndash;global user.email &ldquo;<a href="mailto:gitlab@gitlab.YOUR.HOST">gitlab@gitlab.YOUR.HOST</a>&rdquo;</li>
+<li>mkdir gitlab-satellites</li>
+<li>git clone <a href="http://github.com/gitlabhq/gitlabhq.git">http://github.com/gitlabhq/gitlabhq.git</a> gitlab</li>
+<li>cd gitlab</li>
+<li>git checkout 5-0-stable</li>
+<li>more VERSION</li>
+<li>cp config/gitlab.yml.example config/gitlab.yml</li>
+<li><p>vim config/gitlab.yml
+<figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div><div data-line='2' class='line-number'></div><div data-line='3' class='line-number'></div><div data-line='4' class='line-number'></div><div data-line='5' class='line-number'></div><div data-line='6' class='line-number'></div><div data-line='7' class='line-number'></div><div data-line='8' class='line-number'></div><div data-line='9' class='line-number'></div><div data-line='10' class='line-number'></div><div data-line='11' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'>  ## GitLab settings
+</div><div class='line'>  gitlab:
+</div><div class='line'>    ## Web server settings
+</div><div class='line'>    host: test-git.mfc.cwb
+</div><div class='line'>    port: 80
+</div><div class='line'>    https: false
+</div><div class='line'>    user: git
+</div><div class='line'> </div><div class='line'>  ## Gravatar
+</div><div class='line'>  gravatar:
+</div><div class='line'>    enabled: false</div></pre></td></tr></table></div></figure></p></li>
+<li><p>mkdir tmp/pids/</p></li>
+<li><p>chown -R git log/ tmp/</p></li>
+<li><p>chmod -R u+rwX  log/ tmp/</p></li>
+<li><p>cp config/unicorn.rb.example config/unicorn.rb</p></li>
+<li><p>vim config/unicorn.rb
+<figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'>  listen &quot;127.0.0.1:8080&quot;</div></pre></td></tr></table></div></figure></p></li>
+<li><p>cp config/database.yml.mysql config/database.yml</p></li>
+<li><p>vim config/database.yml
+<figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div><div data-line='2' class='line-number'></div><div data-line='3' class='line-number'></div><div data-line='4' class='line-number'></div><div data-line='5' class='line-number'></div><div data-line='6' class='line-number'></div><div data-line='7' class='line-number'></div><div data-line='8' class='line-number'></div><div data-line='9' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'>production:
+</div><div class='line'>  adapter: mysql2
+</div><div class='line'>  encoding: utf8
+</div><div class='line'>  reconnect: false
+</div><div class='line'>  database: gitlab
+</div><div class='line'>  pool: 5
+</div><div class='line'>  username: gitlab
+</div><div class='line'>  password: &quot;12345678&quot;
+</div><div class='line'>  host: localhost</div></pre></td></tr></table></div></figure></p></li>
+<li><p>cd /home/git/gitlab</p></li>
+<li><p>-編輯 Gemfile 並將所有 git:// 與 https:// 改成 http://-</p></li>
+<li><p>bundle install &ndash;no-deployment</p></li>
+<li><p>bundle install &ndash;deployment &ndash;without development test postgres</p></li>
+<li><p>bundle exec rake gitlab:setup RAILS_ENV=production</p></li>
+<li><p>-bundle exec rake db:seed_fu RAILS_ENV=production-</p></li>
+<li><p>bundle exec rake gitlab:env:info RAILS_ENV=production</p></li>
+<li><p>bundle exec rake gitlab:check RAILS_ENV=production</p></li>
+</ol>
+
+<ul>
+<li>碰到 invalid gem format for /path/to/cache/xxx.gem 問題，
+直接刪掉該 cache 的 gem，再重跑 bundle install 即可</li>
+</ul>
+
+<h2>設定 Gitlab 啓動腳本</h2>
+
+<ol>
+<li>su - root</li>
+<li>curl &ndash;output /etc/init.d/gitlab <a href="https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab">https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab</a></li>
+<li>chkconfig &ndash;add gitlab</li>
+<li>chkconfig gitlab on</li>
+<li>chmod +x /etc/init.d/gitlab</li>
+<li>/etc/init.d/gitlab start</li>
+<li>/etc/init.d/gitlab status</li>
+<li>Unicorn 與 Sidekiq 服務跑起來需要點時間，要等一下</li>
+</ol>
+
+<h2>設定 Apache</h2>
+
+<ol>
+<li>su - root</li>
+<li>yum install httpd</li>
+<li><p>vim /etc/httpd/conf/httpd.conf
+<figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div><div data-line='2' class='line-number'></div><div data-line='3' class='line-number'></div><div data-line='4' class='line-number'></div><div data-line='5' class='line-number'></div><div data-line='6' class='line-number'></div><div data-line='7' class='line-number'></div><div data-line='8' class='line-number'></div><div data-line='9' class='line-number'></div><div data-line='10' class='line-number'></div><div data-line='11' class='line-number'></div><div data-line='12' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'>  NameVirtualHost *:80
+</div><div class='line'> </div><div class='line'>  &lt;VirtualHost *:80&gt;
+</div><div class='line'>            ServerName gitlab.YOUR.HOST
+</div><div class='line'>            DocumentRoot /home/git/gitlab/public
+</div><div class='line'>            CustomLog logs/gitlab-access.log combined
+</div><div class='line'>            ErrorLog logs/gitlab-error.log
+</div><div class='line'> </div><div class='line'>            ProxyPass /  <a href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a>
+</div><div class='line'>            ProxyPassReverse /  <a href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a>
+</div><div class='line'>            ProxyPreserveHost On
+</div><div class='line'>  &lt;/VirtualHost&gt;</div></pre></td></tr></table></div></figure></p></li>
+<li><p>chmod 755 /home/git</p></li>
+<li><p>chkconfig httpd on</p></li>
+<li><p>service httpd restart</p></li>
+</ol>
+
+<p>Gitlab 預設帳號：<a href="mailto:admin@local.host">admin@local.host</a><br>
+Gitlab 預設密碼：5iveL!fe   </p>
 ]]></content>
     </entry>
   
@@ -34,13 +240,145 @@
 
 
 
-<title type="html"><![CDATA[Medium]]></title>
-<link href="http://zx1986.github.io/blog/medium.html"/>
-<updated>2013-05-30T12:52:59+08:00</updated>
-<id>http://zx1986.github.io/blog/medium</id>
-<category term="blog" />
+<title type="html"><![CDATA[Gitlab CI]]></title>
+<link href="http://zx1986.github.io/blog/gitlab-ci.html"/>
+<updated>2013-06-01T19:17:35+08:00</updated>
+<id>http://zx1986.github.io/blog/gitlab-ci</id>
+<category term="git" /><category term="linux" /><category term="system" />
 
-      <content type="html"><![CDATA[<p>medium.com</p>
+      <content type="html"><![CDATA[<p>在 RHEL（Red Hat/CentOS/Fedora）環境安裝 Gitlab CI；<br>
+以下安裝過程爲 RHEL 6.3 x86_64 中的執行記錄。</p>
+
+<h2>Install Required Packages</h2>
+
+<ol>
+<li>cd /opt</li>
+<li>wget <a href="http://mirror01.idc.hinet.net/EPEL/6/i386/epel-release-6-8.noarch.rpm">http://mirror01.idc.hinet.net/EPEL/6/i386/epel-release-6-8.noarch.rpm</a></li>
+<li>rpm -iUvh epel-release-6-8.noarch.rpm</li>
+<li>yum clean all</li>
+<li>yum groupinstall &ldquo;Development Tools&rdquo; </li>
+<li>yum update &amp;&amp; yum upgrade</li>
+<li>yum install vim python wget curl git openssh-server</li>
+<li>yum install sqlite sqlite-devel mysql mysql-libs mysql-devel</li>
+<li>yum install ncurses-devel libcurl-devel libcurl curl patch sudo</li>
+<li>yum install libxslt-devel libyaml-devel libxml2 libxml2-devel gdbm-devel libffi libffi-devel zlib zlib-devel openssl-devel readline readline-devel curl-devel openssl-devel pcre-devel memcached-devel valgrind-devel ImageMagick-devel ImageMagick libicu libicu-devel make bzip2 autoconf automake libtool bison redis libpq-devel libicu-devel postgresql-libs postgresql-devel</li>
+<li>chkconfig redis on</li>
+<li>service redis start</li>
+<li>yum install postfix</li>
+<li>chkconfig postfix on</li>
+<li>service postfix start</li>
+</ol>
+
+<h2>Setup Database (MySQL)</h2>
+
+<ol>
+<li>su - root</li>
+<li>yum install mysql mysql-devel</li>
+<li>chkconfig mysqld on</li>
+<li>service mysqld start</li>
+<li>mysql -u root -p</li>
+<li>mysql&gt; CREATE DATABASE IF NOT EXISTS gitlab_ci DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;</li>
+<li>mysql&gt; CREATE USER &#39;gitlab_ci&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;12345678&#39;;</li>
+<li>mysql&gt; GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER ON gitlab_ci.* TO &#39;gitlab_ci&#39;@&#39;localhost&#39;;</li>
+</ol>
+
+<ul>
+<li>預設資料庫帳號爲 gitlab_ci</li>
+<li>預設資料庫密碼爲 12345678</li>
+</ul>
+
+<h2>Setup Account (gitlab_ci)</h2>
+
+<ol>
+<li>useradd gitlab_ci</li>
+<li>passwd gitlab_ci</li>
+<li>chmod 755 /home/gitlab_ci</li>
+</ol>
+
+<h2>Setup Ruby (using RVM)</h2>
+
+<ol>
+<li>su - gitlab_ci</li>
+<li>\curl -L <a href="https://get.rvm.io">https://get.rvm.io</a> | bash -s stable &ndash;ruby</li>
+<li>echo &ldquo;source /home/gitlab_ci/.rvm/scripts/rvm&rdquo; &gt;&gt; ~/.bashrc</li>
+</ol>
+
+<h2>Setup Gitlab CI</h2>
+
+<ol>
+<li>su - gitlab_ci</li>
+<li>cd /home/gitlab_ci/</li>
+<li>git clone <a href="https://github.com/gitlabhq/gitlab-ci.git">https://github.com/gitlabhq/gitlab-ci.git</a></li>
+<li>cd gitlab-ci</li>
+<li>git checkout 2-2-stable</li>
+<li>mkdir -p tmp/pids</li>
+<li>mkdir -p tmp/sockets</li>
+<li>gem install bundler</li>
+<li>bundle &ndash;without development test</li>
+<li>cp config/database.yml.mysql config/database.yml</li>
+<li><p>vim config/database.yml
+<figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div><div data-line='2' class='line-number'></div><div data-line='3' class='line-number'></div><div data-line='4' class='line-number'></div><div data-line='5' class='line-number'></div><div data-line='6' class='line-number'></div><div data-line='7' class='line-number'></div><div data-line='8' class='line-number'></div><div data-line='9' class='line-number'></div><div data-line='10' class='line-number'></div><div data-line='11' class='line-number'></div><div data-line='12' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'>    production:
+</div><div class='line'>      adapter: mysql2
+</div><div class='line'>      encoding: utf8
+</div><div class='line'>      reconnect: false
+</div><div class='line'>      database: gitlab_ci
+</div><div class='line'>      pool: 5
+</div><div class='line'>      username: gitlab_ci
+</div><div class='line'>      password: &quot;12345678&quot;
+</div><div class='line'>      host: localhost
+</div><div class='line'>      # socket: /tmp/mysql.sock
+</div><div class='line'> </div><div class='line'>    ......</div></pre></td></tr></table></div></figure></p></li>
+<li><p>bundle exec rake db:setup RAILS_ENV=production</p></li>
+<li><p>bundle exec whenever -w RAILS_ENV=production</p></li>
+<li><p>crontab -l</p></li>
+</ol>
+
+<h2>Setup gitlab_ci Service Script</h2>
+
+<ol>
+<li>su - root</li>
+<li>wget <a href="https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/init.d/gitlab_ci">https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/init.d/gitlab_ci</a> -P /etc/init.d/ &ndash;no-check-certificate</li>
+<li>chmod +x /etc/init.d/gitlab_ci</li>
+<li>/etc/init.d/gitlab_ci start</li>
+<li>/etc/init.d/gitlab_ci status</li>
+</ol>
+
+<h2>Setup Nginx</h2>
+
+<ol>
+<li>yum install nginx</li>
+<li>wget <a href="https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/nginx/gitlab_ci">https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/nginx/gitlab_ci</a> -P /etc/nginx/conf.d/ &ndash;no-check-certificate</li>
+<li>mv /etc/nginx/gitlab_ci /etc/nginx/gitlab_ci.conf</li>
+<li><p>vim /etc/nginx/gitlab_ci.conf
+<figure class='code'><div class='highlight'><table><td class='line-numbers' aria-hidden='true'><pre><div data-line='1' class='line-number'></div><div data-line='2' class='line-number'></div><div data-line='3' class='line-number'></div><div data-line='4' class='line-number'></div><div data-line='5' class='line-number'></div><div data-line='6' class='line-number'></div><div data-line='7' class='line-number'></div><div data-line='8' class='line-number'></div></pre></td><td class='main  plain'><pre><div class='line'>    ......
+</div><div class='line'> </div><div class='line'>    server {
+</div><div class='line'>      listen YOUR_SERVER_IP:80;<br>
+</div><div class='line'>      server_name YOUR_SERVER_NAME;<br>
+</div><div class='line'>      root /home/gitlab_ci/gitlab-ci/public;
+</div><div class='line'> </div><div class='line'>    ......</div></pre></td></tr></table></div></figure></p></li>
+<li><p>chkconfig nginx on</p></li>
+<li><p>service nginx start</p></li>
+<li><p>netstat -ltn</p></li>
+</ol>
+
+<p>Gitlab Default Account: <a href="mailto:admin@local.host">admin@local.host</a><br>
+Gitlab Default Password: 5iveL!fe      </p>
+]]></content>
+    </entry>
+  
+    <entry>
+      
+
+
+
+
+<title type="html"><![CDATA[Meteor]]></title>
+<link href="http://zx1986.github.io/blog/meteor.html"/>
+<updated>2013-05-30T16:44:42+08:00</updated>
+<id>http://zx1986.github.io/blog/meteor</id>
+<category term="framework" /><category term="javascript" />
+
+      <content type="html"><![CDATA[<p><a href="http://docs.meteor.com">http://docs.meteor.com</a></p>
 ]]></content>
     </entry>
   
@@ -1011,22 +1349,6 @@ git fsck --full       # 應該是類似 Git 磁碟重組之類的東西
 <a href="http://gitimmersion.com/">http://gitimmersion.com/</a><br>
 <a href="http://gitref.org">http://gitref.org</a><br>
 <a href="http://rypress.com/tutorials/git/">http://rypress.com/tutorials/git/</a>    </p>
-]]></content>
-    </entry>
-  
-    <entry>
-      
-
-
-
-
-<title type="html"><![CDATA[Ruby on Rails]]></title>
-<link href="http://zx1986.github.io/blog/ruby-on-rails.html"/>
-<updated>2013-05-20T13:36:02+08:00</updated>
-<id>http://zx1986.github.io/blog/ruby-on-rails</id>
-<category term="ruby" />
-
-      <content type="html"><![CDATA[<p><a href="http://ihower.tw/rails3/">http://ihower.tw/rails3/</a></p>
 ]]></content>
     </entry>
   

@@ -30,7 +30,7 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/build/all-7cb02c3198a8800ad613eb446f1d9e95.js"></script>
+  <script src="/javascripts/build/all-30925cb658557077ff3e9add035fedee.js"></script>
   
 
   
@@ -88,7 +88,7 @@
   <header>
     <h1 class="entry-title">
 
-<a href="/blog/less.html">LESS</a>
+<a href="/blog/debugging-javascript.html">Debugging Javascript</a>
 
 </h1>
 
@@ -106,20 +106,80 @@
   
 
 
-<time datetime="2012-07-20T10:36:00+08:00" pubdate data-updated="true">Jul 20<span>th</span>, 2012</time>
-         &bull; <a rel="bookmark" href="/blog/less.html">Permalink</a>
+<time datetime="2012-08-04T15:19:00+08:00" pubdate data-updated="true">Aug 4<span>th</span>, 2012</time>
+         &bull; <a rel="bookmark" href="/blog/debugging-javascript.html">Permalink</a>
       </p>
     
   </header>
 
-<div class="entry-content"><p>Sass v.s. LESS</p>
+<div class="entry-content"><p>讀了一個很棒的 JavaScript/jQuery Debug <a href="http://fixingthesejquery.com">投影片</a>，
+做個筆記。</p>
 
-<p>LESS could work on client side, or work with NodeJS on server side.</p>
+<p>首先，要認識各個瀏覽器的 Debugger。
+Firefox，Chrome，甚至 IE，都有它們自己的 Debugger。
+這些 Debugger 長得都很像，熟悉了其中一種，其他都大同小异。
+各個 Debugger 預設的啟動快捷鍵大都是<code>F12</code>。</p>
 
-<ul>
-<li><a href="http://lesscss.org/">http://lesscss.org/</a></li>
-<li><a href="http://www.lesscss.net/">http://www.lesscss.net/</a></li>
-</ul>
+<p>Firefox 除了非常知名的 Debug Plugin：<a href="https://getfirebug.com">Firebug</a>。
+還內建了個更炫的玩意：3D View。
+在網頁中<code>點擊右鍵</code>，選擇<code>檢視元素</code>，右下角有一個<code>3D View</code>按鈕。
+它可以讓你在三維環境中，檢視每個網頁元素（DOM Element）。
+在分析多層 CSS Layer（z-index）的網頁時，非常實用！</p>
+
+<p>使用 jQuery 出現<code>jQuery is not defined</code>或<code>$ is not defined</code>時，
+請先檢查 jQuery 的引入路徑是否正確，
+<code>$</code>別名符號是否已經被其他的 Javascrip Library 用走了？
+可以用<code>jQuery.noConflict()</code>函式檢查一下。</p>
+
+<p>出現<code>jQuery.fn.somePlugin is not defined</code>時，
+先檢查 Plugin Library 是否有在載入 jQuery Library 之後載入。</p>
+
+<p>善用 Debugger 中的 breakpoint（斷點）設定。
+在想要設定斷點的 Javascript 語句後，
+加入一行<code>debugger;</code>即可輕鬆設定斷點。</p>
+
+<p>Debugger 中找到一個叫<code>watch expression</code>的地方，
+直接輸入想要檢查的變數，它會把這個變數的身家通通翻出來。
+例如輸入：<code>this</code></p>
+
+<p>使用<code>window.alert(&#39;錯誤訊息或變數&#39;)</code>不是個好主意。
+改用<code>console.log(&#39;錯誤訊息或變數&#39;)</code>搭配 Debugger 的 Console 視窗是好主意！
+例如<code>console.log($(&quot;&quot;your selector&quot;).length)</code>可以檢查元素是否存在。
+Console 視窗還有一大堆 <a href="http://getfirebug.com/wiki/index.php/Console_API">API function</a> 。</p>
+
+<p>搭配 jQuery 的 Javascript 建議寫法：</p>
+<div class="highlight"><pre><code class="text">(function($)){
+    $(document).ready(function(){
+
+            // your code ...
+
+    });
+}(jQuery); // take $ as jQuery
+</code></pre></div>
+<p>以確定整個 DOM 文件載入完成後，才執行你寫的 Javascript 腳本。</p>
+
+<blockquote>
+<p>When you call $(&#39;a&#39;), it returns all the links on the page at the time it was called, and .click(fn) adds your handler to only those elements. When new links are added, they are not affected.</p>
+</blockquote>
+<div class="highlight"><pre><code class="text">$(document).bind(&quot;click&quot;, function(e)
+{
+  if ($(e.target).is(&quot;a&quot;)
+  {
+    // this === document
+  }
+});
+
+$(document).delegate(&quot;a&quot;, &quot;click&quot;, function(e)
+{
+    // this === clicked anchor
+});
+
+$(&quot;a&quot;).live(&quot;click&quot;, function(e)
+{
+    // this === clicked anchor
+});
+</code></pre></div>
+<p>注意，呼叫 this 的 jQuery 物件時，是用<code>$(this)</code>，不是<code>$(&#39;this&#39;)</code>。</p>
 </div>
 
   <footer>
@@ -148,11 +208,15 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/meteor.html">Meteor</a>
+        <a href="/blog/gitlab.html">安裝 Gitlab</a>
       </li>
     
       <li class="post">
-        <a href="/blog/medium.html">Medium</a>
+        <a href="/blog/gitlab-ci.html">Gitlab CI</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/meteor.html">Meteor</a>
       </li>
     
       <li class="post">
