@@ -172,16 +172,16 @@
 <li>cd /home/git/temp</li>
 <li>wget -c &ldquo;<a href="http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p392.tar.gz">http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p392.tar.gz</a>&rdquo;</li>
 <li>tar zxvf ruby-1.9.3-p392.tar.gz &amp;&amp; cd ruby-1.9.3-p392</li>
-<li>./configure &ndash;&ndash;prefix=/home/git/ruby</li>
+<li>./configure &#45;&#45;prefix=/home/git/ruby</li>
 <li>make</li>
 <li>make install</li>
 <li>vim ~/.bash_profile   <code>PATH=$HOME/ruby/bin:$PATH:$HOME/bin;</code></li>
 <li>vim ~/.bashrc   <code>PATH=$HOME/ruby/bin:$PATH:$HOME/bin;</code></li>
 <li>source ~/.bash_profile</li>
 <li>which ruby</li>
-<li>ruby &ndash;&ndash;version</li>
+<li>ruby &#45;&#45;version</li>
 <li>gem install bundler</li>
-<li>gem install charlock_holmes &ndash;&ndash;version &#39;0.6.9&#39;</li>
+<li>gem install charlock_holmes &#45;&#45;version &#39;0.6.9&#39;</li>
 <li>cd ~</li>
 <li>rm -rf ~/temp</li>
 </ol>
@@ -231,8 +231,8 @@
 <ol>
 <li>su - git</li>
 <li>cd /home/git</li>
-<li>git config &ndash;&ndash;global user.name  &ldquo;GitLab&rdquo;</li>
-<li>git config &ndash;&ndash;global user.email &ldquo;<a href="mailto:gitlab@gitlab.YOUR.HOST">gitlab@gitlab.YOUR.HOST</a>&rdquo;</li>
+<li>git config &#45;&#45;global user.name  &ldquo;GitLab&rdquo;</li>
+<li>git config &#45;&#45;global user.email &ldquo;<a href="mailto:gitlab@gitlab.YOUR.HOST">gitlab@gitlab.YOUR.HOST</a>&rdquo;</li>
 <li>mkdir gitlab-satellites</li>
 <li>git clone <a href="http://github.com/gitlabhq/gitlabhq.git">http://github.com/gitlabhq/gitlabhq.git</a> gitlab</li>
 <li>cd gitlab</li>
@@ -276,8 +276,8 @@
 <ol>
 <li>cd /home/git/gitlab</li>
 <li><del>編輯 Gemfile 並將所有 git:// 與 https:// 改成 http://</del></li>
-<li>bundle install &ndash;&ndash;no-deployment</li>
-<li>bundle install &ndash;&ndash;deployment &ndash;&ndash;without development test postgres</li>
+<li>bundle install &#45;&#45;no-deployment</li>
+<li>bundle install &#45;&#45;deployment &#45;&#45;without development test postgres</li>
 <li>bundle exec rake gitlab:setup RAILS_ENV=production</li>
 <li><del>bundle exec rake db:seed_fu RAILS_ENV=production</del></li>
 <li>bundle exec rake gitlab:env:info RAILS_ENV=production</li>
@@ -293,8 +293,8 @@
 
 <ol>
 <li>su - root</li>
-<li>curl &ndash;&ndash;output /etc/init.d/gitlab <a href="https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab">https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab</a></li>
-<li>chkconfig &ndash;&ndash;add gitlab</li>
+<li>curl &#45;&#45;output /etc/init.d/gitlab <a href="https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab">https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab</a></li>
+<li>chkconfig &#45;&#45;add gitlab</li>
 <li>chkconfig gitlab on</li>
 <li>chmod +x /etc/init.d/gitlab</li>
 <li>/etc/init.d/gitlab start</li>

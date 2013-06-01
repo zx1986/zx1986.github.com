@@ -168,7 +168,7 @@
 
 <ol>
 <li>su - gitlab_ci</li>
-<li>\curl -L <a href="https://get.rvm.io">https://get.rvm.io</a> | bash -s stable &ndash;&ndash;ruby</li>
+<li>\curl -L <a href="https://get.rvm.io">https://get.rvm.io</a> | bash -s stable &#45;&#45;ruby</li>
 <li>echo &ldquo;source /home/gitlab_ci/.rvm/scripts/rvm&rdquo; &gt;&gt; ~/.bashrc</li>
 </ol>
 
@@ -183,7 +183,7 @@
 <li>mkdir -p tmp/pids</li>
 <li>mkdir -p tmp/sockets</li>
 <li>gem install bundler</li>
-<li>bundle &ndash;&ndash;without development test</li>
+<li>bundle &#45;&#45;without development test</li>
 <li>cp config/database.yml.mysql config/database.yml</li>
 <li>vim config/database.yml</li>
 </ol>
@@ -210,7 +210,7 @@
 
 <ol>
 <li>su - root</li>
-<li>wget <a href="https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/init.d/gitlab_ci">https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/init.d/gitlab_ci</a> -P /etc/init.d/ &ndash;&ndash;no-check-certificate</li>
+<li>wget <a href="https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/init.d/gitlab_ci">https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/init.d/gitlab_ci</a> -P /etc/init.d/ &#45;&#45;no-check-certificate</li>
 <li>chmod +x /etc/init.d/gitlab_ci</li>
 <li>/etc/init.d/gitlab_ci start</li>
 <li>/etc/init.d/gitlab_ci status</li>
@@ -220,7 +220,7 @@
 
 <ol>
 <li>yum install nginx</li>
-<li>wget <a href="https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/nginx/gitlab_ci">https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/nginx/gitlab_ci</a> -P /etc/nginx/conf.d/ &ndash;&ndash;no-check-certificate</li>
+<li>wget <a href="https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/nginx/gitlab_ci">https://raw.github.com/gitlabhq/gitlab-ci/2-2-stable/lib/support/nginx/gitlab_ci</a> -P /etc/nginx/conf.d/ &#45;&#45;no-check-certificate</li>
 <li>mv /etc/nginx/gitlab_ci /etc/nginx/gitlab_ci.conf</li>
 <li>vim /etc/nginx/gitlab_ci.conf</li>
 </ol>
