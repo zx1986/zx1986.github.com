@@ -3,7 +3,7 @@
   <title><![CDATA[張旭]]></title>
   <link href="http://zx1986.github.io/atom.xml" rel="self"/>
   <link href="http://zx1986.github.io/"/>
-  <updated>2013-06-02T01:12:34+08:00</updated>
+  <updated>2013-06-03T00:25:16+08:00</updated>
   <id>http://zx1986.github.io/</id>
   <author>
     <name><![CDATA[zx1986]]></name>
@@ -24,8 +24,25 @@
 <id>http://zx1986.github.io/blog/gitlab</id>
 <category term="git" /><category term="linux" />
 
-      <content type="html"><![CDATA[<p>本文記錄 RHEL 6.3 x86_64 環境中安裝 Gitlab 的過程。<br>
-如果是 Ubuntu 的環境要安裝 Gitlab，可以直接參考<a href="https://github.com/gitlabhq/gitlabhq#installation">官方的安裝手冊</a>。</p>
+      <content type="html"><![CDATA[<p><a href="http://gitlab.org">Gitlab</a> 是一套 Open Source 的 Git 專案管理系統。
+可以把它想象成是 Open Source 的 <a href="http://github.com">Github</a> 網站。</p>
+
+<p>Gitlab 是使用 Rails 搭配 Gitlab Shell 來實現 Git 專案管理，
+其中 Rails 框架負責網頁與專案管理（account、project、issue、wiki 等）相關的東西，
+在背後透過 <a href="https://github.com/mojombo/grit">grit</a>： 
+一個 Ruby 語言實作的操作 Git 的函式庫，
+搭配 <a href="https://github.com/gitlabhq/gitlab-shell">Gitlab Shell</a>：
+一個類似 <a href="https://github.com/sitaramc/gitolite">Gitolite</a> 的 Git Repositories 存取控制系統，
+來控制實際在檔案系統（File System）中的 Git Repositories。
+題外話，Gitlab 在 <a href="http://blog.gitlab.org/gitlab-5-dot-0-has-been-released/">5.0 以前</a>，底層的存取控制系統使用的還是 Gitolite。</p>
+
+<p>把 Gitlab 架設起來之後，等於是有了一臺自己的 Git Projects Hosting Server。
+其它類似 Gitlab 的 Open Source 軟體還有：
+同樣用 Rails 框架開發的 <a href="http://gitorious.org/">Gitorious</a>；
+使用 PHP 的 Pluf 框架開發的 <a href="http://www.indefero.net/">Indefero</a>。</p>
+
+<p>本文記錄 RHEL 6.3 x86_64 環境中安裝 Gitlab 的過程。
+如果是 Ubuntu 的環境要安裝 Gitlab 會更簡單，請直接參考<a href="https://github.com/gitlabhq/gitlabhq#installation">官方的安裝手冊</a>。</p>
 
 <h2>安裝相依性套件</h2>
 
@@ -49,7 +66,7 @@
 <li>service postfix start</li>
 </ol>
 
-<p>如果EPEL 套件庫少東西，請到 <a href="http://pkgs.org/">http://pkgs.org/</a> 把套件手動補齊。<br>
+<p>如果EPEL 套件庫少東西，請到 <a href="http://pkgs.org/">http://pkgs.org/</a> 把套件手動補齊。
 比較常有問題的是以下這幾個套件：</p>
 
 <ul>
