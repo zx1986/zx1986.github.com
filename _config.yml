@@ -1,0 +1,61 @@
+# Site settings
+title: 張旭
+email: zx1986@gmail.com
+description: Web Developer, Script Coder, Daylight Dreamer
+url: "http://zx1986.github.io"
+baseurl: ""
+
+twitter_username: zx1986
+github_username:  zx1986
+
+# Handling Reading
+safe:         false
+include:      []
+exclude:      []
+keep_files:   []
+encoding:     "utf-8"
+markdown_ext: "markdown, md"
+
+# Filtering Content
+show_drafts: null
+limit_posts: 0
+future:      true
+unpublished: false
+
+# Conversion
+lsi:               false
+excerpt_separator: "\n\n"
+
+# Backwards-compatibility
+relative_permalinks: false
+
+# Outputting
+# paginate:      5
+# paginate_path: /blog/page:num
+permalink:     /blog/:title.html
+timezone:      "Asia/Taipei"
+
+# Build settings
+quiet:    false
+markdown: kramdown
+
+# Markdown Processors
+kramdown:
+  input:          GFM
+  auto_ids:       true
+  footnote_nr:    1
+  entity_output:  as_char
+  toc_levels:     1..6
+  smart_quotes:   lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
+
+  coderay:
+    coderay_wrap:              div
+    coderay_line_numbers:      inline
+    coderay_line_number_start: 1
+    coderay_tab_width:         4
+    coderay_bold_every:        10
+    coderay_css:               style
+
+# Front Matter
+defaults:
