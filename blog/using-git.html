@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>使用 Git</title>
+  <meta name="description" content="Git 是一套版本控制系統（Version Control System），常用在對程式碼或文件進行版本管理及協作。從前比較常用的版本控制系統是 SVN（Subversion）， 但 SVN 是中央式的，而 Git 是分散式的，且 Git 比 SVN 強大、先進許多。">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://zx1986.github.io/blog/using-git.html">
+  <link rel="alternate" type="application/rss+xml" title="張旭" href="http://zx1986.github.io/feed.xml" />
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">張旭</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">使用 Git</h1>
+    <p class="post-meta">May 21, 2013</p>
+  </header>
+
+  <article class="post-content">
+    <p><a href="http://git-scm.com/">Git</a> 是一套版本控制系統（Version Control System），<br />
+常用在對程式碼或文件進行版本管理及協作。<br />
+從前比較常用的版本控制系統是 SVN（Subversion）， <br />
+但 SVN 是中央式的，而 Git 是分散式的，<br />
+且 Git 比 SVN 強大、先進許多。</p>
+
+<p>我簡單解釋版本控制的概念，請想像一下：</p>
+
+<p>你電腦內的資料夾類似一個書櫃，書櫃裡有許多書（檔案），<br />
+偶而有新書進來（新增檔案），有舊書捐出去（刪除檔案），<br />
+有時候會在某些書上作筆記、寫心得、畫畫（檔案內容變動）。</p>
+
+<p>你在書櫃的側邊貼上一張「大大的白紙」，對書櫃裡的所有變動作紀錄。</p>
+
+<p>紀錄新書擺入的時間，擺放的位置，甚至後面加個註記：『購於網路拍賣』；<br />
+紀錄舊書清除的時間，原本的位置，加個註記：『捐給讀書會』；<br />
+紀錄某書寫入筆記的時間，筆記的內容，心得或隨手塗鴉；<br />
+紀錄 ……</p>
+
+<p>你可以把這張書櫃側邊貼著的「大大白紙」想像成版本控制系統（Git），<br />
+而且版本控制系統（Git）做的記錄會更鉅細靡遺。</p>
+
+<p>當你對一個資料夾啟用 Git 進行追蹤管理與控制時（Git 初始化時），<br />
+Git 程式會在該資料夾底下新增一個名為「.git」的隱藏資料夾，<br />
+「.git」類似於前面提到那張「大大的白紙」，裡面紀錄了檔案的變化史。<br />
+Git 會對該資料夾內所有的檔案與其底層的所有資料夾進行紀錄追蹤，<br />
+而追蹤、記錄的結果都會儲存到「.git」這個資料夾內。</p>
+
+<p>不過，Git 並不會主動記錄，必須是由使用者操作它去執行記錄的動作。<br />
+使用者類似史官的角色，而 Git 則是書寫史冊的工具。</p>
+
+<p>Git 背後的運作方式是非常聰明而複雜的，<br />
+它的功能也不僅僅在於記錄（還有恢復、合併、差異處理等等）。</p>
+
+<p>團隊合作時，同樣一個文件，在你手上跟在他人手上，可能有不一樣的變化史。<br />
+當你的檔案要與他人的合併時，內容有出入的地方，Git 會協助進行處理。<br />
+（例如開發同一個程式，你寫的 code 可能被他人改動，或反之。）</p>
+
+<h3 id="git">安裝與設定 Git</h3>
+
+<p>Ubuntu 底下安裝 Git 非常簡單，只要在終端機執行：</p>
+
+<pre><code>sudo apt-get install git-core git-doc
+</code></pre>
+
+<p>接着，建議執行以下指令，將系統預設編輯器設定為 Vim：</p>
+
+<pre><code>sudo update-alternatives --config editor
+</code></pre>
+
+<p>每個使用者帳號都會有自己的 Git 設定檔，通常是：</p>
+
+<pre><code>~/.gitconfig
+</code></pre>
+
+<p>例如我的設定檔內容是：</p>
+
+<pre><code>[user]
+name = 張旭
+email = zx1986@gmail.com
+
+[color]
+diff = auto
+</code></pre>
+
+<p>初始化 Git<br />
+（資料夾內會多出一個名為 .git 的隱藏資料夾）：</p>
+
+<pre><code>git init
+</code></pre>
+
+<p>之後只要每次修改或新增檔案後，<br />
+執行以下兩個指令，Git 就會做一次紀錄：</p>
+
+<pre><code>git add 修改或新增的檔案名
+git commit -m '關於此次修改的描述訊息'
+</code></pre>
+
+<p>可以開一個新的資料夾進行練習：</p>
+
+<pre><code>mkdir test
+cd test
+touch hello
+git init
+git add hello
+git commit -m 'hello, Git!'
+</code></pre>
+
+<p>好了，您已經開始在使用 Git 啦！</p>
+
+<h3 id="git-">Git 輔助說明</h3>
+
+<p>需要注意，Git 不會把空的資料夾加入控管，<br />
+例如 log、cache 這類資料夾，我們通常不會想要追蹤裏面的檔案，<br />
+但還是需要這個資料夾存在，可以在底下建立一個隱藏檔，例如 .gitkeep：</p>
+
+<pre><code>cd log
+tocuh .gitkeep
+</code></pre>
+
+<p>在跟「.git」同一層的目錄中，可以建立一個 .gitignore 檔案。<br />
+.gitignore 用來設定「不希望被 Git 控管的檔案與資料夾」。<br />
+一個簡單的 .gitignore 內容可以是這樣：</p>
+
+<pre><code>cache/
+log/*.log
+tmp/
+*.tmp
+*.swp
+*.o
+*.so
+*.a
+*.exe
+*~
+</code></pre>
+
+<p>執行 <code>git help</code> 會顯示常用的 Git 指令與簡單說明：</p>
+
+<pre><code>add        Add file contents to the index
+bisect     Find by binary search the change that introduced a bug
+branch     List, create, or delete branches
+checkout   Checkout a branch or paths to the working tree
+clone      Clone a repository into a new directory
+commit     Record changes to the repository
+diff       Show changes between commits, commit and working tree, etc
+fetch      Download objects and refs from another repository
+grep       Print lines matching a pattern
+init       Create an empty git repository or reinitialize an existing one
+log        Show commit logs
+merge      Join two or more development histories together
+mv         Move or rename a file, a directory, or a symlink
+pull       Fetch from and merge with another repository or a local branch
+push       Update remote refs along with associated objects
+rebase     Forward-port local commits to the updated upstream head
+reset      Reset current HEAD to the specified state
+rm         Remove files from the working tree and from the index
+show       Show various types of objects
+status     Show the working tree status
+tag        Create, list, delete or verify a tag object signed with GPG
+</code></pre>
+
+<p>在 Git 指令後加上 -h 參數，能夠查詢該指令詳細的用法，例如：</p>
+
+<pre><code>git add -h
+git commit -h
+git pull -h
+git push -h
+</code></pre>
+
+<p>要查詢更完整的指令手冊，則執行：<code>git help 指令名稱</code></p>
+
+<h3 id="git-1">練習 Git</h3>
+
+<p>我推薦一個非常棒的線上練習：<a href="http://try.github.io">Try Git</a></p>
+
+<p>這是由線上學習網站 <a href="http://codeschool.com">Code School</a> 開發的，<br />
+他們還有一個 Git Real 的系列課程，我也非常推薦，<br />
+但 Git Real 系列課程是需要收費的。</p>
+
+<p>Try Git 會帶着你練習基礎的 Git 指令，<br />
+畫面上半部是簡單明瞭的指令與情境說明，<br />
+畫面中間是一個模擬的 Console 端介面，<br />
+畫面下半部是當前情境下資料夾內的狀況。<br />
+雖然內容都是英文，但用字遣詞並不難，<br />
+就當成是玩電動闖關，邊玩邊學。</p>
+
+<p>當進行到 Remote Repositories 這個關卡時，<br />
+如果對 Repository、Local、Remote 不大瞭解，<br />
+可以再回來這，繼續閱讀後面的內容。</p>
+
+<h3 id="git-repository--branch">關於 Git Repository 與 Branch</h3>
+
+<p>被 Git 所管理的專案，就是 Git Repository（倉儲）。<br />
+簡單點說，一個含有「.git」的資料夾，就是一個 Git Repository。<br />
+而一個 Git Repository 內，可以建立很多 Branch（分支），<br />
+不同的分支代表不同的變化史。</p>
+
+<p>分支是可以任意建立、刪除、合併的。</p>
+
+<p>Git Repository 裡預設的 Trunk Branch（主幹）稱為「master」，<br />
+其他的 Branch（分支）則由使用者自行命名，<br />
+master 這個 branch 也是可以被改成其他名字的。<br />
+（其實 Git 的世界並沒有 Trunk 這種講法，那是 SVN 的習慣，<br />
+在 Git 的世界，應該說那是“一個被叫做 master 的 branch”。）</p>
+
+<p>Git 是一個分散式的版本控制系統，不同於 SVN 的 Server/Client 架構，<br />
+Git 不需要像 SVN 必須有一個 Repository Server 作為主要的倉儲伺服器。<br />
+Git 預設就可以使用 ssh 互相進行 Repository 傳輸了。</p>
+
+<p>當使用 git clone 指令從遠端複製一個 Git Repository 到本地端電腦上時，<br />
+遠端的 Git Repository 通常稱為「origin」，「origin」可能有若干的 branch。<br />
+本地端 Git Repository 沒有特別的名稱，本地端也有自己的 branch。</p>
+
+<p><code>git remote -v</code> 指令可以查詢當前 Git Repository 的遠端來源。</p>
+
+<p>假設一個簡單的應用情境：</p>
+
+<p>假設遠端的電腦叫做 Remote；本地端的電腦叫做 Local。<br />
+Remote 上面有一個 Git Repository 資料夾叫做 remote_repository。</p>
+
+<p>要將 remote_repository 複製到 Local 並命名為 local_repository，<br />
+在 Local 執行：</p>
+
+<pre><code>Local$ git clone 「Remote 使用者帳號@Remote 位址」:「remote_repository 在 Remote 上的路徑」   local_repository
+</code></pre>
+
+<p>如果您執行過 scp 指令，相信對這個 git clone 格式會覺得很熟悉。</p>
+
+<p>複製完成（git clone）後，Local 與 Remote 已經可以分開獨立工作了。<br />
+Git 不必拘泥於一定要把修改過的檔案存回當初取得檔案的地方。<br />
+Remote 可以在 remote_repository 裡發展它的檔案；<br />
+Local 可以在 local_repository 裡發展它的檔案。</p>
+
+<p>等到哪天 Remote 突然想取得並合併 Local 發展的檔案，<br />
+可以在 Remote 上執行：</p>
+
+<pre><code>Remote$ git pull 「Local 使用者帳號@Local 位址」:「local_repository 在 Local 上的路徑」
+</code></pre>
+
+<p>當然，如果 Local 想取得與合併其他人發展的檔案，<br />
+可以在 Local 上執行：</p>
+
+<pre><code>Local$ git pull 「使用者帳號@位址」:「路徑」
+</code></pre>
+
+<ul>
+  <li>補充說明</li>
+</ul>
+
+<p>git fetch - Download objects and refs from another repository.   <br />
+git merge - Join two or more development histories together.   <br />
+git pull - Fetch from and merge with another repository or a local branch.</p>
+
+<p><code>git pull</code> 等於先執行了 <code>git fetch</code>，然後再自動執行 <code>git merge</code> 。<br />
+<a href="http://longair.net/blog/2009/04/16/git-fetch-and-merge">有前輩建議</a>少用 <code>git pull</code>，改用 <code>git fetch</code> 搭配 <code>git merge</code> 。<br />
+<a href="http://ihower.tw/blog/archives/3843">也有前輩建議</a>應當多使用 <code>git rebase</code> 或 <code>git pull --rebase</code> 。</p>
+
+<h3 id="svn-">SVN 式的往日時光</h3>
+
+<p>之前，我在不同的電腦上修改程式：研究室的電腦、宿舍的電腦、筆記型電腦。<br />
+因此我在研究室的一台主機上架了 SVN 伺服器，程式主要版本儲存在 SVN 伺服器上。<br />
+每當在不同的電腦進行程式編輯時，會先從 SVN 伺服器上抓最新版本的程式下來。<br />
+編輯告一段落後，再把修改過的程式上傳回 SVN 伺服器。<br />
+程式集中在一台 SVN 伺服器上，要編輯時從上面更新下來，編輯完再更新回去。</p>
+
+<p>從 SVN 轉換到 Git 時，會很習慣於從前 SVN 那種模式：</p>
+
+<ol>
+  <li>使用 svn checkout 從 SVN 伺服器將整個 Repository 複製到本機端。</li>
+  <li>本機端對 Repository 的內容進行編輯、修改、新增、刪除等等。</li>
+  <li>使用 svn update 檢查 SVN 伺服器有沒有其他更新與自己修改的內容有衝突。</li>
+  <li>解決內容衝突的情況。</li>
+  <li>使用 svn commit 將自己本機端的所有修改上傳到 SVN 伺服器。</li>
+</ol>
+
+<p>怎麼用 Git 做到類似 SVN 那樣的情形？<br />
+有個簡單的方法。</p>
+
+<p>首先，選定一台要當 Repository Server 的機器，假設叫 Server。<br />
+在 Server 開一個空的資料夾，假設叫 origin，並切換到該資料夾下。</p>
+
+<pre><code>Server$ mkdir origin
+Server$ cd origin
+</code></pre>
+
+<p>在空資料夾底下執行：</p>
+
+<pre><code>Server$ git init --bare
+</code></pre>
+
+<p>這個動作會產生一個 <a href="http://www.saintsjd.com/2011/01/what-is-a-bare-git-repository/">Bare Git Repository</a>，<br />
+該資料夾下會產生：</p>
+
+<pre><code>branches/
+config
+description
+HEAD
+hooks/
+info/
+objects/
+refs/
+</code></pre>
+
+<p>本地端的電腦，假設叫 Local。<br />
+Local 上一個叫 local_project 的資料夾要上傳到 Server 進行統一管理。</p>
+
+<p>切換到該資料夾底下，執行：</p>
+
+<pre><code>Local$ git add .
+Local$ git commit -a -m 'initialization'
+Local$ git remote add origin 「Server 使用者帳號@Server 位址」:「Server 上 origin 資料夾的路徑」
+Local$ git push origin master
+</code></pre>
+
+<p>完成以後，其他的電腦就可以使用以下指令，<br />
+從 Server 上的 origin 複製 local_project 的內容：</p>
+
+<pre><code>Other$ git clone 「Server 使用者帳號@Server 位址」:「Server 上 origin 資料夾的路徑」 「自訂的資料夾名稱」
+</code></pre>
+
+<p>其他電腦要將其修改的內容傳回 Server，可以執行：</p>
+
+<pre><code>Other$ git push origin master
+</code></pre>
+
+<h3 id="git-repository-hosting">Git Repository Hosting</h3>
+
+<p>Git Repository 除了使用 git 協定或 ssh 協定，<br />
+還可以使用 http、https 等方式傳輸、瀏覽、管理。<br />
+如果不想要用簡單的 Bare Git Repository 架設 Repository Server，<br />
+有些 Open Source 的工具可以選擇：</p>
+
+<ul>
+  <li><a href="https://github.com/res0nat0r/gitosis">Gitosis</a></li>
+  <li><a href="http://gitorious.org/">Gitorious</a></li>
+  <li><a href="http://gitlab.org/">Gitlab</a></li>
+</ul>
+
+<p>全世界最知名的 Git Repository Hosting 網站：</p>
+
+<ul>
+  <li><a href="https://github.com/">Github</a></li>
+</ul>
+
+<p>中國大陸版的 Github：</p>
+
+<ul>
+  <li><a href="https://gitcafe.com/">GitCafe</a></li>
+</ul>
+
+<p>Github 與 GitCafe 都非常棒，<br />
+它們的使用教學也有很多 Git 技巧可以參考：</p>
+
+<p>https://help.github.com/   <br />
+https://gitcafe.com/GitCafe/Help</p>
+
+<p>GitCafe 的 Git <a href="https://gitcafe.com/GitCafe/Help/blob/master/Git/Git_Cheat_Sheet.md">作弊表</a>。</p>
+
+<p><em>Git Cheating Sheet</em></p>
+
+<pre><code>git init         # 將當前資料夾進行 Git 初始化
+
+git add .        # 將當前資料夾內所有檔案加入 Git 追蹤（tracking 或 staging）
+git add 檔案名稱 # 把當前資料夾內某個檔案加入 Git 追蹤（tracking 或 staging）
+
+git status       # 查詢從上一次 commit 到現在，資料夾裡有哪些變化，各個檔案處於什麼狀況
+
+git commit -a         # 將目前的變動送繳 Git 進行紀錄，會進入編寫修改訊息的畫面
+git commit -a -m "*"  # commit 時直接寫入修改訊息，不進入編寫修改訊息的畫面
+
+git tag v1.0          # 將當前 commit 過後的檔案版本命名為 v1.0
+
+git diff                             # 比較所有檔案的內容與上一次 commit 時有何差異
+git diff v1.0 v2.0                   # 比較 v1.0 與 v2.0 兩個版本間所有檔案的內容
+git diff v1.0:檔案名稱 v2.0:檔案名稱 # 比較 v1.0 與 v2.0 兩個版本間某個檔案的內容
+
+git log                         # 查詢所有版本的修改狀況，顯示各版本的 hash 編號
+git log -p                      # 查詢哪幾行被修改
+git log --stat --summary        # 查詢每個版本間變動的檔案跟行數
+
+git show v1.0                   # 查詢 v1.0 版裡的修改內容
+git show v1.0:檔案名稱          # 查詢某個檔案在 v1.0 時的內容
+
+git show HEAD          # 看此版本修改的資料
+git show HEAD^         # 看此版本前一版的修改的資料
+git show HEAD^^        # 看此版本前前一版的修改的資料
+
+git grep "*" v1.0      # 查詢 0.01 版裡頭有沒有某些內容
+git grep "*"           # 查詢現在的版本裡有沒有某些內容
+
+git branch                # 查看現有的分支
+git branch 分支名稱       # 建立新的分支
+git branch 分支名稱 v1.0  # 依照 v1.0 版本裡的內容來建立一個分支
+git branch -d 分支名稱    # 刪除某個分支
+
+git merge 某個分支名稱    # 將當前所在的分支與某個分支合併，如果出現衝突，會紀錄在有衝突的檔案中
+
+git checkout master       # 切換到主幹上
+git checkout 分支名稱     # 切換到某個分支上
+
+git checkout HEAD         # 將所有檔案恢復到上次 commit 的狀態
+git checkout -- 檔案名稱  # 將某個檔案恢復到上次 commit 的狀態
+
+git reset --hard 某個版本的 hash 編號   # 整個 Repository 恢復到某個版本的狀態
+
+git count-objects     # 分析 Git 資料庫狀況，計算鬆散的物件
+git gc                # 維護 Git 資料庫，重組物件
+git fsck --full       # 應該是類似 Git 磁碟重組之類的東西
+</code></pre>
+
+<p>Reference：   <br />
+http://github.com/schacon/whygitisbetter   <br />
+http://git-scm.com/documentation   <br />
+http://gitcafe.com/riku/GitTips   <br />
+http://gitimmersion.com/    <br />
+http://gitref.org    <br />
+http://rypress.com/tutorials/git/</p>
+
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <!-- <h2 class="footer-heading">about.me/zx1986</h2> -->
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>張旭</li>
+          <li><a href="mailto:zx1986@gmail.com">zx1986@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/zx1986">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">zx1986</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/zx1986">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">zx1986</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Web Developer, Script Coder, Daylight Dreamer</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
