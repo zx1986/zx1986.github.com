@@ -6,3 +6,7 @@ comments: true
 external-url: 
 categories: 
 ---
+
+https://github.com/tmux-plugins/tpm
+http://www.sitepoint.com/10-killer-tmux-tips/
+https://github.com/tmuxinator/tmuxinator

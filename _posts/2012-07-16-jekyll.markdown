@@ -3,17 +3,21 @@ layout: post
 title: "Jekyll"
 date: 2012-07-16 21:50
 comments: true
-categories: 
+categories:
 - Ruby
 - Blog
 ---
 
-http://octopress.org/blog/2011/07/23/octopress-20-surfaces/    
-http://ruhoh.com/how-it-works/   
-http://liquidmarkup.org/   
 
-http://yihui.name/cn/2012/02/hello-jekyll/    
-http://freemind.pluskid.org/technology/the-unbearable-madness-of-static-blog-generators/    
+http://joshualande.com/jekyll-github-pages-poole/
+https://help.disqus.com/customer/portal/articles/472138-jekyll-installation-instructions
+
+http://octopress.org/blog/2011/07/23/octopress-20-surfaces/
+http://ruhoh.com/how-it-works/
+http://liquidmarkup.org/
+
+http://yihui.name/cn/2012/02/hello-jekyll/
+http://freemind.pluskid.org/technology/the-unbearable-madness-of-static-blog-generators/
 
 - http://github.com/mojombo/jekyll/
 - http://jekyllbootstrap.com/
