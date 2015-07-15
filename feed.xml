@@ -5,8 +5,8 @@
     <description>Web Developer, Script Coder, Daylight Dreamer</description>
     <link>http://zx1986.github.io/</link>
     <atom:link href="http://zx1986.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 12 Apr 2015 23:06:10 +0800</pubDate>
-    <lastBuildDate>Sun, 12 Apr 2015 23:06:10 +0800</lastBuildDate>
+    <pubDate>Wed, 15 Jul 2015 14:08:45 +0800</pubDate>
+    <lastBuildDate>Wed, 15 Jul 2015 14:08:45 +0800</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -476,7 +476,9 @@ Gitlab Default Password: 5iveL!fe&lt;/p&gt;
     
       <item>
         <title>tmux</title>
-        <description>
+        <description>&lt;p&gt;https://github.com/tmux-plugins/tpm&lt;br /&gt;
+http://www.sitepoint.com/10-killer-tmux-tips/&lt;br /&gt;
+https://github.com/tmuxinator/tmuxinator&lt;/p&gt;
 </description>
         <pubDate>Wed, 29 May 2013 14:35:17 +0800</pubDate>
         <link>http://zx1986.github.io/blog/tmux.html</link>
