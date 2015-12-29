@@ -8,6 +8,8 @@ categories:
 - Blog
 ---
 
+http://rhadow.github.io/2015/02/18/Jekyll-x-Github-x-Blog-Part1/
+http://rhadow.github.io/2015/02/20/Jekyll-x-Github-x-Blog-Part2/
 
 http://joshualande.com/jekyll-github-pages-poole/
 https://help.disqus.com/customer/portal/articles/472138-jekyll-installation-instructions
