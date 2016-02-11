@@ -35,11 +35,12 @@ main {
         span {
             color: $meta-color;
             margin-right: 1.5rem;
-            font-size: $small-font-size;
+            font-size: $small-font-size*1.2;
         }
         a {
             color: $text-color;
             text-decoration: none;
+            font-size: $small-font-size*1.2;
         }
     }
 }
