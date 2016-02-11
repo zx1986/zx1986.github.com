@@ -21,5 +21,10 @@ http://liquidmarkup.org/
 http://yihui.name/cn/2012/02/hello-jekyll/
 http://freemind.pluskid.org/technology/the-unbearable-madness-of-static-blog-generators/
 
+# Themes
+
+http://www.perfectlyrandom.org/trio/
+http://syaning.com/vida/
+
 - http://github.com/mojombo/jekyll/
 - http://jekyllbootstrap.com/
