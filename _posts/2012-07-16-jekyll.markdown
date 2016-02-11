@@ -25,6 +25,7 @@ http://freemind.pluskid.org/technology/the-unbearable-madness-of-static-blog-gen
 
 http://www.perfectlyrandom.org/trio/
 http://syaning.com/vida/
+http://pixyll.com/
 
 - http://github.com/mojombo/jekyll/
 - http://jekyllbootstrap.com/
