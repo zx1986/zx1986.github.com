@@ -3,8 +3,10 @@ layout: page
 title: About
 ---
 
-Vida is a minimalist jekyll theme.
+zx1986 is Chang Hsu.   
+Born in Hainan, China.   
+Live in Taiwan.   
 
-* Author: Alex Sun
-* Email:  syaningv@gmail.com
-* Github: [https://github.com/syaning/vida](https://github.com/syaning/vida)
+* Author: Chang Hsu
+* Email: zx1986@gmail.com
+* Github: [https://github.com/zx1986](https://github.com/zx1986)
