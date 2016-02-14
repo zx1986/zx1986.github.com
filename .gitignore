@@ -1,0 +1,10 @@
+_tmp
+_site
+.sass-cache
+
+*.swp
+*.tmp
+
+.jekyll-metadata
+.DS_Store
+Thumbs.db

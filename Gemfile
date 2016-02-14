@@ -1,0 +1,7 @@
+source 'https://rubygems.org'
+gem 'jekyll'
+gem 'redcarpet'
+gem 'kramdown'
+gem 'guard'
+gem 'guard-livereload'
+gem 'github-pages'
