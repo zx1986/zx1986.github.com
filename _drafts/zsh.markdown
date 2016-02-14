@@ -7,7 +7,3 @@ categories: ruby
 
 http://jeromedalbert.com/migrate-from-oh-my-zsh-to-prezto/
 https://github.com/sorin-ionescu/prezto
-
-[jekyll]:      http://jekyllrb.com
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-help]: https://github.com/jekyll/jekyll-help
