@@ -3,7 +3,7 @@ layout: page
 title: About
 ---
 
-zx1986 is Chang Hsu.   
+Chang Hsu [A.K.A](https://en.wikipedia.org/wiki/Aka) zx1986.
 Born in Hainan, China.   
 Live in Taiwan.   
 
