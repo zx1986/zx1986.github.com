@@ -21,7 +21,7 @@ show_drafts: null
 limit_posts: 0
 future:      true
 unpublished: false
-exclude: [Gemfile, Gemfile.lock, Guardfile]
+exclude: [README.md, Gemfile, Gemfile.lock, Guardfile]
 
 ### Conversion
 
