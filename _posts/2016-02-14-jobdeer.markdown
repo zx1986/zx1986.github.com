@@ -13,7 +13,7 @@ categories:
 我上下班通勤通常是 3 小時左右，我是在車上讀完這本書的，      
 內容不算多，整本書非常有邏輯、條理分明且有趣，很容易一口氣讀完。      
    
-電子書的出售點在這： https://selfstore.io/products/190   
+電子書的出售點在這： [selfstore.io](https://selfstore.io/products/190)   
    
 (我閱讀所用的 App 是 [小米小說](http://app.mi.com/detail/50784))      
 (其實就是 [多看閱讀](http://app.mi.com/detail/1108))      
@@ -111,7 +111,6 @@ categories:
 > 正因為如此，很多投資機構也很喜歡有技術背景的同學。   
    
 其他還有求職畫布：   
-   
 ![求職畫布](https://selfstore.io/uploads/attachment/file/76/jdcc.png)   
    
 以及一些句子，我覺得不錯，稍微摘錄一下。   
