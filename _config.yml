@@ -69,6 +69,11 @@ github_username:  zx1986
 disqus_shortname: zx1986
 google_analytics:
 
+### Plugins
+
+gems:
+  - jekyll-last-modified-at
+
 ### Front Matter
 
 defaults:
