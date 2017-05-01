@@ -21,6 +21,9 @@ http://liquidmarkup.org/
 http://yihui.name/cn/2012/02/hello-jekyll/
 http://freemind.pluskid.org/technology/the-unbearable-madness-of-static-blog-generators/
 
+https://help.github.com/articles/configuring-jekyll/
+http://ajoz.github.io/2014/06/29/i-want-my-github-flavored-markdown/
+
 # Themes
 
 http://www.perfectlyrandom.org/trio/
